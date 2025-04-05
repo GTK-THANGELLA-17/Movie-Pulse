@@ -1,38 +1,46 @@
-
 import { useEffect } from 'react';
 import { toast } from '@/components/ui/use-toast';
 
+/**
+ * Hook to patch voting form behaviors like network status notifications.
+ */
 export const useVotingFormPatches = () => {
   useEffect(() => {
-    // This patch ensures we're using the correct API endpoint
     console.log('VotingForm patches applied - API endpoint set to https://moviepulse-api-snfl.onrender.com/api');
-    
-    // Add handler for network errors
-    window.addEventListener('online', () => {
+
+    const handleOnline = () => {
       toast({
         title: "You're back online",
         description: "Your votes will now be saved to the database.",
         variant: "default",
       });
-    });
-    
-    window.addEventListener('offline', () => {
+    };
+
+    const handleOffline = () => {
       toast({
         title: "You're offline",
         description: "Your votes will not be saved until you're back online.",
         variant: "destructive",
       });
-    });
-    
+    };
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
     return () => {
-      window.removeEventListener('online', () => {});
-      window.removeEventListener('offline', () => {});
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
     };
   }, []);
 };
 
-// Helper function to handle API fallbacks
-export const handleApiFailover = async (apiCall: () => Promise<any>, fallbackData: any) => {
+/**
+ * Helper function to handle API failures and provide fallback data.
+ * @param apiCall The API call function returning a promise.
+ * @param fallbackData The fallback data to use if the API call fails.
+ * @returns The API response or fallback data.
+ */
+export const handleApiFailover = async <T>(apiCall: () => Promise<T>, fallbackData: T): Promise<T> => {
   try {
     const response = await apiCall();
     console.log("API call successful:", response);

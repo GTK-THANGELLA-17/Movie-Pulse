@@ -40,7 +40,7 @@ This project is built with .
 - Vite
 - TypeScript
 - React
-- shadcn-ui
+- shad cn - ui
 - Tailwind CSS
 <<<<<<< HEAD
 =======

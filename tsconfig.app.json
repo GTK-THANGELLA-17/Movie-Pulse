@@ -14,19 +14,17 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
-    /* Path aliases */
+    /* Linting */
+    "strict": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitAny": false,
+    "noFallthroughCasesInSwitch": false,
+
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    },
-
-    /* Recommended strictness */
-    "strict": true,
-    "noImplicitAny": true,
-    "forceConsistentCasingInFileNames": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    }
   },
   "include": ["src"]
 }

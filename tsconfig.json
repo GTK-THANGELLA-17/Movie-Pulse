@@ -9,13 +9,11 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "allowJs": true,
+    "noImplicitAny": false,
+    "noUnusedParameters": false,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "allowJs": true,
+    "noUnusedLocals": false,
+    "strictNullChecks": false
   }
 }

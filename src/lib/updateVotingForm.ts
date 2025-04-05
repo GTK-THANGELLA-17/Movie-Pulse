@@ -5,7 +5,7 @@ import { toast } from '@/components/ui/use-toast';
 export const useVotingFormPatches = () => {
   useEffect(() => {
     // This patch ensures we're using the correct API endpoint
-    console.log('VotingForm patches applied - API endpoint set to https://moviepulse-api.onrender.com/api');
+    console.log('VotingForm patches applied - API endpoint set to https://moviepulse-api-snfl.onrender.com/api');
     
     // Add handler for network errors
     window.addEventListener('online', () => {

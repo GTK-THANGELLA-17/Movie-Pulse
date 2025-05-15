@@ -811,8 +811,8 @@ const VotingForm = () => {
         className="glass rounded-2xl p-6 md:p-8"
       >
        <Tabs value={activeTab} onValueChange={handleTabChange} className="mb-8">
-  <TabsList className="flex flex-nowrap space-x-4 overflow-x-auto w-full">
-    <TabsTrigger value="film" className="relative flex-shrink-0 px-4 py-2">
+  <TabsList className="flex flex-nowrap space-x-4 overflow-x-auto w-full px-4">
+    <TabsTrigger value="film" className="relative flex-shrink-0 px-5 py-2">
       <span className="flex items-center gap-2">
         <Film className="w-4 h-4" />
         Films
@@ -824,7 +824,7 @@ const VotingForm = () => {
       )}
     </TabsTrigger>
 
-    <TabsTrigger value="youtubeFilm" className="relative flex-shrink-0 px-4 py-2">
+    <TabsTrigger value="youtubeFilm" className="relative flex-shrink-0 px-5 py-2">
       <span className="flex items-center gap-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -851,7 +851,7 @@ const VotingForm = () => {
       )}
     </TabsTrigger>
 
-    <TabsTrigger value="youtubeContent" className="relative flex-shrink-0 px-4 py-2">
+    <TabsTrigger value="youtubeContent" className="relative flex-shrink-0 px-5 py-2">
       <span className="flex items-center gap-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -876,7 +876,7 @@ const VotingForm = () => {
       )}
     </TabsTrigger>
 
-    <TabsTrigger value="ott" className="relative flex-shrink-0 px-4 py-2">
+    <TabsTrigger value="ott" className="relative flex-shrink-0 px-5 py-2">
       <span className="flex items-center gap-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -901,7 +901,7 @@ const VotingForm = () => {
       )}
     </TabsTrigger>
 
-    <TabsTrigger value="television" className="relative flex-shrink-0 px-4 py-2">
+    <TabsTrigger value="television" className="relative flex-shrink-0 px-5 py-2">
       <span className="flex items-center gap-2">
         <Tv className="w-4 h-4" />
         TV

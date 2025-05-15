@@ -811,11 +811,15 @@ const VotingForm = () => {
         className="glass rounded-2xl p-6 md:p-8"
       >
        <Tabs value={activeTab} onValueChange={handleTabChange} className="mb-8">
-  <TabsList className="flex flex-nowrap space-x-4 overflow-x-auto w-full px-4">
+  {/* Scroll container with padding + horizontal scroll + smooth scroll + no scrollbar visible */}
+  <TabsList className="flex space-x-4 overflow-x-auto no-scrollbar px-4 py-2 snap-x snap-mandatory">
     {/* Films tab */}
-    <TabsTrigger value="film" className="relative flex-shrink-0 px-5 py-2 whitespace-nowrap">
+    <TabsTrigger
+      value="film"
+      className="relative flex-shrink-0 px-5 py-2 whitespace-nowrap snap-start"
+    >
       <span className="flex items-center gap-2">
-        <Film className="w-5 h-5" /> {/* Increased icon size slightly */}
+        <Film className="w-5 h-5" />
         Films
       </span>
       {hasVotedInFilm && (
@@ -826,19 +830,22 @@ const VotingForm = () => {
     </TabsTrigger>
 
     {/* YT Films tab */}
-    <TabsTrigger value="youtubeFilm" className="relative flex-shrink-0 px-5 py-2 whitespace-nowrap">
+    <TabsTrigger
+      value="youtubeFilm"
+      className="relative flex-shrink-0 px-5 py-2 whitespace-nowrap snap-start"
+    >
       <span className="flex items-center gap-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="20"    {/* increased width */}
-          height="20"   {/* increased height */}
+          width="20"
+          height="20"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="inline-block"  {/* Ensures inline alignment */}
+          className="inline-block"
         >
           <path d="m22 8-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" />
           <path d="M18 8h-6V2" />
@@ -855,11 +862,14 @@ const VotingForm = () => {
     </TabsTrigger>
 
     {/* YT Content tab */}
-    <TabsTrigger value="youtubeContent" className="relative flex-shrink-0 px-5 py-2 whitespace-nowrap">
+    <TabsTrigger
+      value="youtubeContent"
+      className="relative flex-shrink-0 px-5 py-2 whitespace-nowrap snap-start"
+    >
       <span className="flex items-center gap-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="20"   {/* match YT Films size */}
+          width="20"
           height="20"
           viewBox="0 0 24 24"
           fill="none"
@@ -882,7 +892,10 @@ const VotingForm = () => {
     </TabsTrigger>
 
     {/* OTT tab */}
-    <TabsTrigger value="ott" className="relative flex-shrink-0 px-5 py-2 whitespace-nowrap">
+    <TabsTrigger
+      value="ott"
+      className="relative flex-shrink-0 px-5 py-2 whitespace-nowrap snap-start"
+    >
       <span className="flex items-center gap-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -909,7 +922,10 @@ const VotingForm = () => {
     </TabsTrigger>
 
     {/* TV tab */}
-    <TabsTrigger value="television" className="relative flex-shrink-0 px-5 py-2 whitespace-nowrap">
+    <TabsTrigger
+      value="television"
+      className="relative flex-shrink-0 px-5 py-2 whitespace-nowrap snap-start"
+    >
       <span className="flex items-center gap-2">
         <Tv className="w-5 h-5" />
         TV

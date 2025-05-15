@@ -1,7 +1,7 @@
 
 import { getBrowserFingerprint } from "@/lib/utils";
 
-const API_URL = '/api';
+const API_URL = import.meta.env.VITE_API_URL || '/api';
 
 export interface OpinionData {
   category: 'film' | 'television' | 'youtube' | 'streaming';

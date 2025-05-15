@@ -1,7 +1,7 @@
 
 import { getBrowserFingerprint } from "@/lib/utils";
 
-const API_URL = 'https://moviepulse-api-snfl.onrender.com/';
+const API_URL = 'https://moviepulse-api-snfl.onrender.com/api';
 
 export interface OpinionData {
   category: 'film' | 'television' | 'youtube' | 'streaming';

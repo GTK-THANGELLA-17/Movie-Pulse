@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -67,7 +66,6 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // Entertainment-themed colors
         cinema: {
           red: "#E50914",
           gold: "#F5C518",
@@ -135,12 +133,8 @@ export default {
           },
         },
         shimmer: {
-          "0%": {
-            backgroundPosition: "-40rem 0",
-          },
-          "100%": {
-            backgroundPosition: "40rem 0",
-          },
+          "0%": { backgroundPosition: "-40rem 0" },
+          "100%": { backgroundPosition: "40rem 0" },
         },
         disco: {
           "0%": { transform: "translateY(0) rotate(0deg)" },

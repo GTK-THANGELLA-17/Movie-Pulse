@@ -811,8 +811,8 @@ const VotingForm = () => {
         className="glass rounded-2xl p-6 md:p-8"
       >
        <Tabs value={activeTab} onValueChange={handleTabChange} className="mb-8">
-  <TabsList className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 w-full gap-2">
-    <TabsTrigger value="film" className="relative w-full px-3 py-2">
+  <TabsList className="flex flex-nowrap space-x-4 overflow-x-auto w-full">
+    <TabsTrigger value="film" className="relative flex-shrink-0 px-4 py-2">
       <span className="flex items-center gap-2">
         <Film className="w-4 h-4" />
         Films
@@ -824,9 +824,19 @@ const VotingForm = () => {
       )}
     </TabsTrigger>
 
-    <TabsTrigger value="youtubeFilm" className="relative w-full px-3 py-2">
+    <TabsTrigger value="youtubeFilm" className="relative flex-shrink-0 px-4 py-2">
       <span className="flex items-center gap-2">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
           <path d="m22 8-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" />
           <path d="M18 8h-6V2" />
           <circle cx="10" cy="14" r="2" />
@@ -841,9 +851,19 @@ const VotingForm = () => {
       )}
     </TabsTrigger>
 
-    <TabsTrigger value="youtubeContent" className="relative w-full px-3 py-2">
+    <TabsTrigger value="youtubeContent" className="relative flex-shrink-0 px-4 py-2">
       <span className="flex items-center gap-2">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
           <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z" />
           <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" />
         </svg>
@@ -856,9 +876,19 @@ const VotingForm = () => {
       )}
     </TabsTrigger>
 
-    <TabsTrigger value="ott" className="relative w-full px-3 py-2">
+    <TabsTrigger value="ott" className="relative flex-shrink-0 px-4 py-2">
       <span className="flex items-center gap-2">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
           <rect x="2" y="7" width="20" height="15" rx="2" ry="2" />
           <polyline points="17 2 12 7 7 2" />
         </svg>
@@ -871,7 +901,7 @@ const VotingForm = () => {
       )}
     </TabsTrigger>
 
-    <TabsTrigger value="television" className="relative w-full px-3 py-2">
+    <TabsTrigger value="television" className="relative flex-shrink-0 px-4 py-2">
       <span className="flex items-center gap-2">
         <Tv className="w-4 h-4" />
         TV

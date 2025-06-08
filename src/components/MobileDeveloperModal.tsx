@@ -78,7 +78,7 @@ const MobileDeveloperModal = ({
                     className="mx-auto mb-4"
                   >
                     <img
-                      src="/Images/profile.jpg"
+                      src="/Images/Profile Pic.JPG"
                       alt="Profile"
                       className="w-28 h-28 rounded-full object-cover border-4 border-white shadow-md"
                     />

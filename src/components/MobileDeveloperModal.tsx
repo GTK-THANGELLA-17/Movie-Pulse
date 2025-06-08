@@ -6,7 +6,6 @@ import {
   Github,
   Linkedin,
   Globe,
-  Code,
   Coffee,
   Heart,
   Instagram,
@@ -25,15 +24,15 @@ interface MobileDeveloperModalProps {
 }
 
 const socialLinks = [
-  { icon: <Github className="w-5 h-5" />, label: "GitHub", url: "https://github.com" },
-  { icon: <Instagram className="w-5 h-5" />, label: "Instagram", url: "https://instagram.com" },
-  { icon: <Facebook className="w-5 h-5" />, label: "Facebook", url: "https://facebook.com" },
-  { icon: <Twitter className="w-5 h-5" />, label: "Twitter", url: "https://twitter.com" },
-  { icon: <MessageCircle className="w-5 h-5" />, label: "Telegram", url: "https://telegram.org" },
-  { icon: <ExternalLink className="w-5 h-5" />, label: "Reddit", url: "https://reddit.com" },
-  { icon: <Linkedin className="w-5 h-5" />, label: "LinkedIn", url: "https://linkedin.com" },
-  { icon: <Smartphone className="w-5 h-5" />, label: "WhatsApp", url: "https://whatsapp.com" },
-  { icon: <ExternalLink className="w-5 h-5" />, label: "Portfolio", url: "#" },
+  { icon: <Github className="w-4 h-4" />, label: "GitHub", url: "https://github.com" },
+  { icon: <Instagram className="w-4 h-4" />, label: "Instagram", url: "https://instagram.com" },
+  { icon: <Facebook className="w-4 h-4" />, label: "Facebook", url: "https://facebook.com" },
+  { icon: <Twitter className="w-4 h-4" />, label: "Twitter", url: "https://twitter.com" },
+  { icon: <MessageCircle className="w-4 h-4" />, label: "Telegram", url: "https://telegram.org" },
+  { icon: <ExternalLink className="w-4 h-4" />, label: "Reddit", url: "https://reddit.com" },
+  { icon: <Linkedin className="w-4 h-4" />, label: "LinkedIn", url: "https://linkedin.com" },
+  { icon: <Smartphone className="w-4 h-4" />, label: "WhatsApp", url: "https://whatsapp.com" },
+  { icon: <ExternalLink className="w-4 h-4" />, label: "Portfolio", url: "#" },
 ];
 
 const MobileDeveloperModal = ({
@@ -71,6 +70,7 @@ const MobileDeveloperModal = ({
                     <X className="h-4 w-4" />
                   </Button>
 
+                  {/* Profile Picture */}
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -78,19 +78,10 @@ const MobileDeveloperModal = ({
                     className="mx-auto mb-4"
                   >
                     <img
-                      src="/Images/Profile Pic.JPG"
+                      src="/Images/profile.jpg"
                       alt="Profile"
-                      className="w-20 h-20 rounded-full object-cover border-4 border-white shadow-md"
+                      className="w-28 h-28 rounded-full object-cover border-4 border-white shadow-md"
                     />
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: 0.25, type: "spring", stiffness: 200 }}
-                    className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-primary to-primary/70 rounded-full flex items-center justify-center"
-                  >
-                    <Code className="w-8 h-8 text-primary-foreground" />
                   </motion.div>
 
                   <motion.h2
@@ -114,50 +105,43 @@ const MobileDeveloperModal = ({
 
                 {/* Scrollable Content */}
                 <div className="flex-1 overflow-y-auto p-6 space-y-6">
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 }}
-                    className="space-y-4"
-                  >
-                    <div>
-                      <h3 className="text-2xl font-bold mb-2">GTK - Gadidamalla Thangella</h3>
-                      <p className="text-muted-foreground">Full Stack Developer & UI/UX Designer</p>
-                    </div>
+                  <div>
+                    <h3 className="text-2xl font-bold mb-2">GTK - Gadidamalla Thangella</h3>
+                    <p className="text-muted-foreground">Full Stack Developer & UI/UX Designer</p>
+                  </div>
 
-                    <div className="space-y-4">
-                      <p className="leading-relaxed">
-                        A passionate developer with expertise in creating engaging digital experiences.
-                        Specializing in building intuitive web applications that combine beautiful design
-                        with powerful functionality.
-                      </p>
-                      <p className="leading-relaxed">
-                        With a background in both frontend and backend technologies, I bring ideas to life
-                        through clean code and creative problem-solving. My goal is to create software that
-                        makes a positive impact on people's lives.
-                      </p>
-                    </div>
+                  <div className="space-y-4">
+                    <p className="leading-relaxed">
+                      A passionate developer with expertise in creating engaging digital experiences.
+                      Specializing in building intuitive web applications that combine beautiful design
+                      with powerful functionality.
+                    </p>
+                    <p className="leading-relaxed">
+                      With a background in both frontend and backend technologies, I bring ideas to life
+                      through clean code and creative problem-solving. My goal is to create software that
+                      makes a positive impact on people's lives.
+                    </p>
+                  </div>
 
-                    <div className="text-center p-4 bg-muted/50 rounded-lg">
-                      <h3 className="font-semibold text-lg mb-2">MoviePulse</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        An innovative platform designed to gather audience preferences and help content
-                        creators make data-driven decisions for better entertainment experiences.
-                      </p>
-                    </div>
+                  <div className="text-center p-4 bg-muted/50 rounded-lg">
+                    <h3 className="font-semibold text-lg mb-2">MoviePulse</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      An innovative platform designed to gather audience preferences and help content
+                      creators make data-driven decisions for better entertainment experiences.
+                    </p>
+                  </div>
 
-                    <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg">
-                      <Coffee className="w-5 h-5 text-primary flex-shrink-0" />
-                      <span className="text-sm">Built with passion and caffeine</span>
-                    </div>
+                  <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg">
+                    <Coffee className="w-5 h-5 text-primary flex-shrink-0" />
+                    <span className="text-sm">Built with passion and caffeine</span>
+                  </div>
 
-                    <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-red-500/10 to-pink-500/10 rounded-lg">
-                      <Heart className="w-5 h-5 text-red-500 flex-shrink-0" />
-                      <span className="text-sm">Made with ❤️ for the entertainment industry</span>
-                    </div>
-                  </motion.div>
+                  <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-red-500/10 to-pink-500/10 rounded-lg">
+                    <Heart className="w-5 h-5 text-red-500 flex-shrink-0" />
+                    <span className="text-sm">Made with ❤️ for the entertainment industry</span>
+                  </div>
 
-                  {/* Contact Button */}
+                  {/* Contact */}
                   <Button
                     className="w-full flex items-center gap-3 h-12 text-left justify-start bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
                     onClick={() =>
@@ -168,18 +152,18 @@ const MobileDeveloperModal = ({
                     <span>Get in Touch</span>
                   </Button>
 
-                  {/* Social Links */}
-                  <div className="grid grid-cols-3 gap-3">
+                  {/* Responsive Social Links */}
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                     {socialLinks.map(({ icon, label, url }, index) => (
                       <Button
                         key={index}
                         variant="outline"
                         size="sm"
-                        className="flex items-center gap-2 h-10 justify-start"
+                        className="flex items-center gap-2 h-10 w-full text-xs justify-center"
                         onClick={() => window.open(url, "_blank")}
                       >
                         {icon}
-                        <span className="text-xs">{label}</span>
+                        <span className="truncate">{label}</span>
                       </Button>
                     ))}
                   </div>

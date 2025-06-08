@@ -19,10 +19,10 @@ const DeveloperSection = () => {
   
   // Developer photos
   const photos = [
-    "/Profile Pic.JPG",
-    "/Profile Pic.JPG",
-    "/Profile Pic.JPG",
-    "/Profile Pic.JPG",
+    "/Images/Profile Pic.JPG",
+    "/Images/Profile Pic.JPG",
+    "/Images/Profile Pic.JPG",
+    "/Images/Profile Pic.JPG",
   ];
   
   // Social links

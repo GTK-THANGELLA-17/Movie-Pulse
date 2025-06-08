@@ -41,7 +41,7 @@ export function DeveloperModal({ open, onOpenChange }: DeveloperModalProps) {
           {/* Avatar & Info */}
           <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
             <Avatar className="h-20 w-20 border border-primary mb-3">
-              <AvatarImage src="/Profile Pic.JPG" alt="G. Thangella" />
+              <AvatarImage src="/Images/Profile Pic.JPG" alt="G. Thangella" />
               <AvatarFallback>GT</AvatarFallback>
             </Avatar>
             <h3 className="text-sm font-semibold">G. Thangella</h3>

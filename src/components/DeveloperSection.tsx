@@ -19,10 +19,10 @@ const DeveloperSection = () => {
   
   // Developer photos
   const photos = [
-    "https://source.unsplash.com/random/600x400/?portrait",
-    "https://source.unsplash.com/random/600x400/?developer",
-    "https://source.unsplash.com/random/600x400/?programmer",
-    "https://source.unsplash.com/random/600x400/?coder",
+    "/Profile Pic.JPG",
+    "/Profile Pic.JPG",
+    "/Profile Pic.JPG",
+    "/Profile Pic.JPG",
   ];
   
   // Social links

@@ -1,169 +1,101 @@
 
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { X, Mail, Github, Linkedin, Globe, Code, Coffee, Heart } from "lucide-react";
+import React from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { Github, Linkedin, Mail, Globe, Twitter } from "lucide-react";
 
-interface MobileDeveloperModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+export interface DeveloperModalProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 }
 
-const MobileDeveloperModal = ({ isOpen, onClose }: MobileDeveloperModalProps) => {
+export function DeveloperModal({ open, onOpenChange }: DeveloperModalProps) {
+  const developerLinks = [
+    { icon: <Github className="h-4 w-4" />, label: "GitHub", url: "https://github.com" },
+    { icon: <Linkedin className="h-4 w-4 text-blue-600" />, label: "LinkedIn", url: "https://www.linkedin.com/in/gthangella/" },
+    { icon: <Twitter className="h-4 w-4 text-blue-400" />, label: "Twitter", url: "https://twitter.com/g_thangella" },
+    { icon: <Mail className="h-4 w-4 text-red-500" />, label: "Email", url: "mailto:imgtk17@gmail.com" },
+    { icon: <Globe className="h-4 w-4 text-green-500" />, label: "Portfolio", url: "https://thangella-creaftech-solutions.vercel.app/" }
+  ];
+
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
-          onClick={onClose}
-        >
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0, y: 20 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.9, opacity: 0, y: 20 }}
-            transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="relative w-full max-w-md h-[85vh] flex flex-col"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Card className="border-2 border-primary/20 shadow-2xl h-full flex flex-col">
-              <CardContent className="p-0 h-full flex flex-col">
-                {/* Header with close button */}
-                <div className="relative flex-shrink-0 text-center p-6 border-b">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={onClose}
-                    className="absolute top-4 right-4 z-10 bg-background/80 backdrop-blur-sm hover:bg-background"
-                  >
-                    <X className="h-4 w-4" />
-                  </Button>
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="w-[90%] max-w-md rounded-lg p-4">
+        <DialogHeader>
+          <DialogTitle className="text-lg text-center">Meet the Developer</DialogTitle>
+          <DialogDescription className="text-center text-xs">
+            Behind the MoviePulse application
+          </DialogDescription>
+        </DialogHeader>
 
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-                    className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-primary to-primary/70 rounded-full flex items-center justify-center"
-                  >
-                    <Code className="w-8 h-8 text-primary-foreground" />
-                  </motion.div>
-                  
-                  <motion.h2
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                    className="text-2xl font-bold text-foreground"
-                  >
-                    Developer Info
-                  </motion.h2>
-                  
-                  <motion.p
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
-                    className="text-muted-foreground text-sm mt-2"
-                  >
-                    Connect with the creator of MoviePulse
-                  </motion.p>
-                </div>
+        <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 pt-4">
+          {/* Avatar & Info */}
+          <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+            <Avatar className="h-20 w-20 border border-primary mb-3">
+              <AvatarImage src="/Images/Profile Pic.JPG" alt="G. Thangella" />
+              <AvatarFallback>GT</AvatarFallback>
+            </Avatar>
+            <h3 className="text-sm font-semibold">G. Thangella</h3>
+            <p className="text-xs text-muted-foreground mt-1 whitespace-pre-line leading-snug">
+              💼 Entrepreneur{"\n"}
+              🧠 Tech Explorer{"\n"}
+              🎨 Creative Thinker{"\n"}
+              🔭 Visionary
+            </p>
 
-                {/* Scrollable content area */}
-                <div className="flex-1 overflow-y-auto p-6">
-                  {/* Developer details */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 }}
-                    className="space-y-4 mb-6"
-                  >
-                    <div className="text-center p-4 bg-muted/50 rounded-lg">
-                      <h3 className="font-semibold text-lg mb-2">MoviePulse</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        An innovative platform designed to gather audience preferences and help content creators make data-driven decisions for better entertainment experiences.
-                      </p>
-                    </div>
+            <div className="flex gap-1 mt-2 flex-wrap justify-center sm:justify-start">
+              {developerLinks.map((link, i) => (
+                <Button key={i} variant="outline" size="icon" asChild className="h-7 w-7 rounded-full">
+                  <a href={link.url} target="_blank" rel="noopener noreferrer" aria-label={link.label}>
+                    {link.icon}
+                  </a>
+                </Button>
+              ))}
+            </div>
+          </div>
 
-                    <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg">
-                      <Coffee className="w-5 h-5 text-primary flex-shrink-0" />
-                      <span className="text-sm">Built with passion and caffeine</span>
-                    </div>
+          {/* Description */}
+          <div className="space-y-2 text-xs w-full sm:w-[60%]">
+            <p>
+              I build impactful digital tools to simplify complex systems. MoviePulse reflects my passion for entertainment-tech innovation and accessible design.
+            </p>
 
-                    <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-red-500/10 to-pink-500/10 rounded-lg">
-                      <Heart className="w-5 h-5 text-red-500 flex-shrink-0" />
-                      <span className="text-sm">Made with ❤️ for the entertainment industry</span>
-                    </div>
-                  </motion.div>
+            <div>
+              <h4 className="font-medium text-sm mb-1">Tech Stack of This Application</h4>
+              <p className="text-muted-foreground">
+                React, TypeScript, TailwindCSS, shadcn/ui, Framer Motion, Node.js, MongoDB
+              </p>
+            </div>
 
-                  {/* Contact buttons */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6 }}
-                    className="space-y-3"
-                  >
-                    <Button
-                      className="w-full flex items-center gap-3 h-12 text-left justify-start bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
-                      onClick={() => window.open('mailto:contact@moviepulse.app', '_blank')}
-                    >
-                      <Mail className="w-5 h-5" />
-                      <span>Get in Touch</span>
-                    </Button>
+            <div>
+              <h4 className="font-medium text-sm mb-1">Mission</h4>
+              <p className="text-muted-foreground">
+                I'm driven to create meaningful digital products that solve real-world problems. My focus is building tools that inspire, innovate, and leave a lasting impact through technology and design.
+              </p>
+            </div>
+          </div>
+        </div>
 
-                    <div className="grid grid-cols-3 gap-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="flex items-center gap-2 h-10"
-                        onClick={() => window.open('https://github.com', '_blank')}
-                      >
-                        <Github className="w-4 h-4" />
-                        <span className="text-xs">GitHub</span>
-                      </Button>
-                      
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="flex items-center gap-2 h-10"
-                        onClick={() => window.open('https://linkedin.com', '_blank')}
-                      >
-                        <Linkedin className="w-4 h-4" />
-                        <span className="text-xs">LinkedIn</span>
-                      </Button>
-                      
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="flex items-center gap-2 h-10"
-                        onClick={() => window.open('https://moviepulse-nu.vercel.app', '_blank')}
-                      >
-                        <Globe className="w-4 h-4" />
-                        <span className="text-xs">Website</span>
-                      </Button>
-                    </div>
-                  </motion.div>
-                </div>
+        <Separator className="my-3" />
 
-                {/* Footer - Fixed at bottom */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.7 }}
-                  className="flex-shrink-0 p-4 border-t text-center"
-                >
-                  <p className="text-xs text-muted-foreground">
-                    © 2024 MoviePulse. Shaping the future of entertainment.
-                  </p>
-                </motion.div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+        <DialogFooter className="flex flex-col sm:flex-row gap-2 justify-end">
+          <Button variant="outline" onClick={() => onOpenChange(false)}>Close</Button>
+          <Button variant="default" asChild>
+            <a href="mailto:imgtk17@gmail.com" target="_blank" rel="noopener noreferrer">
+              Get in Touch
+            </a>
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
-};
-
-export default MobileDeveloperModal;
+}

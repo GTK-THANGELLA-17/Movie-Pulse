@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -6,13 +5,14 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation, useNavigationType } from "react-router-dom";
 import { ThemeProvider } from "@/components/theme-provider";
 import { VotingPeriodProvider } from "@/contexts/VotingPeriodContext";
+import { VotedProvider } from "@/contexts/VotedContext";
 import { useEffect } from "react";
 import Index from "./pages/Index";
 import StatsPage from "./pages/StatsPage";
 import NotFound from "./pages/NotFound";
 import IntroPage from "./pages/IntroPage";
 import VotePage from "./pages/VotePage";
-import "./styles/animations.css";
+import '@/styles/animations.css';
 
 // ScrollToTop component to handle scrolling on route changes
 const ScrollToTop = () => {
@@ -43,20 +43,22 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="light" storageKey="moviepulse-theme">
         <VotingPeriodProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-              <ScrollToTop />
-              <Routes>
-                <Route path="/" element={<IntroPage />} />
-                <Route path="/home" element={<Index />} />
-                <Route path="/stats" element={<StatsPage />} />
-                <Route path="/vote" element={<VotePage />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
-          </TooltipProvider>
+          <VotedProvider>
+            <TooltipProvider>
+              <Toaster />
+              <Sonner />
+              <BrowserRouter>
+                <ScrollToTop />
+                <Routes>
+                  <Route path="/" element={<IntroPage />} />
+                  <Route path="/home" element={<Index />} />
+                  <Route path="/stats" element={<StatsPage />} />
+                  <Route path="/vote" element={<VotePage />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </BrowserRouter>
+            </TooltipProvider>
+          </VotedProvider>
         </VotingPeriodProvider>
       </ThemeProvider>
     </QueryClientProvider>

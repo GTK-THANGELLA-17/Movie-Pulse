@@ -5,9 +5,11 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import FeaturesSection from "@/components/FeaturesSection";
+import AboutPlatform from "@/components/AboutPlatform";
 import EnhancedDeveloperModal from "@/components/EnhancedDeveloperModal";
 import PlatformVideo from "@/components/PlatformVideo";
 import ImageSlideshow from "@/components/ImageSlideshow";
+import LatestTrends from "@/components/LatestTrends";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import LoadingIndicator from "@/components/LoadingIndicator";
@@ -18,7 +20,8 @@ import {
   TrendingUp, 
   Award, 
   ChevronRight,
-  ArrowUp
+  ArrowUp,
+  BarChart3
 } from "lucide-react";
 
 const IntroPage = () => {
@@ -58,6 +61,10 @@ const IntroPage = () => {
   
   const navigateToVote = () => {
     navigate("/vote");
+  };
+
+  const navigateToStats = () => {
+    navigate("/stats");
   };
   
   const scrollToTop = () => {
@@ -160,6 +167,49 @@ const IntroPage = () => {
         .gradient-bg-dark {
           background: linear-gradient(120deg, #1a1a1a 0%, #2a2a2a 100%);
         }
+
+        .stats-button {
+          background: linear-gradient(45deg, #5b2333, #983b55, #c45973);
+          background-size: 300% 300%;
+          animation: statsButtonGradient 3s ease infinite, statsButtonPulse 2s ease-in-out infinite;
+          box-shadow: 0 4px 15px rgba(91, 35, 51, 0.4);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .stats-button::before {
+          content: '';
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+          transform: rotate(45deg);
+          animation: statsButtonShine 3s ease-in-out infinite;
+        }
+
+        @keyframes statsButtonGradient {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
+
+        @keyframes statsButtonPulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.05); }
+        }
+
+        @keyframes statsButtonShine {
+          0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+          50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+          100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+        }
+
+        .stats-button:hover {
+          animation-play-state: paused;
+          transform: scale(1.1);
+          box-shadow: 0 8px 25px rgba(91, 35, 51, 0.6);
+        }
         `}
       </style>
       <Navbar />
@@ -171,7 +221,98 @@ const IntroPage = () => {
       >
         <Hero />
         
-        {/* Key Benefits Section - Redesigned with new style */}
+        {/* Enhanced View Live Statistics Button Section */}
+        <section className="py-16 w-full bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+          <div className="container mx-auto px-4 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="max-w-4xl mx-auto"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900 dark:text-white">
+                See What the World is Watching
+              </h2>
+              <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+                Discover real-time insights into global entertainment preferences. Explore trending content, demographic patterns, and audience opinions across all platforms.
+              </p>
+              
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="relative"
+              >
+                <Button
+                  onClick={(e) => {
+                    buttonClickEffect(e);
+                    navigateToStats();
+                  }}
+                  className="stats-button text-white font-bold px-8 py-6 text-lg rounded-full relative overflow-hidden border-0 hover:border-0"
+                  size="lg"
+                >
+                  <BarChart3 className="w-6 h-6 mr-2 relative z-10" />
+                  <span className="relative z-10">View Live Statistics</span>
+                </Button>
+                
+                {/* Animated decorative elements */}
+                <motion.div
+                  animate={{ 
+                    rotate: [0, 360],
+                    scale: [1, 1.1, 1]
+                  }}
+                  transition={{ 
+                    duration: 4, 
+                    repeat: Infinity, 
+                    ease: "easeInOut"
+                  }}
+                  className="absolute -top-4 -right-4 w-8 h-8 bg-yellow-400 rounded-full opacity-70"
+                />
+                <motion.div
+                  animate={{ 
+                    rotate: [360, 0],
+                    scale: [1, 1.2, 1]
+                  }}
+                  transition={{ 
+                    duration: 3, 
+                    repeat: Infinity, 
+                    ease: "easeInOut",
+                    delay: 1
+                  }}
+                  className="absolute -bottom-4 -left-4 w-6 h-6 bg-blue-400 rounded-full opacity-70"
+                />
+              </motion.div>
+              
+              <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+                {[
+                  { icon: "📊", title: "Real-time Data", desc: "Live statistics updated continuously" },
+                  { icon: "🌍", title: "Global Insights", desc: "Worldwide entertainment trends" },
+                  { icon: "🎯", title: "Smart Filtering", desc: "Customizable data views" }
+                ].map((feature, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+                    className="text-center p-4 bg-white/50 dark:bg-gray-800/50 rounded-lg backdrop-blur-sm"
+                  >
+                    <div className="text-3xl mb-2">{feature.icon}</div>
+                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">{feature.title}</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">{feature.desc}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+        
+        {/* Comprehensive About Platform Section */}
+        <AboutPlatform />
+        
+        {/* Key Benefits Section */}
         <section className="py-16 w-full bg-white dark:bg-gray-900">
           <div className="container mx-auto px-4">
             <motion.div
@@ -181,9 +322,9 @@ const IntroPage = () => {
               transition={{ duration: 0.5 }}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl font-bold mb-4 text-shimmer">Why MoviePulse?</h2>
+              <h2 className="text-3xl font-bold mb-4 text-shimmer">Why Choose MoviePulse?</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                Our platform offers unique insights that help content creators make more informed decisions.
+                Our platform offers unique insights that revolutionize how content creators understand and respond to audience preferences.
               </p>
             </motion.div>
             
@@ -192,22 +333,22 @@ const IntroPage = () => {
                 {
                   icon: <Star className="w-12 h-12 text-amber-500" />,
                   title: "Quality Insights",
-                  description: "Understand what audiences value most in content through detailed feedback and preference analysis."
+                  description: "Understand what audiences value most in content through detailed feedback and comprehensive preference analysis across all entertainment platforms."
                 },
                 {
                   icon: <Clock className="w-12 h-12 text-blue-500" />,
                   title: "Real-time Data",
-                  description: "Access up-to-the-minute audience preferences with our lightning-fast backend infrastructure."
+                  description: "Access up-to-the-minute audience preferences with our lightning-fast backend infrastructure and instant data processing capabilities."
                 },
                 {
                   icon: <TrendingUp className="w-12 h-12 text-green-500" />,
                   title: "Trend Analysis",
-                  description: "Spot emerging content trends before competitors with our advanced analytics engine."
+                  description: "Spot emerging content trends before competitors with our advanced analytics engine and predictive modeling algorithms."
                 },
                 {
                   icon: <Award className="w-12 h-12 text-purple-500" />,
                   title: "Success Metrics",
-                  description: "Measure what resonates most with your audience using comprehensive success indicators."
+                  description: "Measure what resonates most with your audience using comprehensive success indicators and detailed performance analytics."
                 }
               ].map((item, index) => (
                 <motion.div
@@ -243,6 +384,9 @@ const IntroPage = () => {
           </div>
         </section>
         
+        {/* Add the new Latest Trends section here */}
+        <LatestTrends />
+        
         <ImageSlideshow />
         <FeaturesSection />
         <PlatformVideo />
@@ -257,7 +401,7 @@ const IntroPage = () => {
               transition={{ duration: 0.5 }}
               className="text-3xl md:text-4xl font-bold mb-6"
             >
-              Ready to Share Your Opinion?
+              Ready to Shape the Future of Entertainment?
             </motion.h2>
             
             <motion.p
@@ -267,7 +411,7 @@ const IntroPage = () => {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="max-w-2xl mx-auto mb-8 text-white/90"
             >
-              Join thousands of viewers who are shaping the future of entertainment. Your voice matters!
+              Join thousands of viewers worldwide who are actively shaping the future of entertainment across all platforms. Your voice matters in creating the content landscape of tomorrow!
             </motion.p>
             
             <motion.div
@@ -294,7 +438,7 @@ const IntroPage = () => {
       </motion.div>
       <Footer onDeveloperClick={openModal} />
       
-      {/* Scroll to top button - Only appears when scrolled down */}
+      {/* Scroll to top button */}
       <AnimatePresence>
         {showScrollTop && (
           <motion.button
@@ -303,7 +447,7 @@ const IntroPage = () => {
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.2 }}
             onClick={scrollToTop}
-            className="fixed bottom-8 right-8 z-40 bg-primary text-white dark:bg-white dark:text-black w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-primary/90 dark:hover:bg-white/90 transition-colors"
+            className="fixed bottom-8 right-8 z-40 bg-[#5b2333] text-white dark:bg-white dark:text-black w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-[#5b2333]/90 dark:hover:bg-white/90 transition-colors"
             aria-label="Scroll to top"
           >
             <ArrowUp className="w-5 h-5" />

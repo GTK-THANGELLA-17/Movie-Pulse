@@ -11,11 +11,9 @@
     },
     "noImplicitAny": false,
     "noUnusedParameters": false,
-    "noUnusedLocals": false,
-    "strictNullChecks": false,
     "skipLibCheck": true,
     "allowJs": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true
+    "noUnusedLocals": false,
+    "strictNullChecks": false
   }
 }

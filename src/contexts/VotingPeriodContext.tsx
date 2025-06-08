@@ -19,7 +19,14 @@ export function VotingPeriodProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const storedPeriod = getVotingPeriod();
     if (storedPeriod) {
-      setVotingPeriod(storedPeriod);
+      // Ensure we have all required properties
+      const fullPeriod: VotingPeriod = {
+        isActive: storedPeriod.isActive,
+        startDate: DEFAULT_VOTING_PERIOD.startDate,
+        endDate: storedPeriod.endDate,
+        ...storedPeriod
+      };
+      setVotingPeriod(fullPeriod);
     }
     
     // Add browser fingerprinting capability

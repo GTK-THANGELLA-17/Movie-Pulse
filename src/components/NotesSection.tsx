@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { MessageSquare, Calendar, User, Filter } from "lucide-react";
+import { MessageSquare, Calendar, User, Filter, Tv } from "lucide-react";
 import { getVotes } from "@/lib/data";
 import { PROJECT_TYPE_LABELS } from "@/lib/data";
 import { Vote } from "@/lib/types";
@@ -53,7 +53,7 @@ const NotesSection = ({ projectTypes }: NotesSectionProps) => {
     );
     
     const genres = filteredVotes.map(vote => vote.genre);
-    return Array.from(new Set(genres));
+    return Array.from(new Set(genres)).filter(Boolean);
   };
   
   if (isLoading) {
@@ -98,7 +98,7 @@ const NotesSection = ({ projectTypes }: NotesSectionProps) => {
           >
             <option value="">All Genres</option>
             {getUniqueGenres().map(genre => (
-              <option key={genre} value={genre}>{genre}</option>
+              <option key={genre as string} value={genre as string}>{genre}</option>
             ))}
           </select>
         </div>
@@ -117,18 +117,37 @@ const NotesSection = ({ projectTypes }: NotesSectionProps) => {
               <div>
                 <div className="flex items-center gap-2">
                   <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
-                    <span className="bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium">
-                      {vote.genre}
-                    </span>
-                    <span className="bg-secondary/50 px-2 py-0.5 rounded-full">
-                      {vote.filmIndustry}
-                    </span>
+                    {vote.genre && (
+                      <span className="bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium">
+                        {vote.genre}
+                      </span>
+                    )}
+                    {vote.filmIndustry && (
+                      <span className="bg-secondary/50 px-2 py-0.5 rounded-full">
+                        {vote.filmIndustry}
+                      </span>
+                    )}
                     <span className="bg-muted px-2 py-0.5 rounded-full">
                       {PROJECT_TYPE_LABELS[vote.projectType]}
                     </span>
                     {vote.ottPlatform && (
                       <span className="bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 px-2 py-0.5 rounded-full">
                         {vote.ottPlatform}
+                      </span>
+                    )}
+                    {vote.televisionChannel && (
+                      <span className="bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300 px-2 py-0.5 rounded-full flex items-center gap-1">
+                        <Tv className="w-3 h-3" /> {vote.televisionChannel}
+                      </span>
+                    )}
+                    {vote.televisionContentType && (
+                      <span className="bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 px-2 py-0.5 rounded-full">
+                        {vote.televisionContentType}
+                      </span>
+                    )}
+                    {vote.youtubeContentCategory && (
+                      <span className="bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300 px-2 py-0.5 rounded-full">
+                        {vote.youtubeContentCategory.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
                       </span>
                     )}
                   </div>

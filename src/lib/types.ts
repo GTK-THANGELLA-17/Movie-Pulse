@@ -1,114 +1,80 @@
+export type FilmIndustry = "Bollywood" | "Hollywood" | "Tollywood" | "Kollywood" | "Mollywood" | "Sandalwood" | "Bhojpuri" | "Punjabi" | "Marathi" | "Bengali" | "Gujarati" | "Assamese" | "Odia" | "Other";
 
-export type FilmIndustry = "Hollywood" | "Bollywood" | "Tollywood" | "Nollywood" | "Korean" | "European" | "Japanese" | "Chinese" | "Thai" | "Turkish" | "French" | "Italian" | "Regional";
+export type Genre = "Action" | "Comedy" | "Drama" | "Horror" | "Romance" | "Thriller" | "Sci-Fi" | "Fantasy" | "Adventure" | "Crime" | "Mystery" | "Documentary" | "Animation" | "Musical" | "War" | "Western" | "Biography" | "History" | "Sport" | "Family";
 
-export type Genre = "Action" | "Drama" | "Comedy" | "Romance" | "Thriller" | "Horror" | "Sci-Fi" | "Fantasy" | "Animation" | "Documentary" | "Mystery" | "Adventure" | "Crime" | "Biography" | "Historical" | "Musical" | "Educational";
+export type ProjectType = "Films" | "YouTubeFilm" | "YouTubeContent" | "OTTPlatform" | "Television";
 
-export type Country = "USA" | "India" | "UK" | "Canada" | "Australia" | "Japan" | "South Korea" | "France" | "Germany" | "Italy" | "Spain" | "Brazil" | "Mexico" | "Nigeria" | "China" | "Russia" | "Saudi Arabia" | "UAE" | "Singapore" | "Other";
+export type FilmProjectType = "HighBudgetFilm" | "LowBudgetFilm" | "ShortFilm";
 
-export type ProjectType = "HighBudgetFilm" | "LowBudgetFilm" | "ShortFilm" | "YouTubeFilm" | "YouTubeContent" | "OTTPlatform" | "Television";
+export type Country = "India" | "USA" | "UK" | "Canada" | "Australia" | "Germany" | "France" | "Japan" | "South Korea" | "China" | "Brazil" | "Mexico" | "Argentina" | "Italy" | "Spain" | "Russia" | "Turkey" | "Egypt" | "Nigeria" | "South Africa" | "Other";
 
-export type OTTPlatform = 
-  "Netflix" | "AmazonPrime" | "Disney+" | "HBOMax" | "Hulu" | "AppleTV+" | 
-  "JioCinema" | "Hotstar" | "Aha" | "SonyLIV" | "ZEE5" | "Peacock" | 
-  "Paramount+" | "Discovery+" | "CrunchyRoll" | "MXPlayer" | "ALTBalaji" | 
-  "ErosNow" | "Voot" | "Other" |
-  // Additional OTT platforms
-  "Tubi" | "Roku Channel" | "Pluto TV" | "Crackle" | "MUBI" | "Shudder" | 
-  "BritBox" | "Acorn TV" | "Funimation" | "DAZN" | "Twitch" | "Hayu" | 
-  "iQIYI" | "WeTV" | "Viki" | "Sun NXT" | "YuppTV" | "ThreeNow" | 
-  "Stan" | "BINGE" | "Crave";
+export type OTTPlatform = "Netflix" | "Amazon Prime Video" | "Disney+ Hotstar" | "YouTube Premium" | "SonyLIV" | "ZEE5" | "Voot" | "MX Player" | "Alt Balaji" | "Eros Now" | "Hulu" | "HBO Max" | "Apple TV+" | "Paramount+" | "Peacock" | "Other";
 
-export type TelevisionChannel = 
-  // USA Channels
-  "ABC" | "CBS" | "NBC" | "FOX" | "CW" | "PBS" | "HBO" | "Showtime" | "Starz" | "AMC" | "FX" | "USA" | "TNT" | "TBS" | "History" | "Discovery" | "NatGeo" |
-  // India Channels
-  "StarPlus" | "ZeeTV" | "SonyTV" | "ColorsTV" | "StarBharat" | "SonyMax" | "ZeeCinema" | "StarGold" | "DDNational" | "AndTV" |
-  // UK Channels
-  "BBC" | "ITV" | "Channel4" | "Channel5" | "Sky" | "UKTV" | "Dave" | "E4" |
-  // Other International Channels
-  "CCTV" | "NHK" | "KBS" | "TVN" | "Fuji" | "TF1" | "M6" | "ARD" | "ZDF" | "Rai" | "TVE" | "Globo" | "Televisa" | "Other" |
-  // Additional channels for different countries
-  "CBC" | "CTV" | "Global" | "Citytv" | "TVO" | "YTV" | 
-  "Seven" | "Nine" | "Ten" | "SBS" | "Foxtel" |
-  "TV Asahi" | "TV Tokyo" | "Nippon TV" |
-  "MBC" | "JTBC" | "OCN" |
-  "France 2" | "France 3" | "Canal+" | "Arte" |
-  "RTL" | "Sat.1" | "ProSieben" | "VOX" |
-  "Rai 1" | "Rai 2" | "Rai 3" | "Canale 5" | "Italia 1" | "Rete 4" |
-  "Antena 3" | "Telecinco" | "La Sexta" | "Cuatro" |
-  "SBT" | "Record" | "Band" | "RedeTV" |
-  "TV Azteca" | "Imagen Televisión" | "Canal Once" |
-  "NTA" | "Channels TV" | "AIT" | "Silverbird TV" | "WAP TV" |
-  "Hunan TV" | "Jiangsu TV" | "Dragon TV" | "Phoenix TV" |
-  "Channel One" | "Russia-1" | "NTV" | "TNT" | "CTC" |
-  "Saudi TV" | "MBC" | "Rotana" | "Al Arabiya" |
-  "Dubai TV" | "Abu Dhabi TV" | "Sama Dubai" |
-  "MediaCorp Channel 5" | "MediaCorp Channel 8" | "CNA" | "Suria" |
-  // Additional TV channels
-  "ESPN" | "CNN" | "MSNBC" | "Fox News" | "Cartoon Network" | "Adult Swim" | 
-  "Nickelodeon" | "Disney Channel" | "MTV" | "VH1" | "Bravo" | "Lifetime" | "Syfy" |
-  "Star Sports" | "Sony Sports" | "Zee News" | "NDTV" | "Republic TV" | "Aaj Tak" | 
-  "India TV" | "ABP News" | "TV9" | "ETV" | "Sun TV" | "Vijay TV" | "Asianet" | 
-  "Maa TV" | "Gemini TV" | "BBC News" | "Sky News" | "Sky Sports" | "BT Sport" | 
-  "Discovery UK" | "History UK" | "Gold" | "Comedy Central UK" | "Channel 4 News" | 
-  "More4" | "Film4" | "TSN" | "Sportsnet" | "CBC News" | "CTV News" | "Global News" | 
-  "TVA" | "MuchMusic" | "Treehouse TV" | "W Network" | "Showcase" | "Food Network Canada" | 
-  "Fox Sports" | "ABC News" | "Seven News" | "9News" | "Network 10" | "Sky News Australia" | 
-  "Nickelodeon Australia" | "Disney Channel Australia" | "Tokyo MX" | "BS Asahi" | "BS-TBS" | 
-  "BS Fuji" | "AT-X" | "WOWOW" | "J Sports" | "Animax" | "NHK BS Premium" | "EBS" | "MBN" | 
-  "Channel A" | "TV Chosun" | "MNet" | "KBS News" | "YTN" | "SBS Sports" | "KBS Drama";
-
-export type TelevisionContentType = 
-  "News" | "Reality" | "TalkShow" | "GameShow" | "SoapOpera" | "SitCom" | "SeriesShow" | "CrimeShow" | "CulturalShow" | 
-  "KidsShow" | "Documentary" | "SportsShow" | "CookingShow" | "LifestyleShow" | "Politics" | "MusicalShow" | 
-  "RegionalDrama" | "AnimatedShow" | "SciFiShow" | "HistoricalShow" | "Fantasy" | "Comedy" | "Drama" | "Other";
+export type YouTubeChannelType = "Entertainment" | "Educational" | "Gaming" | "Tech Reviews" | "Lifestyle" | "Music" | "Comedy" | "News" | "Sports" | "Cooking" | "Travel" | "Fashion" | "DIY/Crafts" | "Business" | "Health & Fitness" | "Science" | "Art & Design" | "Movie Reviews" | "Vlogs" | "Other";
 
 export type YouTubeContentCategory = 
-  // Gaming
-  "GamingLetsPlays" | "GameReviews" | "GameWalkthroughs" | "GameModding" | "Esports" | "Speedruns" | "GamingNews" |
-  // Educational
-  "FactsAndTrivia" | "HistoryDocumentaries" | "ScienceExperiments" | "TechInnovations" | "LanguageLearning" | "Tutorials" |
-  // Trending
-  "CurrentEvents" | "ViralChallenges" | "SocialMediaTrends" | "CelebrityGossip" |
-  // Lifestyle
-  "DayInLifeVlogs" | "TravelVlogs" | "HealthFitnessTips" | "LifeHacks" | "MinimalismOrganization" |
-  // Entertainment
-  "ReactionVideos" | "ComedySkits" | "PranksExperiments" | "Challenges" | "UnboxingsReviews" | "ASMR" |
-  // Creative
-  "MusicVideos" | "ArtTutorials" | "DIYProjects" | "Animation" | "Photography" |
-  // Tech
-  "TechReviews" | "GadgetInnovations" | "PhonePCReviews" | "SoftwareAppTutorials" |
-  // Food
-  "RecipeTutorials" | "FoodReviews" | "CookingChallenges" | "StreetFoodTours" |
-  // Fitness
-  "WorkoutRoutines" | "NutritionAdvice" | "MentalHealthTips" | "WeightLossJourneys" | "YogaMeditation" |
-  // Movies
-  "MovieReviews" | "TVShowReviews" | "FanTheories" | "BehindTheScenes" | "TopLists" |
-  // Finance
-  "PersonalFinance" | "InvestmentStrategies" | "CareerAdvice" | "Entrepreneurship" |
-  // Motivational
-  "SuccessStories" | "MotivationalSpeeches" | "PersonalDevelopment" |
-  // Future Tech
-  "AIRobotics" | "SpaceExploration" | "VirtualReality" | "FuturisticInnovations" |
-  // Pets
-  "CuteAnimalVideos" | "PetCareTips" | "WildlifeDocumentaries" | "AnimalRescues" |
-  // Hobbies
-  "Collecting" | "BoardGames" | "ModelBuilding" | "FanCommunities" |
-  // Commentary
-  "PoliticalDiscussions" | "DebatesAnalysis" | "SocialJustice" | "CulturalCriticism";
+  | "Comedy" | "Education" | "Entertainment" | "Gaming" | "Music" | "News" | "Sports" 
+  | "Technology" | "Travel" | "Food" | "Fashion" | "Health" | "DIY" | "Reviews" 
+  | "Tutorials" | "Science" | "Art" | "Business" | "Lifestyle" | "Beauty" | "Fitness"
+  | "Politics" | "Documentary" | "Animation" | "Kids" | "How-to & DIY" | "Review"
+  | "Unboxing" | "Vlog" | "Podcast" | "Live Streaming" | "Reaction" | "Challenge"
+  | "Prank" | "Dance" | "Art & Craft" | "Cooking" | "Photography" | "Film Making"
+  | "Music Production" | "Software Development" | "Mobile Apps" | "Web Design"
+  | "Digital Marketing" | "Cryptocurrency" | "Stock Trading" | "Real Estate"
+  | "Personal Finance" | "Self Improvement" | "Meditation" | "Yoga" | "Workout"
+  | "Bodybuilding" | "Weight Loss" | "Nutrition" | "Mental Health" | "Relationships"
+  | "Parenting" | "Pet Care" | "Gardening" | "Home Improvement" | "Car Reviews"
+  | "Motorcycle" | "Aviation" | "Space" | "History" | "Geography" | "Language Learning"
+  | "Mathematics" | "Physics" | "Chemistry" | "Biology" | "Programming" | "AI & ML"
+  | "Cybersecurity" | "Blockchain" | "VR & AR" | "3D Modeling" | "Graphic Design"
+  | "Logo Design" | "UI/UX Design" | "Fashion Design" | "Interior Design"
+  | "Architecture" | "Engineering" | "Medicine" | "Law" | "Economics" | "Philosophy"
+  | "Psychology" | "Sociology" | "Anthropology" | "Religious" | "Spirituality"
+  | "True Crime" | "Mystery" | "Horror Stories" | "Stand-up Comedy" | "Sketches"
+  | "Improvisation" | "Theater" | "Opera" | "Classical Music" | "Jazz" | "Rock"
+  | "Pop Music" | "Hip Hop" | "Electronic Music" | "Country Music" | "Folk Music"
+  | "World Music" | "Instrumental" | "Karaoke" | "Music Theory" | "Singing Lessons"
+  | "Guitar Lessons" | "Piano Lessons" | "Drum Lessons" | "Sports Analysis"
+  | "Cricket" | "Football" | "Basketball" | "Tennis" | "Soccer" | "Baseball"
+  | "Golf" | "Swimming" | "Athletics" | "Olympics" | "Esports" | "Chess"
+  | "Board Games" | "Card Games" | "Puzzle Games" | "Strategy Games"
+  | "Mobile Gaming" | "PC Gaming" | "Console Gaming" | "Game Development"
+  | "Game Reviews" | "Let's Play" | "Speed Running" | "Game Streaming"
+  | "Recipe" | "Restaurant Reviews" | "Culture" | "Adventure" | "Shopping"
+  | "Style Tips" | "Woodworking" | "Crafting" | "Entrepreneurship" | "Analysis"
+  | "Daily Life" | "Personal Stories";
+
+export type TelevisionChannel = string;
+export type TelevisionContentType = "News" | "Entertainment" | "Sports" | "Educational" | "Documentary" | "Movies" | "Series" | "Reality Shows" | "Talk Shows" | "Cartoons" | "Music" | "Religious" | "Regional" | "Other";
 
 export interface Vote {
   id: string;
-  country: Country;
+  projectType: ProjectType;
+  filmProjectType?: FilmProjectType;
   filmIndustry?: FilmIndustry;
   genre?: Genre;
-  projectType: ProjectType;
+  country: Country;
   ottPlatform?: OTTPlatform;
   youtubeContentCategory?: YouTubeContentCategory;
+  youtubeChannelType?: YouTubeChannelType;
   televisionChannel?: TelevisionChannel;
   televisionContentType?: TelevisionContentType;
   notes?: string;
+  demographics: {
+    gender?: string;
+    age?: number;
+    region?: string;
+  };
   timestamp: string;
+  userId: string;
+}
+
+export interface VotedStatus {
+  hasVotedInFilm: boolean;
+  hasVotedInYoutubeFilm: boolean;
+  hasVotedInYoutubeContent: boolean;
+  hasVotedInOtt: boolean;
+  hasVotedInTelevision: boolean;
 }
 
 export interface VotingPeriod {

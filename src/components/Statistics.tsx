@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { 
   BarChart, XAxis, YAxis, Tooltip, Bar, ResponsiveContainer, CartesianGrid,
@@ -13,6 +12,7 @@ import { FilmIndustry, Genre, ProjectType, Country, Vote } from "@/lib/types";
 import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import * as XLSX from 'xlsx';
+import AppSocialShare from "@/components/AppSocialShare";
 import {
   Select,
   SelectContent,
@@ -30,7 +30,7 @@ const Statistics = () => {
   const { toast } = useToast();
   const [selectedIndustry, setSelectedIndustry] = useState<FilmIndustry>(FILM_INDUSTRIES[0]);
   const [selectedProjectType, setSelectedProjectType] = useState<ProjectType>(PROJECT_TYPES[0]);
-  const [selectedCountry, setSelectedCountry] = useState<Country>(COUNTRIES[0] as Country);
+  const [selectedCountry, setSelectedCountry] = useState<Country>(COUNTRIES[0]);
   const [filterMode, setFilterMode] = useState<FilterMode>("industry");
   const [viewType, setViewType] = useState<ViewType>("bar");
   const [chartData, setChartData] = useState<any[]>([]);
@@ -67,26 +67,24 @@ const Statistics = () => {
   const updateChartData = () => {
     setIsLoading(true);
     
-    // Simulate API loading
-    setTimeout(() => {
-      let counts;
-      
-      if (filterMode === "industry") {
-        counts = getCountsByIndustry(selectedIndustry);
-      } else if (filterMode === "projectType") {
-        counts = getCountsByProjectType(selectedProjectType);
-      } else {
-        counts = getCountsByCountry(selectedCountry);
-      }
-      
-      const data = GENRES.map(genre => ({
-        name: genre,
-        value: counts[genre] || 0
-      }));
-      
-      setChartData(data);
-      setIsLoading(false);
-    }, 500);
+    // Get actual data from localStorage
+    let counts;
+    
+    if (filterMode === "industry") {
+      counts = getCountsByIndustry(selectedIndustry);
+    } else if (filterMode === "projectType") {
+      counts = getCountsByProjectType(selectedProjectType);
+    } else {
+      counts = getCountsByCountry(selectedCountry);
+    }
+    
+    const data = GENRES.map(genre => ({
+      name: genre,
+      value: counts[genre] || 0
+    }));
+    
+    setChartData(data);
+    setIsLoading(false);
   };
   
   const loadUserNotes = () => {
@@ -119,16 +117,16 @@ const Statistics = () => {
     setFilterMode(mode);
   };
   
-  const handleIndustryChange = (industry: FilmIndustry) => {
-    setSelectedIndustry(industry);
+  const handleIndustryChange = (industry: string) => {
+    setSelectedIndustry(industry as FilmIndustry);
   };
   
-  const handleProjectTypeChange = (type: ProjectType) => {
-    setSelectedProjectType(type);
+  const handleProjectTypeChange = (type: string) => {
+    setSelectedProjectType(type as ProjectType);
   };
   
-  const handleCountryChange = (country: Country) => {
-    setSelectedCountry(country);
+  const handleCountryChange = (country: string) => {
+    setSelectedCountry(country as Country);
   };
   
   const handleViewChange = (view: ViewType) => {
@@ -531,6 +529,8 @@ const Statistics = () => {
                 <MessageSquare className="w-4 h-4" />
                 {showNotes ? "Hide User Comments" : "Show User Comments"}
               </button>
+              
+              <AppSocialShare variant="button" showStats={true} />
             </div>
             
             <div className="flex flex-wrap gap-2">

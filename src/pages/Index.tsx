@@ -3,9 +3,10 @@ import { useEffect, useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import About from "@/components/About";
+import AboutPlatform from "@/components/AboutPlatform";
 import Footer from "@/components/Footer";
 import LoadingIndicator from "@/components/LoadingIndicator";
-import { ArrowUp, ArrowRight, Film, Info, Activity } from "lucide-react";
+import { ArrowUp, ArrowRight, Film, Info, Activity, TrendingUp, Users, BarChart3 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
@@ -123,7 +124,7 @@ const Index = () => {
       
       <Navbar />
       
-      {/* Hero section for home page - different from intro page */}
+      {/* Enhanced Hero section for home page */}
       <section id="hero" className="pt-32 pb-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent dark:from-primary/10 dark:to-transparent"></div>
         
@@ -134,7 +135,7 @@ const Index = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7 }}
-                className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white"
+                className="text-4xl md:text-6xl font-bold mb-6 text-black dark:text-white"
               >
                 Welcome to <span className="text-primary">MoviePulse</span>
               </motion.h1>
@@ -143,15 +144,40 @@ const Index = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.1 }}
-                className="text-lg mb-8 text-black dark:text-white"
+                className="text-xl mb-6 text-black dark:text-white"
               >
-                The home for entertainment enthusiasts to share their opinions and preferences. Help shape the future of content creation!
+                The premier platform for entertainment intelligence and audience insights. 
+                Join a global community shaping the future of content across all entertainment platforms.
               </motion.p>
-              
+
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.2 }}
+                className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8"
+              >
+                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg text-center shadow-sm">
+                  <Film className="w-8 h-8 text-primary mx-auto mb-2" />
+                  <div className="text-sm font-medium">Films</div>
+                </div>
+                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg text-center shadow-sm">
+                  <TrendingUp className="w-8 h-8 text-green-500 mx-auto mb-2" />
+                  <div className="text-sm font-medium">OTT</div>
+                </div>
+                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg text-center shadow-sm">
+                  <BarChart3 className="w-8 h-8 text-blue-500 mx-auto mb-2" />
+                  <div className="text-sm font-medium">TV</div>
+                </div>
+                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg text-center shadow-sm">
+                  <Users className="w-8 h-8 text-purple-500 mx-auto mb-2" />
+                  <div className="text-sm font-medium">YouTube</div>
+                </div>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.3 }}
                 className="flex flex-wrap gap-4"
               >
                 <Button
@@ -159,7 +185,8 @@ const Index = () => {
                     buttonClickEffect(e);
                     navigateToVote(); 
                   }}
-                  className="bg-primary text-white hover:bg-primary/90 px-6 py-3 rounded-lg relative overflow-hidden"
+                  className="bg-primary text-white hover:bg-primary/90 px-8 py-4 rounded-lg relative overflow-hidden text-lg"
+                  size="lg"
                 >
                   Cast Your Opinion
                   <ArrowRight className="ml-2 w-5 h-5" />
@@ -171,9 +198,10 @@ const Index = () => {
                     navigateToStats();
                   }}
                   variant="outline"
-                  className="relative overflow-hidden"
+                  className="relative overflow-hidden px-8 py-4 text-lg"
+                  size="lg"
                 >
-                  View Statistics
+                  View Live Statistics
                 </Button>
               </motion.div>
             </div>
@@ -202,11 +230,11 @@ const Index = () => {
                 initial={{ x: "100%", opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.5, duration: 0.5 }}
-                className="absolute -bottom-4 -right-4 bg-white dark:bg-gray-800 p-3 rounded-lg shadow-lg"
+                className="absolute -bottom-4 -right-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg"
               >
                 <div className="flex items-center gap-2 text-sm">
                   <Activity className="w-4 h-4 text-green-500" />
-                  <span className="text-black dark:text-white">Live opinions being collected</span>
+                  <span className="text-black dark:text-white font-medium">Live opinions being collected globally</span>
                 </div>
               </motion.div>
             </motion.div>
@@ -214,11 +242,14 @@ const Index = () => {
         </div>
       </section>
       
+      {/* Add the comprehensive About Platform section */}
+      <AboutPlatform />
+      
       {/* Features Section */}
       <div id="features" ref={featuresRef}></div>
       <About />
       
-      {/* Call to action section */}
+      {/* Enhanced call to action section */}
       <section 
         id="voting-section" 
         ref={votingSectionRef}
@@ -230,14 +261,16 @@ const Index = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="text-center max-w-3xl mx-auto"
+            className="text-center max-w-4xl mx-auto"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white">Ready to Make an Impact?</h2>
-            <p className="text-lg text-black dark:text-white/80 mb-8">
-              Your voice matters in shaping the future of entertainment across all platforms. Whether you want to share your preferences or explore current trends, MoviePulse makes it easy.
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-black dark:text-white">Ready to Make an Impact?</h2>
+            <p className="text-xl text-black dark:text-white/80 mb-8">
+              Your voice matters in shaping the future of entertainment across all platforms. Whether you want to 
+              share your preferences, explore current trends, or analyze audience insights, MoviePulse provides 
+              the tools and platform to make your opinion count.
             </p>
             
-            <div className="flex flex-col md:flex-row flex-wrap justify-center gap-4 mb-8">
+            <div className="flex flex-col md:flex-row flex-wrap justify-center gap-6 mb-8">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -245,7 +278,7 @@ const Index = () => {
                   buttonClickEffect(e);
                   navigateToVote();
                 }}
-                className="button-hover-effect px-6 py-3 bg-[#5b2333] text-white rounded-lg font-medium flex items-center gap-2 hover:bg-[#5b2333]/90 transition-all dark:bg-white dark:text-black dark:hover:bg-white/90 relative overflow-hidden"
+                className="button-hover-effect px-8 py-4 bg-[#5b2333] text-white rounded-lg font-medium text-lg flex items-center gap-2 hover:bg-[#5b2333]/90 transition-all dark:bg-white dark:text-black dark:hover:bg-white/90 relative overflow-hidden"
               >
                 Cast Your Opinion
                 <ArrowRight className="w-5 h-5" />
@@ -257,10 +290,10 @@ const Index = () => {
                   buttonClickEffect(e);
                   navigateToStats();
                 }}
-                className="button-hover-effect px-6 py-3 bg-white text-black rounded-lg font-medium flex items-center gap-2 hover:bg-white/80 transition-all border border-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-700 dark:hover:bg-gray-800/80 relative overflow-hidden"
+                className="button-hover-effect px-8 py-4 bg-white text-black rounded-lg font-medium text-lg flex items-center gap-2 hover:bg-white/80 transition-all border border-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-700 dark:hover:bg-gray-800/80 relative overflow-hidden"
               >
-                View Statistics
-                <ArrowRight className="w-5 h-5" />
+                View Live Statistics
+                <BarChart3 className="w-5 h-5" />
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.05 }}
@@ -269,9 +302,9 @@ const Index = () => {
                   buttonClickEffect(e);
                   navigateToIntro();
                 }}
-                className="button-hover-effect px-6 py-3 bg-white text-black rounded-lg font-medium flex items-center gap-2 hover:bg-white/80 transition-all border border-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-700 dark:hover:bg-gray-800/80 relative overflow-hidden"
+                className="button-hover-effect px-8 py-4 bg-white text-black rounded-lg font-medium text-lg flex items-center gap-2 hover:bg-white/80 transition-all border border-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-700 dark:hover:bg-gray-800/80 relative overflow-hidden"
               >
-                View Intro
+                Learn More
                 <Info className="w-5 h-5" />
               </motion.button>
             </div>
@@ -295,7 +328,7 @@ const Index = () => {
             }}
             className="fixed bottom-8 right-8 z-40 bg-[#5b2333] text-white dark:bg-white dark:text-black w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-[#5b2333]/90 dark:hover:bg-white/90 transition-colors relative overflow-hidden"
             aria-label="Scroll to top"
-          >
+            >
             <ArrowUp className="w-5 h-5" />
           </motion.button>
         )}

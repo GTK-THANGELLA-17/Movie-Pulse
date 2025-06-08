@@ -1,6 +1,7 @@
+
 import { useState } from "react";
 import { Github, MapPin, Heart, Activity, UserRound } from "lucide-react";
-import DeveloperModal from "./DeveloperModal";
+import { DeveloperModal } from "./DeveloperModal";
 
 interface FooterProps {
   onDeveloperClick?: () => void;
@@ -71,8 +72,8 @@ const Footer = ({ onDeveloperClick }: FooterProps) => {
       
       {!onDeveloperClick && (
         <DeveloperModal 
-          isOpen={isDeveloperModalOpen} 
-          onClose={closeDeveloperModal} 
+          open={isDeveloperModalOpen} 
+          onOpenChange={setIsDeveloperModalOpen} 
         />
       )}
     </footer>

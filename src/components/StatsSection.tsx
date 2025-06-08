@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { 
   BarChart, XAxis, YAxis, Tooltip, Bar, ResponsiveContainer, CartesianGrid,
@@ -20,6 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8', '#FF6B6B', '#6B8E23', '#4682B4', '#9932CC', '#CD5C5C'];
 
@@ -34,8 +34,10 @@ const StatsSection = ({ projectTypes }: StatsProps) => {
   const { toast } = useToast();
   const [selectedIndustry, setSelectedIndustry] = useState<FilmIndustry>(FILM_INDUSTRIES[0]);
   const [selectedProjectType, setSelectedProjectType] = useState<ProjectType>(projectTypes[0] as ProjectType);
-  const [selectedCountry, setSelectedCountry] = useState<Country>(COUNTRIES[0] as Country);
+  const [selectedCountry, setSelectedCountry] = useState<Country>(COUNTRIES[0]);
   const [selectedOttPlatform, setSelectedOttPlatform] = useState<OTTPlatform>(OTT_PLATFORMS[0]);
+  const [selectedGender, setSelectedGender] = useState<string>('all');
+  const [selectedAge, setSelectedAge] = useState<string>('all');
   const [filterMode, setFilterMode] = useState<FilterMode>("projectType");
   const [viewType, setViewType] = useState<ViewType>("bar");
   const [chartData, setChartData] = useState<any[]>([]);
@@ -55,13 +57,15 @@ const StatsSection = ({ projectTypes }: StatsProps) => {
     selectedProjectType, 
     selectedCountry, 
     selectedOttPlatform, 
+    selectedGender,
+    selectedAge,
     filterMode
   ]);
   
   const updateChartData = () => {
     setIsLoading(true);
     
-    // Simulate API loading
+    // Simulate API loading with filters
     setTimeout(() => {
       let counts;
       
@@ -77,9 +81,12 @@ const StatsSection = ({ projectTypes }: StatsProps) => {
         counts = getCountsByProjectType(selectedProjectType);
       }
       
+      // Apply age and gender filters (simulated)
+      const filterMultiplier = (selectedGender !== 'all' ? 0.7 : 1) * (selectedAge !== 'all' ? 0.8 : 1);
+      
       const data = GENRES.map(genre => ({
         name: genre,
-        value: counts[genre] || 0
+        value: Math.floor((counts[genre] || 0) * filterMultiplier)
       }));
       
       setChartData(data);
@@ -91,20 +98,20 @@ const StatsSection = ({ projectTypes }: StatsProps) => {
     setFilterMode(mode);
   };
   
-  const handleIndustryChange = (industry: FilmIndustry) => {
-    setSelectedIndustry(industry);
+  const handleIndustryChange = (industry: string) => {
+    setSelectedIndustry(industry as FilmIndustry);
   };
   
-  const handleProjectTypeChange = (type: ProjectType) => {
-    setSelectedProjectType(type);
+  const handleProjectTypeChange = (type: string) => {
+    setSelectedProjectType(type as ProjectType);
   };
   
-  const handleCountryChange = (country: Country) => {
-    setSelectedCountry(country);
+  const handleCountryChange = (country: string) => {
+    setSelectedCountry(country as Country);
   };
 
-  const handleOttPlatformChange = (platform: OTTPlatform) => {
-    setSelectedOttPlatform(platform);
+  const handleOttPlatformChange = (platform: string) => {
+    setSelectedOttPlatform(platform as OTTPlatform);
   };
   
   const handleViewChange = (view: ViewType) => {
@@ -118,8 +125,6 @@ const StatsSection = ({ projectTypes }: StatsProps) => {
       filterLabel = selectedIndustry;
     } else if (filterMode === "projectType") {
       filterLabel = PROJECT_TYPE_LABELS[selectedProjectType];
-    } else if (filterMode === "country") {
-      filterLabel = selectedCountry;
     } else if (filterMode === "ottPlatform") {
       filterLabel = selectedOttPlatform;
     }
@@ -128,7 +133,9 @@ const StatsSection = ({ projectTypes }: StatsProps) => {
       Genre: item.name,
       Votes: item.value,
       FilterType: filterMode.charAt(0).toUpperCase() + filterMode.slice(1),
-      FilterValue: filterLabel
+      FilterValue: filterLabel,
+      Gender: selectedGender,
+      Age: selectedAge
     }));
 
     if (format === 'excel') {
@@ -144,10 +151,10 @@ const StatsSection = ({ projectTypes }: StatsProps) => {
     } else if (format === 'word') {
       // Convert data to HTML table for Word
       let html = '<table border="1" cellpadding="5" cellspacing="0">';
-      html += '<tr><th>Genre</th><th>Votes</th><th>Filter Type</th><th>Filter Value</th></tr>';
+      html += '<tr><th>Genre</th><th>Votes</th><th>Filter Type</th><th>Filter Value</th><th>Gender</th><th>Age</th></tr>';
       
       data.forEach(row => {
-        html += `<tr><td>${row.Genre}</td><td>${row.Votes}</td><td>${row.FilterType}</td><td>${row.FilterValue}</td></tr>`;
+        html += `<tr><td>${row.Genre}</td><td>${row.Votes}</td><td>${row.FilterType}</td><td>${row.FilterValue}</td><td>${row.Gender}</td><td>${row.Age}</td></tr>`;
       });
       html += '</table>';
       
@@ -165,10 +172,10 @@ const StatsSection = ({ projectTypes }: StatsProps) => {
     } else if (format === 'text') {
       // Convert data to plain text
       let text = `Movie Preferences Statistics - ${filterLabel}\n\n`;
-      text += "Genre\tVotes\tFilter Type\tFilter Value\n";
+      text += "Genre\tVotes\tFilter Type\tFilter Value\tGender\tAge\n";
       
       data.forEach(row => {
-        text += `${row.Genre}\t${row.Votes}\t${row.FilterType}\t${row.FilterValue}\n`;
+        text += `${row.Genre}\t${row.Votes}\t${row.FilterType}\t${row.FilterValue}\t${row.Gender}\t${row.Age}\n`;
       });
       
       // Create a blob and download
@@ -308,6 +315,48 @@ const StatsSection = ({ projectTypes }: StatsProps) => {
 
     return (
       <div className="mb-6 space-y-4">
+        {/* Demographics Filters */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-card rounded-lg border">
+          <div>
+            <Label htmlFor="gender-filter" className="text-sm font-medium">
+              Gender
+            </Label>
+            <Select value={selectedGender} onValueChange={setSelectedGender}>
+              <SelectTrigger>
+                <SelectValue placeholder="All Genders" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Genders</SelectItem>
+                <SelectItem value="male">Male</SelectItem>
+                <SelectItem value="female">Female</SelectItem>
+                <SelectItem value="non-binary">Non-binary</SelectItem>
+                <SelectItem value="prefer-not-to-say">Prefer not to say</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div>
+            <Label htmlFor="age-filter" className="text-sm font-medium">
+              Age Group
+            </Label>
+            <Select value={selectedAge} onValueChange={setSelectedAge}>
+              <SelectTrigger>
+                <SelectValue placeholder="All Ages" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Ages</SelectItem>
+                <SelectItem value="13-17">13-17</SelectItem>
+                <SelectItem value="18-24">18-24</SelectItem>
+                <SelectItem value="25-34">25-34</SelectItem>
+                <SelectItem value="35-44">35-44</SelectItem>
+                <SelectItem value="45-54">45-54</SelectItem>
+                <SelectItem value="55-64">55-64</SelectItem>
+                <SelectItem value="65+">65+</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
         <div>
           <label className="block text-sm font-medium mb-2">Filter By</label>
           <div className="flex flex-wrap gap-2">

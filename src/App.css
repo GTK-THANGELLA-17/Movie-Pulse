@@ -1,3 +1,4 @@
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -39,4 +40,23 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* Add new trailer card animations */
+.trailer-card {
+  transition: all 0.3s ease;
+}
+
+.trailer-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.play-button {
+  transition: all 0.3s ease;
+}
+
+.play-button:hover {
+  transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 0.3);
 }

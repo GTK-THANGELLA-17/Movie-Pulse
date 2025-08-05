@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -12,6 +13,7 @@ import StatsPage from "./pages/StatsPage";
 import NotFound from "./pages/NotFound";
 import IntroPage from "./pages/IntroPage";
 import VotePage from "./pages/VotePage";
+import BenefitsPage from "./pages/BenefitsPage";
 import '@/styles/animations.css';
 
 // ScrollToTop component to handle scrolling on route changes
@@ -52,6 +54,7 @@ const App = () => {
                 <Routes>
                   <Route path="/" element={<IntroPage />} />
                   <Route path="/home" element={<Index />} />
+                  <Route path="/benefits" element={<BenefitsPage />} />
                   <Route path="/stats" element={<StatsPage />} />
                   <Route path="/vote" element={<VotePage />} />
                   <Route path="*" element={<NotFound />} />

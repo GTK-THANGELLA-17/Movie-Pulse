@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { COUNTRIES, TELEVISION_CHANNELS_BY_COUNTRY, TELEVISION_CONTENT_TYPES } from "@/lib/data";
+import { COUNTRIES, TELEVISION_CHANNELS_BY_COUNTRY, TELEVISION_CONTENT_TYPES, TELEVISION_CONTENT_TYPES_BY_CHANNEL } from "@/lib/data";
 import { Country, TelevisionChannel, TelevisionContentType } from "@/lib/types";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -37,6 +37,7 @@ const TelevisionFormFields = ({
   disabled = false
 }: TelevisionFormFieldsProps) => {
   const [availableChannels, setAvailableChannels] = useState<TelevisionChannel[]>([]);
+  const [availableContentTypes, setAvailableContentTypes] = useState<string[]>([]);
 
   useEffect(() => {
     if (country) {
@@ -46,6 +47,15 @@ const TelevisionFormFields = ({
       setAvailableChannels([]);
     }
   }, [country]);
+
+  useEffect(() => {
+    if (televisionChannel) {
+      const contentTypes = TELEVISION_CONTENT_TYPES_BY_CHANNEL[televisionChannel] || [];
+      setAvailableContentTypes(contentTypes.length > 0 ? contentTypes : TELEVISION_CONTENT_TYPES);
+    } else {
+      setAvailableContentTypes(TELEVISION_CONTENT_TYPES);
+    }
+  }, [televisionChannel]);
 
   return (
     <div className="space-y-4">
@@ -61,9 +71,7 @@ const TelevisionFormFields = ({
           </SelectTrigger>
           <SelectContent>
             {COUNTRIES.map((country) => (
-              <SelectItem key={country} value={country}>
-                {country}
-              </SelectItem>
+              <SelectItem key={country} value={country}>{country}</SelectItem>
             ))}
           </SelectContent>
         </Select>
@@ -81,9 +89,7 @@ const TelevisionFormFields = ({
           </SelectTrigger>
           <SelectContent>
             {availableChannels.map((channel) => (
-              <SelectItem key={channel} value={channel}>
-                {channel}
-              </SelectItem>
+              <SelectItem key={channel} value={channel}>{channel}</SelectItem>
             ))}
           </SelectContent>
         </Select>
@@ -94,16 +100,14 @@ const TelevisionFormFields = ({
         <Select
           value={televisionContentType}
           onValueChange={onTelevisionContentTypeChange}
-          disabled={disabled || !country}
+          disabled={disabled || !country || !televisionChannel}
         >
           <SelectTrigger>
             <SelectValue placeholder="Select content type" />
           </SelectTrigger>
           <SelectContent>
-            {TELEVISION_CONTENT_TYPES.map((type) => (
-              <SelectItem key={type} value={type}>
-                {type}
-              </SelectItem>
+            {availableContentTypes.map((type) => (
+              <SelectItem key={type} value={type}>{type}</SelectItem>
             ))}
           </SelectContent>
         </Select>

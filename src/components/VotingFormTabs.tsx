@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { motion, AnimatePresence } from "framer-motion";
-import { Film, Youtube, Tv, Play, Monitor } from "lucide-react";
+import { Film, Youtube, Tv, Play, Monitor, Instagram, Music } from "lucide-react";
 import VotingForm from "./VotingForm";
 import { ProjectType } from "@/lib/types";
 
@@ -43,6 +43,13 @@ const VotingFormTabs = ({ onSubmit, isSubmitted = false }: VotingFormTabsProps) 
       color: "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300"
     },
     {
+      id: "InstagramContent" as ProjectType,
+      label: "Instagram Content",
+      icon: Instagram,
+      description: "Share opinions on Instagram posts, reels, and stories",
+      color: "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-300"
+    },
+    {
       id: "OTTPlatform" as ProjectType,
       label: "OTT Platforms",
       icon: Monitor,
@@ -55,6 +62,13 @@ const VotingFormTabs = ({ onSubmit, isSubmitted = false }: VotingFormTabsProps) 
       icon: Tv,
       description: "Rate TV channels and television programming",
       color: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
+    },
+    {
+      id: "MusicContent" as ProjectType,
+      label: "Music",
+      icon: Music,
+      description: "Share your music preferences, genres, and moods",
+      color: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300"
     }
   ];
 
@@ -72,7 +86,7 @@ const VotingFormTabs = ({ onSubmit, isSubmitted = false }: VotingFormTabsProps) 
           </CardDescription>
         </CardHeader>
         <CardContent className="p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-4 mb-6">
             {contentTypes.map((type) => {
               const Icon = type.icon;
               const isActive = activeTab === type.id;

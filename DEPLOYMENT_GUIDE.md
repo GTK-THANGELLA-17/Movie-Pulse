@@ -1,258 +1,236 @@
 
 # MoviePulse Deployment Guide
 
+## Current Architecture Overview
+
+MoviePulse uses a modern three-tier architecture:
+- **Frontend**: Vercel (React/Vite application)
+- **Backend**: Render.com (Node.js/Express API)
+- **Database**: MongoDB Atlas (Opinion storage and analytics)
+
 ## Table of Contents
 1. [Prerequisites](#prerequisites)
-2. [Backend Deployment (Render.com)](#backend-deployment)
-3. [Frontend Deployment (Vercel)](#frontend-deployment)
-4. [MongoDB Configuration](#mongodb-configuration)
-5. [Environment Variables](#environment-variables)
-6. [Testing the Deployment](#testing-the-deployment)
-7. [Troubleshooting](#troubleshooting)
+2. [MongoDB Atlas Setup](#mongodb-atlas-setup)
+3. [Backend Deployment (Render.com)](#backend-deployment)
+4. [Frontend Deployment (Vercel)](#frontend-deployment)
+5. [Environment Configuration](#environment-configuration)
+6. [Testing the Complete Flow](#testing-the-complete-flow)
+7. [Monitoring and Maintenance](#monitoring-and-maintenance)
 
 ## Prerequisites
 
-- GitHub account
-- MongoDB Atlas account
-- Render.com account
-- Vercel account
-- Node.js 18+ (for local testing)
+- GitHub account with your MoviePulse repository
+- MongoDB Atlas account (free tier available)
+- Render.com account (free tier available)
+- Vercel account (free tier available)
+- Node.js 18+ (for local development)
+
+## MongoDB Atlas Setup
+
+### 1. Create MongoDB Cluster
+1. Sign up at [MongoDB Atlas](https://cloud.mongodb.com/)
+2. Create a new cluster (M0 free tier recommended for testing)
+3. Choose your preferred cloud provider and region
+4. Wait for cluster creation (2-3 minutes)
+
+### 2. Configure Database Access
+1. Go to "Database Access" under Security
+2. Add new database user:
+   - Username: Choose a secure username
+   - Password: Generate a secure password (save it!)
+   - Database User Privileges: Read and write to any database
+3. Click "Add User"
+
+### 3. Configure Network Access
+1. Go to "Network Access" under Security
+2. Add IP Address:
+   - For development: Click "Allow Access from Anywhere" (0.0.0.0/0)
+   - For production: Add specific IP ranges for better security
+3. Confirm the entry
+
+### 4. Get Connection String
+1. Click "Connect" on your cluster
+2. Choose "Connect your application"
+3. Copy the connection string:
+   ```
+   mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority
+   ```
+4. Replace `<username>` and `<password>` with your credentials
+5. Add database name: `moviepulse` at the end before the query parameters
 
 ## Backend Deployment (Render.com)
 
-### 1. Prepare Your Repository
-
-1. Push your code to GitHub
-2. Ensure your `server/` directory contains:
-   - `server.js`
-   - `package.json`
-   - `routes/opinions.js`
-   - `models/Opinion.js`
-
-### 2. Create MongoDB Atlas Database
-
-1. Go to [MongoDB Atlas](https://cloud.mongodb.com/)
-2. Create a new cluster (free tier is sufficient)
-3. Create a database user with read/write permissions
-4. Get your connection string:
-   ```
-   mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/moviepulse?retryWrites=true&w=majority
-   ```
-
-### 3. Deploy to Render.com
-
-1. Go to [Render.com](https://render.com/) and sign up/login
+### 1. Create Web Service
+1. Sign up/login to [Render.com](https://render.com/)
 2. Click "New +" → "Web Service"
 3. Connect your GitHub repository
-4. Configure the service:
+4. Configure service settings:
    - **Name**: `moviepulse-api`
-   - **Environment**: `Node`
-   - **Region**: Choose closest to your users
+   - **Environment**: Node
+   - **Region**: Choose closest to your audience
    - **Branch**: `main` (or your default branch)
    - **Root Directory**: `server`
    - **Build Command**: `npm install`
    - **Start Command**: `node server.js`
+   - **Instance Type**: Free (for testing)
 
-### 4. Set Environment Variables on Render
-
-In your Render service dashboard, go to "Environment" and add:
-
-```bash
-NODE_ENV=production
-PORT=10000
-MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/moviepulse?retryWrites=true&w=majority
-ADMIN_KEY=your-secure-admin-key-here
-```
-
-### 5. Deploy
-
-1. Click "Create Web Service"
-2. Wait for deployment to complete
-3. Note your API URL: `https://your-service-name.onrender.com`
-
-## Frontend Deployment (Vercel)
-
-### 1. Update API URLs
-
-Before deploying, update the API URLs in your frontend code:
-
-In `src/components/VotingForm.tsx`, replace:
-```javascript
-const response = await fetch('https://moviepulse-api-snfl.onrender.com/api/opinions', {
-```
-
-With your actual Render API URL:
-```javascript
-const response = await fetch('https://your-service-name.onrender.com/api/opinions', {
-```
-
-### 2. Deploy to Vercel
-
-1. Go to [Vercel](https://vercel.com/) and sign up/login
-2. Click "New Project"
-3. Import your GitHub repository
-4. Configure project:
-   - **Framework Preset**: Vite
-   - **Root Directory**: `./` (leave as default)
-   - **Build Command**: `npm run build`
-   - **Output Directory**: `dist`
-
-### 3. Environment Variables (if needed)
-
-If you have any frontend environment variables, add them in Vercel's project settings under "Environment Variables".
-
-### 4. Deploy
-
-1. Click "Deploy"
-2. Wait for deployment to complete
-3. Your app will be available at: `https://your-project-name.vercel.app`
-
-## MongoDB Configuration
-
-### Required Collections
-
-Your MongoDB database should automatically create these collections when data is inserted:
-
-1. **opinions** - Stores user opinions/votes
-   - Indexes are created automatically by the backend
-   - Schema defined in `server/models/Opinion.js`
-
-### Sample Data Structure
-
-```json
-{
-  "_id": "ObjectId",
-  "category": "film",
-  "projectType": "HighBudgetFilm",
-  "question": "What's your preference for High Budget Film?",
-  "answer": "Country: India, Film Industry: Bollywood, Genre: Action",
-  "userId": "user_1234567890_abcdef",
-  "filmIndustry": "Bollywood",
-  "genre": "Action",
-  "country": "India",
-  "demographics": {
-    "gender": "male",
-    "age": 25,
-    "region": "India"
-  },
-  "sentiment": "positive",
-  "createdAt": "2025-01-01T00:00:00.000Z",
-  "timestamp": "2025-01-01T00:00:00.000Z"
-}
-```
-
-## Environment Variables
-
-### Backend (.env for Render)
-
+### 2. Environment Variables
+Add these in Render's Environment section:
 ```bash
 NODE_ENV=production
 PORT=10000
 MONGODB_URI=mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/moviepulse?retryWrites=true&w=majority
-ADMIN_KEY=your-secure-admin-key-here
+CORS_ORIGIN=https://your-vercel-app.vercel.app
 ```
 
-### Frontend (No env vars needed)
+### 3. Deploy Backend
+1. Click "Create Web Service"
+2. Wait for build and deployment (5-10 minutes)
+3. Note your API URL: `https://moviepulse-api-xxxx.onrender.com`
 
-The frontend uses the hardcoded API URL. Update it in the code before deployment.
+## Frontend Deployment (Vercel)
 
-## Testing the Deployment
+### 1. Update API Configuration
+Before deploying, update the API URL in your frontend code. In your Vercel project, the API calls should point to your Render backend.
 
-### 1. Test Backend API
+### 2. Deploy to Vercel
+1. Sign up/login to [Vercel](https://vercel.com/)
+2. Click "New Project"
+3. Import your GitHub repository
+4. Configure project:
+   - **Framework Preset**: Vite
+   - **Root Directory**: `./` (project root)
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `dist`
 
-Test your API endpoints:
-
+### 3. Environment Variables (Optional)
+If needed, add environment variables in Vercel project settings:
 ```bash
-# Health check
-curl https://your-service-name.onrender.com/
-
-# Get opinions
-curl https://your-service-name.onrender.com/api/opinions
-
-# Test CORS
-curl -H "Origin: https://your-project-name.vercel.app" \
-     -H "Access-Control-Request-Method: POST" \
-     -H "Access-Control-Request-Headers: Content-Type" \
-     -X OPTIONS \
-     https://your-service-name.onrender.com/api/opinions
+VITE_API_URL=https://moviepulse-api-xxxx.onrender.com
 ```
 
-### 2. Test Frontend
+### 4. Deploy
+1. Click "Deploy"
+2. Wait for build completion (3-5 minutes)
+3. Your app is live at: `https://your-project.vercel.app`
 
-1. Visit your Vercel URL
-2. Try submitting an opinion
-3. Check if data appears in MongoDB Atlas
-4. Verify the Statistics page shows data
+## Environment Configuration
 
-### 3. Monitor Logs
+### Backend Environment Variables
+```bash
+# Server Configuration
+NODE_ENV=production
+PORT=10000
 
-- **Render**: Check service logs in dashboard
-- **Vercel**: Check function logs in dashboard
-- **MongoDB**: Monitor operations in Atlas
+# Database
+MONGODB_URI=mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/moviepulse?retryWrites=true&w=majority
 
-## Troubleshooting
+# CORS (Important!)
+CORS_ORIGIN=https://your-vercel-app.vercel.app
 
-### Common Issues
+# Optional Security
+JWT_SECRET=your-secure-jwt-secret
+API_KEY=your-api-key
+```
 
-#### 1. CORS Errors
-- Ensure your frontend URL is in the CORS configuration
-- Check that the API URL is correct in frontend code
+### Update CORS in Backend
+Ensure your backend allows requests from your Vercel domain:
+```javascript
+// In server.js
+const corsOptions = {
+  origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+  credentials: true,
+};
+```
 
-#### 2. MongoDB Connection Issues
-- Verify MongoDB URI is correct
-- Check IP whitelist in MongoDB Atlas (allow all: 0.0.0.0/0)
-- Ensure database user has correct permissions
+## Testing the Complete Flow
 
-#### 3. API Timeout
-- Render free tier may have cold starts
-- Consider upgrading to paid tier for better performance
+### 1. Test API Health
+```bash
+curl https://moviepulse-api-xxxx.onrender.com/health
+# Should return: {"status": "OK", "timestamp": "..."}
+```
 
-#### 4. Build Failures
-- Check build logs in Vercel/Render
-- Ensure all dependencies are in package.json
-- Verify Node.js version compatibility
+### 2. Test Opinion Submission
+Visit your Vercel app and:
+1. Go to the voting page
+2. Submit an opinion for any category
+3. Check if submission is successful
+4. Verify data appears in MongoDB Atlas (Browse Collections)
+
+### 3. Test Statistics
+1. Go to the stats page on your Vercel app
+2. Verify that submitted opinions appear in charts
+3. Test different category filters
+4. Check real-time updates
+
+### 4. Test Database Connection
+```bash
+curl https://moviepulse-api-xxxx.onrender.com/api/opinions/analytics
+# Should return comprehensive analytics data
+```
+
+## Data Flow Verification
+
+**Complete User Journey:**
+1. **User visits** → `https://your-project.vercel.app`
+2. **Submits opinion** → Frontend sends POST to Render backend
+3. **Backend validates** → Saves to MongoDB Atlas
+4. **Creates vote record** → Prevents duplicate submissions
+5. **Views stats** → Frontend fetches from backend → Backend aggregates from MongoDB
+6. **Real-time updates** → New opinions immediately reflect in statistics
+
+**Database Collections Created:**
+- `opinions`: Stores all user opinions with demographics
+- `voterecords`: Tracks voting to prevent duplicates
+- Automatic indexes for optimized queries
+
+## Monitoring and Maintenance
+
+### Health Monitoring
+- **Backend Health**: `https://moviepulse-api-xxxx.onrender.com/health`
+- **Database Status**: Check MongoDB Atlas monitoring dashboard
+- **Frontend Status**: Vercel automatically monitors deployments
 
 ### Performance Optimization
+1. **Render.com Free Tier**: May experience cold starts (30-60 seconds)
+2. **MongoDB Free Tier**: 512MB storage limit
+3. **Vercel Free Tier**: Automatic global CDN and optimizations
 
-1. **Enable caching** in your API responses
-2. **Use CDN** for static assets (Vercel does this automatically)
-3. **Optimize images** and assets
-4. **Enable compression** on your API server
-5. **Monitor performance** with tools like Lighthouse
+### Scaling Considerations
+- **Traffic Growth**: Upgrade Render.com to paid tier for faster response times
+- **Data Growth**: Upgrade MongoDB Atlas tier when approaching storage limits
+- **Global Users**: Render.com automatically handles geographic distribution
 
-### Security Considerations
+### Security Best Practices
+1. **Environment Variables**: Never commit sensitive data to repository
+2. **CORS Configuration**: Only allow your frontend domain
+3. **Input Validation**: Backend validates all opinion submissions
+4. **Rate Limiting**: Implemented to prevent spam submissions
 
-1. **Never expose** MongoDB URI in frontend code
-2. **Use HTTPS** for all communications
-3. **Validate input** on both frontend and backend
-4. **Rate limiting** on API endpoints
-5. **Monitor** for unusual activity
+### Backup and Recovery
+- **MongoDB Atlas**: Automatic backups included in free tier
+- **Code Repository**: GitHub serves as version control backup
+- **Deployment**: Both Vercel and Render.com maintain deployment history
 
-## Support
+## Troubleshooting Common Issues
 
-If you encounter issues:
+### CORS Errors
+- Verify `CORS_ORIGIN` environment variable matches your Vercel URL exactly
+- Check for trailing slashes in URLs
 
-1. Check the logs in Render/Vercel dashboards
-2. Verify environment variables are set correctly
-3. Test API endpoints with tools like Postman
-4. Check MongoDB Atlas monitoring for connection issues
+### Database Connection Issues
+- Verify MongoDB connection string format
+- Check Network Access whitelist in MongoDB Atlas
+- Ensure database user has proper permissions
 
-## Updating the Application
+### Cold Start Delays
+- Render.com free tier may take 30-60 seconds to wake up
+- Consider upgrading to paid tier for production use
 
-### Backend Updates
-1. Push changes to GitHub
-2. Render will automatically redeploy
+### Build Failures
+- Check build logs in Render.com dashboard
+- Verify all dependencies are listed in package.json
+- Ensure Node.js version compatibility
 
-### Frontend Updates
-1. Update API URLs if changed
-2. Push changes to GitHub
-3. Vercel will automatically redeploy
-
-### Database Schema Changes
-1. Update the Opinion model if needed
-2. Consider migration scripts for existing data
-3. Test changes in development first
-
----
-
-**Important**: Always test your deployment thoroughly before announcing it to users. Monitor the application for the first few hours after deployment to catch any issues early.
+This deployment setup provides a robust, scalable foundation for MoviePulse with proper separation of concerns and modern best practices.

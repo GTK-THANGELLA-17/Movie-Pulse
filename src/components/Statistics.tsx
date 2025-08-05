@@ -28,9 +28,9 @@ type FilterMode = "industry" | "projectType" | "country";
 
 const Statistics = () => {
   const { toast } = useToast();
-  const [selectedIndustry, setSelectedIndustry] = useState<FilmIndustry>(FILM_INDUSTRIES[0]);
-  const [selectedProjectType, setSelectedProjectType] = useState<ProjectType>(PROJECT_TYPES[0]);
-  const [selectedCountry, setSelectedCountry] = useState<Country>(COUNTRIES[0]);
+  const [selectedIndustry, setSelectedIndustry] = useState<FilmIndustry>(FILM_INDUSTRIES[0] as FilmIndustry);
+  const [selectedProjectType, setSelectedProjectType] = useState<ProjectType>(PROJECT_TYPES[0] as ProjectType);
+  const [selectedCountry, setSelectedCountry] = useState<Country>(COUNTRIES[0] as Country);
   const [filterMode, setFilterMode] = useState<FilterMode>("industry");
   const [viewType, setViewType] = useState<ViewType>("bar");
   const [chartData, setChartData] = useState<any[]>([]);
@@ -63,6 +63,35 @@ const Statistics = () => {
     updateChartData();
     loadUserNotes();
   }, [selectedIndustry, selectedProjectType, selectedCountry, filterMode]);
+
+  // Listen for global stats refresh events
+  useEffect(() => {
+    const handleGlobalRefresh = () => {
+      console.log('Statistics component: Global refresh event received');
+      updateChartData();
+      loadUserNotes();
+    };
+
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key && event.key.includes('moviepulse-session-')) {
+        console.log('Statistics component: Session storage changed, refreshing');
+        updateChartData();
+        loadUserNotes();
+      }
+    };
+
+    window.addEventListener('refreshAllStats', handleGlobalRefresh);
+    window.addEventListener('refreshLocalStats', handleGlobalRefresh);
+    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('opinionSubmitted', handleGlobalRefresh);
+
+    return () => {
+      window.removeEventListener('refreshAllStats', handleGlobalRefresh);
+      window.removeEventListener('refreshLocalStats', handleGlobalRefresh);
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('opinionSubmitted', handleGlobalRefresh);
+    };
+  }, []);
   
   const updateChartData = () => {
     setIsLoading(true);
@@ -208,7 +237,7 @@ const Statistics = () => {
   const renderChart = () => {
     if (isLoading) {
       return (
-        <div className="flex items-center justify-center h-80">
+        <div className="flex items-center justify-center h-60 md:h-80">
           <div className="animate-pulse flex flex-col items-center">
             <div className="w-16 h-16 rounded-full bg-muted"></div>
             <div className="mt-4 w-24 h-5 bg-muted rounded"></div>
@@ -219,10 +248,10 @@ const Statistics = () => {
     
     if (chartData.every(item => item.value === 0)) {
       return (
-        <div className="flex items-center justify-center h-80 text-center">
+        <div className="flex items-center justify-center h-60 md:h-80 text-center px-4">
           <div className="max-w-md">
-            <h3 className="heading-sm mb-2">No Data Available</h3>
-            <p className="text-muted-foreground">
+            <h3 className="text-lg font-semibold mb-2">No Data Available</h3>
+            <p className="text-muted-foreground text-sm">
               There are currently no votes for {filterMode === "industry" 
                 ? selectedIndustry 
                 : filterMode === "projectType" 
@@ -237,16 +266,24 @@ const Statistics = () => {
     switch (viewType) {
       case "bar":
         return (
-          <ResponsiveContainer width="100%" height={400}>
-            <BarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 40 }}>
+          <ResponsiveContainer width="100%" height={300} className="md:!h-[400px]">
+            <BarChart data={chartData} margin={{ top: 20, right: 10, left: 10, bottom: 60 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} opacity={0.3} />
-              <XAxis dataKey="name" angle={-45} textAnchor="end" height={60} />
-              <YAxis />
+              <XAxis 
+                dataKey="name" 
+                angle={-45} 
+                textAnchor="end" 
+                height={80}
+                fontSize={12}
+                interval={0}
+              />
+              <YAxis fontSize={12} />
               <Tooltip 
                 contentStyle={{ 
                   borderRadius: "8px", 
                   boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
-                  border: "none"
+                  border: "none",
+                  fontSize: "12px"
                 }}
               />
               <Bar dataKey="value" fill="#4f46e5" radius={[4, 4, 0, 0]}>
@@ -260,17 +297,21 @@ const Statistics = () => {
         
       case "pie":
         return (
-          <ResponsiveContainer width="100%" height={400}>
+          <ResponsiveContainer width="100%" height={300} className="md:!h-[400px]">
             <PieChart>
               <Pie
                 data={chartData}
                 cx="50%"
                 cy="50%"
                 labelLine={false}
-                outerRadius={150}
+                outerRadius={window.innerWidth < 768 ? 80 : 150}
                 fill="#8884d8"
                 dataKey="value"
-                label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                label={({ name, percent }) => 
+                  window.innerWidth < 768 
+                    ? `${(percent * 100).toFixed(0)}%`
+                    : `${name}: ${(percent * 100).toFixed(0)}%`
+                }
               >
                 {chartData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -288,9 +329,9 @@ const Statistics = () => {
             <table className="w-full border-collapse">
               <thead>
                 <tr className="border-b bg-muted/50">
-                  <th className="px-4 py-3 text-left font-medium">Genre</th>
-                  <th className="px-4 py-3 text-left font-medium">Count</th>
-                  <th className="px-4 py-3 text-left font-medium">Percentage</th>
+                  <th className="px-2 md:px-4 py-3 text-left font-medium text-sm">Genre</th>
+                  <th className="px-2 md:px-4 py-3 text-left font-medium text-sm">Count</th>
+                  <th className="px-2 md:px-4 py-3 text-left font-medium text-sm">%</th>
                 </tr>
               </thead>
               <tbody>
@@ -300,14 +341,14 @@ const Statistics = () => {
                   
                   return (
                     <tr key={index} className="border-b hover:bg-muted/50">
-                      <td className="px-4 py-3">
+                      <td className="px-2 md:px-4 py-3 text-sm">
                         <div className="flex items-center gap-2">
-                          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: COLORS[index % COLORS.length] }}></div>
-                          {item.name}
+                          <div className="w-2 h-2 md:w-3 md:h-3 rounded-full flex-shrink-0" style={{ backgroundColor: COLORS[index % COLORS.length] }}></div>
+                          <span className="truncate">{item.name}</span>
                         </div>
                       </td>
-                      <td className="px-4 py-3">{item.value}</td>
-                      <td className="px-4 py-3">{percentage.toFixed(1)}%</td>
+                      <td className="px-2 md:px-4 py-3 text-sm">{item.value}</td>
+                      <td className="px-2 md:px-4 py-3 text-sm">{percentage.toFixed(1)}%</td>
                     </tr>
                   );
                 })}
@@ -325,9 +366,9 @@ const Statistics = () => {
           <label className="block text-sm font-medium mb-2">Filter By</label>
           <div className="flex flex-wrap gap-2">
             <button
-              onClick={() => handleFilterModeChange("industry")}
+              onClick={() => setFilterMode("industry")}
               className={cn(
-                "px-4 py-2 rounded-lg font-medium transition-all",
+                "px-3 py-2 rounded-lg font-medium transition-all text-sm",
                 filterMode === "industry" 
                   ? "bg-primary text-primary-foreground" 
                   : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
@@ -336,9 +377,9 @@ const Statistics = () => {
               Film Industry
             </button>
             <button
-              onClick={() => handleFilterModeChange("projectType")}
+              onClick={() => setFilterMode("projectType")}
               className={cn(
-                "px-4 py-2 rounded-lg font-medium transition-all",
+                "px-3 py-2 rounded-lg font-medium transition-all text-sm",
                 filterMode === "projectType" 
                   ? "bg-primary text-primary-foreground" 
                   : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
@@ -347,9 +388,9 @@ const Statistics = () => {
               Project Type
             </button>
             <button
-              onClick={() => handleFilterModeChange("country")}
+              onClick={() => setFilterMode("country")}
               className={cn(
-                "px-4 py-2 rounded-lg font-medium transition-all",
+                "px-3 py-2 rounded-lg font-medium transition-all text-sm",
                 filterMode === "country" 
                   ? "bg-primary text-primary-foreground" 
                   : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
@@ -360,13 +401,13 @@ const Statistics = () => {
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filterMode === "industry" && (
             <div>
               <label className="block text-sm font-medium mb-2">Select Industry</label>
               <Select
                 value={selectedIndustry}
-                onValueChange={(value) => handleIndustryChange(value as FilmIndustry)}
+                onValueChange={(value) => setSelectedIndustry(value as FilmIndustry)}
               >
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select industry" />
@@ -387,7 +428,7 @@ const Statistics = () => {
               <label className="block text-sm font-medium mb-2">Select Project Type</label>
               <Select
                 value={selectedProjectType}
-                onValueChange={(value) => handleProjectTypeChange(value as ProjectType)}
+                onValueChange={(value) => setSelectedProjectType(value as ProjectType)}
               >
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select project type" />
@@ -408,7 +449,7 @@ const Statistics = () => {
               <label className="block text-sm font-medium mb-2">Select Country</label>
               <Select
                 value={selectedCountry}
-                onValueChange={(value) => handleCountryChange(value as Country)}
+                onValueChange={(value) => setSelectedCountry(value as Country)}
               >
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select country" />
@@ -428,34 +469,34 @@ const Statistics = () => {
             <label className="block text-sm font-medium mb-2">View Options</label>
             <div className="flex gap-2">
               <button
-                onClick={() => handleViewChange("bar")}
+                onClick={() => setViewType("bar")}
                 className={cn(
                   "p-2 rounded-lg transition-all",
                   viewType === "bar" ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground"
                 )}
                 title="Bar Chart"
               >
-                <BarChart2 className="w-5 h-5" />
+                <BarChart2 className="w-4 h-4 md:w-5 md:h-5" />
               </button>
               <button
-                onClick={() => handleViewChange("pie")}
+                onClick={() => setViewType("pie")}
                 className={cn(
                   "p-2 rounded-lg transition-all",
                   viewType === "pie" ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground"
                 )}
                 title="Pie Chart"
               >
-                <PieChartIcon className="w-5 h-5" />
+                <PieChartIcon className="w-4 h-4 md:w-5 md:h-5" />
               </button>
               <button
-                onClick={() => handleViewChange("table")}
+                onClick={() => setViewType("table")}
                 className={cn(
                   "p-2 rounded-lg transition-all",
                   viewType === "table" ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground"
                 )}
                 title="Table View"
               >
-                <Table className="w-5 h-5" />
+                <Table className="w-4 h-4 md:w-5 md:h-5" />
               </button>
             </div>
           </div>
@@ -503,31 +544,32 @@ const Statistics = () => {
   };
   
   return (
-    <section id="stats" className="section-container py-20 bg-muted/30">
-      <div className={`space-y-8 ${isVisible ? 'animate-fadeInUp' : 'opacity-0'}`}>
-        <div className="text-center space-y-4 max-w-3xl mx-auto">
+    <section id="stats" className="section-container py-10 md:py-20 bg-muted/30">
+      <div className={`space-y-6 md:space-y-8 ${isVisible ? 'animate-fadeInUp' : 'opacity-0'}`}>
+        <div className="text-center space-y-4 max-w-3xl mx-auto px-4">
           <div className="chip bg-primary/10 text-primary mx-auto">Insights</div>
-          <h2 className="heading-lg">Genre Preferences</h2>
-          <p className="body-md text-muted-foreground">
+          <h2 className="text-2xl md:text-4xl font-bold">Genre Preferences</h2>
+          <p className="text-sm md:text-base text-muted-foreground">
             Explore real-time statistics on audience preferences across different film industries,
             project types, and countries. These insights help filmmakers make data-driven decisions
             for their next projects.
           </p>
         </div>
         
-        <div className="glass rounded-xl p-6 md:p-8">
+        <div className="glass rounded-xl p-4 md:p-8 mx-4 md:mx-0">
           {renderFilterControls()}
           
           <div className="mb-6">{renderChart()}</div>
           
-          <div className="flex flex-wrap justify-between items-center gap-3 pt-2 border-t mt-6 pt-4">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pt-2 border-t mt-6 pt-4">
             <div className="flex flex-wrap gap-2">
               <button
-                className="px-4 py-2 bg-secondary text-secondary-foreground rounded-lg flex items-center gap-2 hover:bg-secondary/80 transition-all"
-                onClick={toggleUserNotes}
+                className="px-3 py-2 bg-secondary text-secondary-foreground rounded-lg flex items-center gap-2 hover:bg-secondary/80 transition-all text-sm"
+                onClick={() => setShowNotes(!showNotes)}
               >
                 <MessageSquare className="w-4 h-4" />
-                {showNotes ? "Hide User Comments" : "Show User Comments"}
+                <span className="hidden sm:inline">{showNotes ? "Hide" : "Show"} Comments</span>
+                <span className="sm:hidden">{showNotes ? "Hide" : "Show"}</span>
               </button>
               
               <AppSocialShare variant="button" showStats={true} />
@@ -535,39 +577,70 @@ const Statistics = () => {
             
             <div className="flex flex-wrap gap-2">
               <button
-                className="px-4 py-2 bg-secondary text-secondary-foreground rounded-lg flex items-center gap-2 hover:bg-secondary/80 transition-all"
-                onClick={() => handleDownload('excel')}
+                className="px-3 py-2 bg-secondary text-secondary-foreground rounded-lg flex items-center gap-2 hover:bg-secondary/80 transition-all text-sm"
+                onClick={() => {
+                  const data = chartData.map(item => ({
+                    Genre: item.name,
+                    Votes: item.value,
+                    FilterType: filterMode.charAt(0).toUpperCase() + filterMode.slice(1),
+                    FilterValue: filterMode === "industry" 
+                      ? selectedIndustry 
+                      : filterMode === "projectType" 
+                      ? PROJECT_TYPE_LABELS[selectedProjectType]
+                      : selectedCountry
+                  }));
+                  
+                  const worksheet = XLSX.utils.json_to_sheet(data);
+                  const workbook = XLSX.utils.book_new();
+                  XLSX.utils.book_append_sheet(workbook, worksheet, "Movie Preferences");
+                  XLSX.writeFile(workbook, `MoviePulse_Stats.xlsx`);
+                  
+                  toast({
+                    title: "Download successful",
+                    description: "Data exported to Excel format.",
+                  });
+                }}
               >
                 <FileSpreadsheet className="w-4 h-4" />
-                Excel
-              </button>
-              <button
-                className="px-4 py-2 bg-secondary text-secondary-foreground rounded-lg flex items-center gap-2 hover:bg-secondary/80 transition-all"
-                onClick={() => handleDownload('word')}
-              >
-                <FileText className="w-4 h-4" />
-                Word
-              </button>
-              <button
-                className="px-4 py-2 bg-secondary text-secondary-foreground rounded-lg flex items-center gap-2 hover:bg-secondary/80 transition-all"
-                onClick={() => handleDownload('text')}
-              >
-                <Download className="w-4 h-4" />
-                Text
+                <span className="hidden sm:inline">Excel</span>
               </button>
             </div>
           </div>
           
-          {renderUserNotes()}
+          {showNotes && userNotes.length > 0 && (
+            <div className="mt-8 space-y-4">
+              <h3 className="text-lg font-semibold">User Comments & Insights</h3>
+              <div className="space-y-4 max-h-[300px] md:max-h-[400px] overflow-y-auto pr-2">
+                {userNotes.map((vote) => (
+                  <div key={vote.id} className="p-3 md:p-4 rounded-lg border bg-card">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2 gap-2">
+                      <div className="flex flex-wrap items-center gap-2 text-xs md:text-sm font-medium">
+                        <div className="w-2 h-2 rounded-full bg-primary"></div>
+                        <span>{vote.genre}</span>
+                        <span className="text-muted-foreground">•</span>
+                        <span>{vote.filmIndustry}</span>
+                        <span className="text-muted-foreground">•</span>
+                        <span>{PROJECT_TYPE_LABELS[vote.projectType]}</span>
+                      </div>
+                      <span className="text-xs text-muted-foreground">
+                        {new Date(vote.timestamp).toLocaleDateString()}
+                      </span>
+                    </div>
+                    <p className="text-muted-foreground text-sm">{vote.notes}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
         
-        <div className="text-center max-w-2xl mx-auto">
-          <h3 className="heading-sm mb-4">For Filmmakers & Producers</h3>
-          <p className="text-muted-foreground mb-4">
+        <div className="text-center max-w-2xl mx-auto px-4">
+          <h3 className="text-lg md:text-xl font-semibold mb-4">For Filmmakers & Producers</h3>
+          <p className="text-muted-foreground mb-4 text-sm md:text-base">
             These statistics provide valuable insights for your next film project. By aligning your creative vision with audience preferences, 
             you can increase the likelihood of creating content that resonates with viewers.
           </p>
-          <p className="text-muted-foreground">
+          <p className="text-muted-foreground text-sm md:text-base">
             Whether you're making a high-budget blockbuster, a low-budget indie film, a short film, or YouTube content,
             understanding genre preferences can help guide your creative decisions and potentially improve commercial success.
           </p>

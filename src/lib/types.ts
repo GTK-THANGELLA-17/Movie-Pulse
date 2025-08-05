@@ -1,8 +1,9 @@
+
 export type FilmIndustry = "Bollywood" | "Hollywood" | "Tollywood" | "Kollywood" | "Mollywood" | "Sandalwood" | "Bhojpuri" | "Punjabi" | "Marathi" | "Bengali" | "Gujarati" | "Assamese" | "Odia" | "Other";
 
 export type Genre = "Action" | "Comedy" | "Drama" | "Horror" | "Romance" | "Thriller" | "Sci-Fi" | "Fantasy" | "Adventure" | "Crime" | "Mystery" | "Documentary" | "Animation" | "Musical" | "War" | "Western" | "Biography" | "History" | "Sport" | "Family";
 
-export type ProjectType = "Films" | "YouTubeFilm" | "YouTubeContent" | "OTTPlatform" | "Television";
+export type ProjectType = "Films" | "YouTubeFilm" | "YouTubeContent" | "OTTPlatform" | "Television" | "InstagramContent" | "MusicContent";
 
 export type FilmProjectType = "HighBudgetFilm" | "LowBudgetFilm" | "ShortFilm";
 
@@ -11,6 +12,25 @@ export type Country = "India" | "USA" | "UK" | "Canada" | "Australia" | "Germany
 export type OTTPlatform = "Netflix" | "Amazon Prime Video" | "Disney+ Hotstar" | "YouTube Premium" | "SonyLIV" | "ZEE5" | "Voot" | "MX Player" | "Alt Balaji" | "Eros Now" | "Hulu" | "HBO Max" | "Apple TV+" | "Paramount+" | "Peacock" | "Other";
 
 export type YouTubeChannelType = "Entertainment" | "Educational" | "Gaming" | "Tech Reviews" | "Lifestyle" | "Music" | "Comedy" | "News" | "Sports" | "Cooking" | "Travel" | "Fashion" | "DIY/Crafts" | "Business" | "Health & Fitness" | "Science" | "Art & Design" | "Movie Reviews" | "Vlogs" | "Other";
+
+export type InstagramContentType = 
+  | "Reels" | "Stories" | "Posts" | "IGTV" | "Live" | "Shopping" | "Fashion" 
+  | "Food" | "Travel" | "Fitness" | "Beauty" | "Lifestyle" | "Comedy" 
+  | "Dance" | "Music" | "Art" | "Photography" | "Business" | "Education"
+  | "News" | "Sports" | "Gaming" | "Tech" | "DIY" | "Parenting" | "Pets"
+  | "Motivation" | "Health" | "Cooking" | "Reviews" | "Unboxing" | "Tutorial"
+  | "Behind the Scenes" | "Challenges" | "Trends" | "Memes" | "Documentary"
+  | "Interview" | "Q&A" | "Product Demo" | "Brand Content" | "Influencer"
+  | "Micro Content" | "Carousel Posts" | "Story Highlights" | "User Generated Content";
+
+export type InstagramProfileType = 
+  | "Personal" | "Business" | "Creator" | "Celebrity" | "Brand" | "Influencer"
+  | "Micro Influencer" | "Nano Influencer" | "Lifestyle Blogger" | "Fashion Influencer"
+  | "Food Blogger" | "Travel Blogger" | "Fitness Influencer" | "Beauty Guru"
+  | "Tech Reviewer" | "Gaming Creator" | "Comedy Creator" | "Educational"
+  | "Artist" | "Photographer" | "Musician" | "Entrepreneur" | "Coach"
+  | "Consultant" | "Agency" | "Organization" | "Non Profit" | "Government"
+  | "Media Company" | "Sports Team" | "Event Organizer" | "Product Page";
 
 export type YouTubeContentCategory = 
   | "Comedy" | "Education" | "Entertainment" | "Gaming" | "Music" | "News" | "Sports" 
@@ -45,7 +65,13 @@ export type YouTubeContentCategory =
   | "Daily Life" | "Personal Stories";
 
 export type TelevisionChannel = string;
-export type TelevisionContentType = "News" | "Entertainment" | "Sports" | "Educational" | "Documentary" | "Movies" | "Series" | "Reality Shows" | "Talk Shows" | "Cartoons" | "Music" | "Religious" | "Regional" | "Other";
+export type TelevisionContentType = "News" | "Entertainment" | "Sports" | "Educational" | "Documentary" | "Movies" | "Series" | "Reality Shows" | "Talk Shows" | "Cartoons" | "Music" | "Religious" | "Regional" | "Comedy Shows" | "Drama Series" | "Soap Opera" | "Game Shows" | "Variety Shows" | "Travel Shows" | "Cooking Shows" | "Fashion Shows" | "Crime Shows" | "History Shows" | "Science Shows" | "Nature Shows" | "Kids Programming" | "Teen Programming" | "Adult Programming" | "Live Events" | "Awards Shows" | "Morning Shows" | "Late Night Shows" | "News Magazine" | "Current Affairs" | "Political Shows" | "Business News" | "Weather" | "Health Shows" | "Fitness Shows" | "Home Improvement" | "Lifestyle" | "Other";
+
+export type MusicGenre = "Pop" | "Rock" | "Hip Hop" | "R&B" | "Country" | "Jazz" | "Classical" | "Electronic" | "Folk" | "Reggae" | "Blues" | "Punk" | "Metal" | "Alternative" | "Indie" | "Soul" | "Funk" | "Disco" | "House" | "Techno" | "Trance" | "Dubstep" | "Bollywood" | "Regional Indian" | "Sufi" | "Qawwali" | "Ghazal" | "Devotional" | "Punjabi" | "Tamil" | "Telugu" | "Bengali" | "Marathi" | "Gujarati" | "Other";
+
+export type MusicMood = "Happy" | "Sad" | "Romantic" | "Energetic" | "Relaxing" | "Motivational" | "Party" | "Workout" | "Study" | "Sleep" | "Meditative" | "Nostalgic" | "Angry" | "Uplifting" | "Melancholic" | "Chill" | "Intense" | "Peaceful" | "Emotional" | "Feel Good";
+
+export type MusicLanguage = "English" | "Hindi" | "Punjabi" | "Tamil" | "Telugu" | "Bengali" | "Marathi" | "Gujarati" | "Kannada" | "Malayalam" | "Urdu" | "Sanskrit" | "Spanish" | "French" | "Korean" | "Japanese" | "Arabic" | "Other";
 
 export interface Vote {
   id: string;
@@ -57,8 +83,13 @@ export interface Vote {
   ottPlatform?: OTTPlatform;
   youtubeContentCategory?: YouTubeContentCategory;
   youtubeChannelType?: YouTubeChannelType;
+  instagramContentType?: InstagramContentType;
+  instagramProfileType?: InstagramProfileType;
   televisionChannel?: TelevisionChannel;
   televisionContentType?: TelevisionContentType;
+  musicGenre?: MusicGenre;
+  musicMood?: MusicMood;
+  musicLanguage?: MusicLanguage;
   notes?: string;
   demographics: {
     gender?: string;
@@ -75,6 +106,8 @@ export interface VotedStatus {
   hasVotedInYoutubeContent: boolean;
   hasVotedInOtt: boolean;
   hasVotedInTelevision: boolean;
+  hasVotedInInstagram: boolean;
+  hasVotedInMusic: boolean;
 }
 
 export interface VotingPeriod {

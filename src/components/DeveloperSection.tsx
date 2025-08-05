@@ -17,7 +17,7 @@ import { Card, CardContent } from "@/components/ui/card";
 const DeveloperSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   
-  // Developer photos
+    // Developer photos
   const photos = [
     "/Images/Profile Pic.JPG",
     "/Images/Profile Pic.JPG",
@@ -28,14 +28,26 @@ const DeveloperSection = () => {
   // Social links
   const socialLinks = [
     { icon: <Github className="w-5 h-5" />, label: "GitHub", url: "https://github.com" },
-    { icon: <Instagram className="w-5 h-5" />, label: "Instagram", url: "https://instagram.com" },
-    { icon: <Facebook className="w-5 h-5" />, label: "Facebook", url: "https://facebook.com" },
-    { icon: <Twitter className="w-5 h-5" />, label: "Twitter", url: "https://twitter.com" },
-    { icon: <MessageCircle className="w-5 h-5" />, label: "Telegram", url: "https://telegram.org" },
+    { icon: <Instagram className="w-5 h-5" />, label: "Instagram", url: "https://www.instagram.com/g_thangella_k/#" },
+    { icon: <Facebook className="w-5 h-5" />, label: "Facebook", url: "https://www.instagram.com/g_thangella_k/" },
+    { icon: <Twitter className="w-5 h-5" />, label: "Twitter", url: "https://twitter.com/g_thangella" },
+    { icon: <MessageCircle className="w-5 h-5" />, label: "Telegram", url: "https://t.me/g_thangella" },
     { icon: <ExternalLink className="w-5 h-5" />, label: "Reddit", url: "https://reddit.com" },
-    { icon: <Linkedin className="w-5 h-5" />, label: "LinkedIn", url: "https://linkedin.com" },
-    { icon: <Smartphone className="w-5 h-5" />, label: "WhatsApp", url: "https://whatsapp.com" },
-    { icon: <ExternalLink className="w-5 h-5" />, label: "Portfolio", url: "#" },
+    { icon: <Linkedin className="w-5 h-5" />, label: "LinkedIn", url: "https://www.linkedin.com/in/gthangella/" },
+    { icon: <Smartphone className="w-5 h-5" />, label: "WhatsApp", url: "https://wa.me/918499090369" },
+   {
+  icon: (
+    <a
+      href="https://thangella-itgc-portfolio.vercel.app/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <ExternalLink className="w-5 h-5 text-green-500" />
+    </a>
+  ),
+  label: "Portfolio",
+  url: "https://thangella-itgc-portfolio.vercel.app/",
+}
   ];
   
   // Auto advance carousel

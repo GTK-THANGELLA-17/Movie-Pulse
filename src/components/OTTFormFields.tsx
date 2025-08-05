@@ -1,4 +1,3 @@
-
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { BookText } from "lucide-react";
@@ -10,13 +9,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { OTTPlatform, Genre } from "@/lib/types";
-import { OTT_PLATFORMS, OTT_GENRES } from "@/lib/data";
+import { OTT_PLATFORMS, OTT_GENRES, OTT_SERIES_TYPES } from "@/lib/data";
 
 interface OTTFormFieldsProps {
   genre: Genre;
   onGenreChange: (genre: Genre) => void;
   ottPlatform: OTTPlatform;
   onOttPlatformChange: (platform: OTTPlatform) => void;
+  seriesType: string;
+  onSeriesTypeChange: (type: string) => void;
   notes: string;
   onNotesChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   disabled?: boolean;
@@ -27,6 +28,8 @@ const OTTFormFields = ({
   onGenreChange,
   ottPlatform,
   onOttPlatformChange,
+  seriesType,
+  onSeriesTypeChange,
   notes,
   onNotesChange,
   disabled = false
@@ -68,6 +71,24 @@ const OTTFormFields = ({
               <SelectItem key={genre} value={genre}>
                 {genre}
               </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div>
+        <Label htmlFor="ott-series-type">Series Type</Label>
+        <Select
+          value={seriesType}
+          onValueChange={onSeriesTypeChange}
+          disabled={disabled}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Select series type" />
+          </SelectTrigger>
+          <SelectContent>
+            {OTT_SERIES_TYPES.map((type) => (
+              <SelectItem key={type} value={type}>{type}</SelectItem>
             ))}
           </SelectContent>
         </Select>

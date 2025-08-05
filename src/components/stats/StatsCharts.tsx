@@ -1,103 +1,119 @@
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
+import React, { useState, useMemo } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { processSectionChartData, getSectionSpecificCharts } from "@/utils/chartDataProcessor";
+import { ProcessedStats } from "@/types/stats";
+import ChartRenderer from "./charts/ChartRenderer";
+import ChartControls from "./charts/ChartControls";
 
 interface StatsChartsProps {
-  projectTypeData: Array<{ name: string; value: number }>;
-  countryData: Array<{ name: string; value: number }>;
-  genreData: Array<{ name: string; value: number }>;
-  youtubeData?: Array<{ name: string; value: number }>;
+  stats: ProcessedStats;
+  sectionType?: string;
 }
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8', '#82CA9D', '#FFC658', '#FF6B6B', '#4ECDC4', '#45B7D1'];
+const StatsCharts: React.FC<StatsChartsProps> = ({
+  stats,
+  sectionType = "local"
+}) => {
+  const [chartType, setChartType] = useState<string>('bar');
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
-const StatsCharts = ({ projectTypeData, countryData, genreData, youtubeData }: StatsChartsProps) => {
+  // Process chart data based on section
+  const chartData = useMemo(() => {
+    return processSectionChartData(stats, sectionType);
+  }, [stats, sectionType]);
+
+  // Get section-specific charts
+  const allCharts = useMemo(() => {
+    return getSectionSpecificCharts(sectionType, chartData);
+  }, [sectionType, chartData]);
+
+  // Get unique categories for filtering
+  const categories = useMemo(() => {
+    return [...new Set(allCharts.map(chart => chart.category))];
+  }, [allCharts]);
+
+  // Filter charts based on selected category
+  const filteredCharts = useMemo(() => {
+    return selectedCategory === 'all' 
+      ? allCharts 
+      : allCharts.filter(chart => chart.category === selectedCategory);
+  }, [selectedCategory, allCharts]);
+
+  if (allCharts.length === 0) {
+    return (
+      <Card className="w-full">
+        <CardHeader className="px-4 sm:px-6">
+          <CardTitle className="text-lg sm:text-xl">Statistics Charts</CardTitle>
+        </CardHeader>
+        <CardContent className="px-4 sm:px-6">
+          <div className="text-center py-6 sm:py-8">
+            <p className="text-muted-foreground text-sm sm:text-base">No data available for charts in this section.</p>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <Card>
-        <CardHeader>
-          <CardTitle>Opinions by Content Type</CardTitle>
-          <CardDescription>Distribution across different project types</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <ResponsiveContainer width="100%" height={300}>
-            <PieChart>
-              <Pie
-                data={projectTypeData}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                outerRadius={80}
-                fill="#8884d8"
-                dataKey="value"
-              >
-                {projectTypeData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+    <Card className="w-full">
+      <CardHeader className="px-4 sm:px-6">
+        <CardTitle className="text-lg sm:text-xl">Statistics Charts</CardTitle>
+        <ChartControls
+          categories={categories}
+          selectedCategory={selectedCategory}
+          onCategoryChange={setSelectedCategory}
+          chartType={chartType}
+          onChartTypeChange={setChartType}
+        />
+      </CardHeader>
+      <CardContent className="px-4 sm:px-6">
+        {filteredCharts.length === 0 ? (
+          <div className="text-center py-6">
+            <p className="text-muted-foreground">No data available for the selected category.</p>
+          </div>
+        ) : (
+          <Tabs defaultValue={filteredCharts[0]?.key} className="w-full">
+            <div className="overflow-x-auto">
+              <TabsList className="grid w-full min-w-fit" style={{ gridTemplateColumns: `repeat(${Math.min(filteredCharts.length, 4)}, minmax(0, 1fr))` }}>
+                {filteredCharts.slice(0, 4).map((chart) => (
+                  <TabsTrigger key={chart.key} value={chart.key} className="text-xs sm:text-sm px-2 sm:px-3">
+                    <span className="truncate">{chart.label}</span>
+                  </TabsTrigger>
                 ))}
-              </Pie>
-              <Tooltip />
-            </PieChart>
-          </ResponsiveContainer>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Top Countries</CardTitle>
-          <CardDescription>Most active regions for voting</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={countryData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" tick={{ fontSize: 12 }} />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="value" fill="#8884d8" />
-            </BarChart>
-          </ResponsiveContainer>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Popular Genres</CardTitle>
-          <CardDescription>Most preferred content genres</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={genreData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" tick={{ fontSize: 12 }} />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="value" fill="#82ca9d" />
-            </BarChart>
-          </ResponsiveContainer>
-        </CardContent>
-      </Card>
-
-      {youtubeData && youtubeData.length > 0 && (
-        <Card>
-          <CardHeader>
-            <CardTitle>YouTube Categories</CardTitle>
-            <CardDescription>Popular YouTube content categories</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={youtubeData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" tick={{ fontSize: 12 }} angle={-45} textAnchor="end" height={60} />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="value" fill="#FF6B6B" />
-              </BarChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-      )}
-    </div>
+              </TabsList>
+            </div>
+            {filteredCharts.length > 4 && (
+              <div className="mt-2 overflow-x-auto">
+                <TabsList className="grid w-full min-w-fit" style={{ gridTemplateColumns: `repeat(${filteredCharts.length - 4}, minmax(0, 1fr))` }}>
+                  {filteredCharts.slice(4).map((chart) => (
+                    <TabsTrigger key={chart.key} value={chart.key} className="text-xs sm:text-sm px-2 sm:px-3">
+                      <span className="truncate">{chart.label}</span>
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+              </div>
+            )}
+            {filteredCharts.map((chart) => (
+              <TabsContent key={chart.key} value={chart.key} className="mt-4">
+                <div className="mb-2">
+                  <h4 className="font-semibold text-sm sm:text-base break-words">{chart.label}</h4>
+                  <p className="text-xs text-muted-foreground">Category: {chart.category}</p>
+                </div>
+                <div className="w-full overflow-hidden">
+                  <ChartRenderer 
+                    data={chart.data} 
+                    chartType={chartType} 
+                    label={chart.label}
+                  />
+                </div>
+              </TabsContent>
+            ))}
+          </Tabs>
+        )}
+      </CardContent>
+    </Card>
   );
 };
 

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -60,6 +59,14 @@ const YouTubeContentStats = ({ className }: YouTubeContentStatsProps) => {
       </Card>
     );
   }
+
+  // Channel Type Data Extraction
+  const channelTypeData = Object.entries(stats.byYoutubeChannelType || {})
+    .sort(([,a], [,b]) => (b as number) - (a as number))
+    .map(([type, count]) => ({
+      name: type,
+      value: count as number
+    }));
 
   const categoryData = Object.entries(stats.byYoutubeCategory)
     .sort(([,a], [,b]) => (b as number) - (a as number))
@@ -179,6 +186,32 @@ const YouTubeContentStats = ({ className }: YouTubeContentStatsProps) => {
               <Bar dataKey="value" fill="#8884d8">
                 {categoryData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </CardContent>
+      </Card>
+
+      {/* Channel Type Chart (NEW) */}
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle>YouTube Channel Type Distribution</CardTitle>
+          <CardDescription>
+            Popular channel types in YouTube content preferences
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ResponsiveContainer width="100%" height={350}>
+            <BarChart data={channelTypeData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="value" fill="#00C49F">
+                {channelTypeData.map((entry, index) => (
+                  <Cell key={`cell-type-${index}`} fill="#00C49F" />
                 ))}
               </Bar>
             </BarChart>

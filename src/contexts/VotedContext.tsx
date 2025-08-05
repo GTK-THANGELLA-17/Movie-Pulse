@@ -1,33 +1,31 @@
 
-import { createContext, useContext, ReactNode } from "react";
-import { useVoteTracking } from "@/hooks/useVoteTracking";
-import { ProjectType } from "@/lib/types";
+import React, { createContext, useContext, ReactNode } from 'react';
+import { useVoteTracking, VotedStatus } from '@/hooks/useVoteTracking';
+import { ProjectType } from '@/lib/types';
 
-interface VotedContextType {
-  hasVotedInFilm: boolean;
-  hasVotedInYoutubeFilm: boolean;
-  hasVotedInYoutubeContent: boolean;
-  hasVotedInOtt: boolean;
-  hasVotedInTelevision: boolean;
-  markAsVoted: (projectType: ProjectType) => Promise<void>;
+interface VotedContextType extends VotedStatus {
   isLoading: boolean;
+  markAsVoted: (projectType: ProjectType) => Promise<void>;
+  hasVotedInCategory: (projectType: ProjectType) => boolean;
+  currentPeriodId: string;
 }
 
 const VotedContext = createContext<VotedContextType | undefined>(undefined);
 
 export function VotedProvider({ children }: { children: ReactNode }) {
-  const { votedStatus, isLoading, markAsVoted } = useVoteTracking();
+  const voteTracking = useVoteTracking();
+
+  // Spread the votedStatus properties to match the interface
+  const contextValue: VotedContextType = {
+    ...voteTracking.votedStatus,
+    isLoading: voteTracking.isLoading,
+    markAsVoted: voteTracking.markAsVoted,
+    hasVotedInCategory: voteTracking.hasVotedInCategory,
+    currentPeriodId: voteTracking.currentPeriodId,
+  };
 
   return (
-    <VotedContext.Provider value={{
-      hasVotedInFilm: votedStatus.hasVotedInFilm,
-      hasVotedInYoutubeFilm: votedStatus.hasVotedInYoutubeFilm,
-      hasVotedInYoutubeContent: votedStatus.hasVotedInYoutubeContent,
-      hasVotedInOtt: votedStatus.hasVotedInOtt,
-      hasVotedInTelevision: votedStatus.hasVotedInTelevision,
-      markAsVoted,
-      isLoading
-    }}>
+    <VotedContext.Provider value={contextValue}>
       {children}
     </VotedContext.Provider>
   );
@@ -36,7 +34,7 @@ export function VotedProvider({ children }: { children: ReactNode }) {
 export function useVoted() {
   const context = useContext(VotedContext);
   if (context === undefined) {
-    throw new Error("useVoted must be used within a VotedProvider");
+    throw new Error('useVoted must be used within a VotedProvider');
   }
   return context;
 }

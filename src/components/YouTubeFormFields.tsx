@@ -1,4 +1,3 @@
-
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { BookText } from "lucide-react";
@@ -35,16 +34,16 @@ const YouTubeFormFields = ({
   onNotesChange,
   disabled = false
 }: YouTubeFormFieldsProps) => {
-  // Get available categories based on selected channel type
+  // Get available categories based on selected channel type (dynamic!)
   const availableCategories = CHANNEL_TYPE_TO_CATEGORIES[youtubeChannelType] || [];
 
   const handleChannelTypeChange = (channelType: YouTubeChannelType) => {
     onYoutubeChannelTypeChange(channelType);
-    
+
     // Auto-select the first relevant category when channel type changes
     const relevantCategories = CHANNEL_TYPE_TO_CATEGORIES[channelType];
     if (relevantCategories && relevantCategories.length > 0) {
-      onYoutubeContentCategoryChange(relevantCategories[0]);
+      onYoutubeContentCategoryChange(relevantCategories[0] as YouTubeContentCategory);
     }
   };
 
@@ -61,7 +60,7 @@ const YouTubeFormFields = ({
             <SelectValue placeholder="Select channel type" />
           </SelectTrigger>
           <SelectContent>
-            {YOUTUBE_CHANNEL_TYPES.map((channelType) => (
+            {Object.keys(CHANNEL_TYPE_TO_CATEGORIES).map((channelType) => (
               <SelectItem key={channelType} value={channelType}>
                 {channelType}
               </SelectItem>
@@ -75,7 +74,7 @@ const YouTubeFormFields = ({
         <Select
           value={youtubeContentCategory}
           onValueChange={onYoutubeContentCategoryChange}
-          disabled={disabled}
+          disabled={disabled || !youtubeChannelType}
         >
           <SelectTrigger>
             <SelectValue placeholder="Select content category" />
@@ -83,7 +82,7 @@ const YouTubeFormFields = ({
           <SelectContent>
             {availableCategories.map((category) => (
               <SelectItem key={category} value={category}>
-                {YOUTUBE_CONTENT_CATEGORY_LABELS[category]}
+                {category}
               </SelectItem>
             ))}
           </SelectContent>

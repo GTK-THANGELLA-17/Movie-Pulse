@@ -59,9 +59,9 @@ const PlatformVideo = () => {
               muted
               loop
             >
-               <source src="/Images/About-Movie-Pulse.mp4" type="video/mp4" />
-  Your browser does not support the video tag.
-</video>
+              <source src="https://assets.mixkit.co/videos/preview/mixkit-animation-of-futuristic-devices-99786-large.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
             
             {/* Video Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-center justify-center">

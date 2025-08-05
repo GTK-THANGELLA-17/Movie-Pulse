@@ -1,14 +1,17 @@
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, lazy, Suspense } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Navbar from "@/components/Navbar";
-import About from "@/components/About";
-import AboutPlatform from "@/components/AboutPlatform";
 import Footer from "@/components/Footer";
 import LoadingIndicator from "@/components/LoadingIndicator";
-import { ArrowUp, ArrowRight, Film, Info, Activity, TrendingUp, Users, BarChart3 } from "lucide-react";
+import WelcomeSection from "@/components/index/WelcomeSection";
+import { ArrowUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/button";
+
+// Lazy load non-critical components
+const About = lazy(() => import("@/components/About"));
+const AboutPlatform = lazy(() => import("@/components/AboutPlatform"));
+const CallToActionSection = lazy(() => import("@/components/index/CallToActionSection"));
 
 const Index = () => {
   const navigate = useNavigate();
@@ -19,27 +22,27 @@ const Index = () => {
   const featuresRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
-    // Simulating page load
+    // Reduce initial loading time
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
+    }, 500);
     
     const handleScroll = () => {
       setShowScrollTop(window.scrollY > 300);
     };
     
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     
-    // Check if we should scroll to voting section based on navigation state
+    // Handle navigation state scrolling
     if (location.state) {
       if (location.state.scrollToVotingSection && votingSectionRef.current) {
         setTimeout(() => {
           votingSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
-        }, 1000);
+        }, 600);
       } else if (location.state.scrollToSection === 'features' && featuresRef.current) {
         setTimeout(() => {
           featuresRef.current?.scrollIntoView({ behavior: 'smooth' });
-        }, 1000);
+        }, 600);
       }
     }
     
@@ -68,8 +71,8 @@ const Index = () => {
     navigate("/");
   };
   
-  // Button click ripple effect
-  const buttonClickEffect = (e) => {
+  // Optimized button click effect
+  const buttonClickEffect = (e: React.MouseEvent<HTMLButtonElement>) => {
     const btn = e.currentTarget;
     const circle = document.createElement('span');
     const diameter = Math.max(btn.clientWidth, btn.clientHeight);
@@ -86,14 +89,13 @@ const Index = () => {
     
     btn.appendChild(circle);
     
-    // Remove the span after the animation completes
     setTimeout(() => {
       circle.remove();
     }, 600);
   };
   
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#f7f4f3] dark:bg-black w-full">
+    <div className="min-h-screen overflow-x-hidden bg-gradient-to-br from-white via-gray-50 to-gray-100 dark:from-black dark:via-gray-900 dark:to-gray-800 w-full">
       <style>
         {`
         .ripple {
@@ -111,225 +113,66 @@ const Index = () => {
             opacity: 0;
           }
         }
-        
-        .button-hover-effect {
-          position: relative;
-          overflow: hidden;
-        }
         `}
       </style>
+      
       <AnimatePresence>
         {isLoading && <LoadingIndicator fullScreen message="Preparing your experience" />}
       </AnimatePresence>
       
       <Navbar />
       
-      {/* Enhanced Hero section for home page */}
-      <section id="hero" className="pt-32 pb-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent dark:from-primary/10 dark:to-transparent"></div>
+      <WelcomeSection 
+        navigateToVote={navigateToVote}
+        navigateToStats={navigateToStats}
+        buttonClickEffect={buttonClickEffect}
+      />
+      
+      <Suspense fallback={<div className="py-20 text-center"><LoadingIndicator /></div>}>
+        <AboutPlatform />
         
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="flex flex-col md:flex-row items-center gap-8">
-            <div className="md:w-1/2">
-              <motion.h1 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7 }}
-                className="text-4xl md:text-6xl font-bold mb-6 text-black dark:text-white"
-              >
-                Welcome to <span className="text-primary">MoviePulse</span>
-              </motion.h1>
-              
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.1 }}
-                className="text-xl mb-6 text-black dark:text-white"
-              >
-                The premier platform for entertainment intelligence and audience insights. 
-                Join a global community shaping the future of content across all entertainment platforms.
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.2 }}
-                className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8"
-              >
-                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg text-center shadow-sm">
-                  <Film className="w-8 h-8 text-primary mx-auto mb-2" />
-                  <div className="text-sm font-medium">Films</div>
-                </div>
-                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg text-center shadow-sm">
-                  <TrendingUp className="w-8 h-8 text-green-500 mx-auto mb-2" />
-                  <div className="text-sm font-medium">OTT</div>
-                </div>
-                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg text-center shadow-sm">
-                  <BarChart3 className="w-8 h-8 text-blue-500 mx-auto mb-2" />
-                  <div className="text-sm font-medium">TV</div>
-                </div>
-                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg text-center shadow-sm">
-                  <Users className="w-8 h-8 text-purple-500 mx-auto mb-2" />
-                  <div className="text-sm font-medium">YouTube</div>
-                </div>
-              </motion.div>
-              
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.3 }}
-                className="flex flex-wrap gap-4"
-              >
-                <Button
-                  onClick={(e) => {
-                    buttonClickEffect(e);
-                    navigateToVote(); 
-                  }}
-                  className="bg-primary text-white hover:bg-primary/90 px-8 py-4 rounded-lg relative overflow-hidden text-lg"
-                  size="lg"
-                >
-                  Cast Your Opinion
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
-                
-                <Button
-                  onClick={(e) => {
-                    buttonClickEffect(e);
-                    navigateToStats();
-                  }}
-                  variant="outline"
-                  className="relative overflow-hidden px-8 py-4 text-lg"
-                  size="lg"
-                >
-                  View Live Statistics
-                </Button>
-              </motion.div>
-            </div>
-            
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.7 }}
-              className="md:w-1/2 relative mt-10 md:mt-0"
-            >
-              <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-2xl">
-                <img 
-                  src="/Images/current-trends.jpg"  // Correct path with forward slash
-                  alt="Movie theater"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
-                  <div className="text-white">
-                    <div className="font-medium mb-1">Current Trending</div>
-                    <div className="text-xl font-bold">What audiences want to see next</div>
-                  </div>
-                </div>
-              </div>
-              
-              <motion.div
-                initial={{ x: "100%", opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.5, duration: 0.5 }}
-                className="absolute -bottom-4 -right-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg"
-              >
-                <div className="flex items-center gap-2 text-sm">
-                  <Activity className="w-4 h-4 text-green-500" />
-                  <span className="text-black dark:text-white font-medium">Live opinions being collected globally</span>
-                </div>
-              </motion.div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-      
-      {/* Add the comprehensive About Platform section */}
-      <AboutPlatform />
-      
-      {/* Features Section */}
-      <div id="features" ref={featuresRef}></div>
-      <About />
-      
-      {/* Enhanced call to action section */}
-      <section 
-        id="voting-section" 
-        ref={votingSectionRef}
-        className="py-20 bg-gradient-to-r from-[#5b2333]/10 to-[#5b2333]/5 dark:from-gray-900 dark:to-black"
-      >
-        <div className="container mx-auto px-4">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-center max-w-4xl mx-auto"
-          >
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-black dark:text-white">Ready to Make an Impact?</h2>
-            <p className="text-xl text-black dark:text-white/80 mb-8">
-              Your voice matters in shaping the future of entertainment across all platforms. Whether you want to 
-              share your preferences, explore current trends, or analyze audience insights, MoviePulse provides 
-              the tools and platform to make your opinion count.
-            </p>
-            
-            <div className="flex flex-col md:flex-row flex-wrap justify-center gap-6 mb-8">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={(e) => {
-                  buttonClickEffect(e);
-                  navigateToVote();
-                }}
-                className="button-hover-effect px-8 py-4 bg-[#5b2333] text-white rounded-lg font-medium text-lg flex items-center gap-2 hover:bg-[#5b2333]/90 transition-all dark:bg-white dark:text-black dark:hover:bg-white/90 relative overflow-hidden"
-              >
-                Cast Your Opinion
-                <ArrowRight className="w-5 h-5" />
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={(e) => {
-                  buttonClickEffect(e);
-                  navigateToStats();
-                }}
-                className="button-hover-effect px-8 py-4 bg-white text-black rounded-lg font-medium text-lg flex items-center gap-2 hover:bg-white/80 transition-all border border-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-700 dark:hover:bg-gray-800/80 relative overflow-hidden"
-              >
-                View Live Statistics
-                <BarChart3 className="w-5 h-5" />
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={(e) => {
-                  buttonClickEffect(e);
-                  navigateToIntro();
-                }}
-                className="button-hover-effect px-8 py-4 bg-white text-black rounded-lg font-medium text-lg flex items-center gap-2 hover:bg-white/80 transition-all border border-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-700 dark:hover:bg-gray-800/80 relative overflow-hidden"
-              >
-                Learn More
-                <Info className="w-5 h-5" />
-              </motion.button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+        <div id="features" ref={featuresRef}></div>
+        <About />
+        
+        <section 
+          id="voting-section" 
+          ref={votingSectionRef}
+        >
+          <CallToActionSection 
+            navigateToVote={navigateToVote}
+            navigateToStats={navigateToStats}
+            navigateToIntro={navigateToIntro}
+            buttonClickEffect={buttonClickEffect}
+          />
+        </section>
+      </Suspense>
       
       <Footer />
       
-      {/* Scroll to top button - only shows when scrolled down */}
+      {/* Scroll to top button */}
       <AnimatePresence>
         {showScrollTop && (
           <motion.button
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.2 }}
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 20 }}
+            transition={{ duration: 0.3, type: "spring", stiffness: 300 }}
+            whileHover={{ scale: 1.1, y: -2 }}
+            whileTap={{ scale: 0.9 }}
             onClick={(e) => {
               buttonClickEffect(e);
               scrollToTop();
             }}
-            className="fixed bottom-8 right-8 z-40 bg-[#5b2333] text-white dark:bg-white dark:text-black w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-[#5b2333]/90 dark:hover:bg-white/90 transition-colors relative overflow-hidden"
+            className="fixed bottom-8 right-8 z-40 bg-gradient-to-r from-primary to-primary/80 text-white dark:bg-gradient-to-r dark:from-white dark:to-white/80 dark:text-black w-14 h-14 rounded-full flex items-center justify-center shadow-2xl hover:shadow-3xl transition-all duration-300 relative overflow-hidden backdrop-blur-xl border border-white/20"
             aria-label="Scroll to top"
-            >
-            <ArrowUp className="w-5 h-5" />
+          >
+            <ArrowUp className="w-6 h-6 relative z-10" />
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"
+              initial={{ x: "-100%" }}
+              whileHover={{ x: "100%" }}
+              transition={{ duration: 0.6 }}
+            />
           </motion.button>
         )}
       </AnimatePresence>

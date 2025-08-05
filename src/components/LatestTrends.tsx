@@ -1,21 +1,22 @@
 
 import { useState } from "react";
-import { ChevronDown, Play, Mail, Phone, MapPin } from "lucide-react";
+import { TrendingUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useIsMobile } from "@/hooks/use-mobile";
+import CategorySelector from "./trends/CategorySelector";
+import VideoCard from "./trends/VideoCard";
+import AdvertisingSection from "./trends/AdvertisingSection";
+import ContactSection from "./trends/ContactSection";
 
 const LatestTrends = () => {
   const [activeCategory, setActiveCategory] = useState("Hollywood");
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const isMobile = useIsMobile();
 
   const categories = [
-    { id: "Hollywood", label: "Hollywood" },
-    { id: "Bollywood", label: "Bollywood" },
-    { id: "Tollywood", label: "Tollywood" },
-    { id: "Television", label: "Television" },
-    { id: "YouTube", label: "YouTube" },
-    { id: "OTT", label: "OTT Platforms" }
+    { id: "Hollywood", label: "Hollywood", icon: "🎬" },
+    { id: "Bollywood", label: "Bollywood", icon: "🎭" },
+    { id: "Tollywood", label: "Tollywood", icon: "🎪" },
+    { id: "Television", label: "Television", icon: "📺" },
+    { id: "YouTube", label: "YouTube", icon: "📹" },
+    { id: "OTT", label: "OTT Platforms", icon: "🎮" }
   ];
 
   const videoContent = {
@@ -24,13 +25,17 @@ const LatestTrends = () => {
         title: "Latest Marvel Trailer",
         description: "Experience the newest superhero adventure",
         videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-        duration: "2:45"
+        duration: "2:45",
+        views: "12M",
+        rating: 4.8
       },
       {
         title: "Christopher Nolan Behind Scenes",
         description: "Exclusive behind-the-scenes footage",
         videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-        duration: "4:20"
+        duration: "4:20",
+        views: "8.5M",
+        rating: 4.9
       }
     ],
     Bollywood: [
@@ -38,13 +43,17 @@ const LatestTrends = () => {
         title: "Shah Rukh Khan's New Film",
         description: "Action-packed thriller preview",
         videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-        duration: "3:15"
+        duration: "3:15",
+        views: "15M",
+        rating: 4.7
       },
       {
         title: "South Indian Blockbuster",
         description: "Pan-Indian cinema at its best",
         videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-        duration: "2:30"
+        duration: "2:30",
+        views: "22M",
+        rating: 4.9
       }
     ],
     Tollywood: [
@@ -52,13 +61,17 @@ const LatestTrends = () => {
         title: "Epic Action Sequence",
         description: "High-octane Telugu cinema",
         videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-        duration: "3:00"
+        duration: "3:00",
+        views: "18M",
+        rating: 4.8
       },
       {
         title: "Mythological Drama",
         description: "Grand visual spectacle",
         videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-        duration: "4:45"
+        duration: "4:45",
+        views: "25M",
+        rating: 4.9
       }
     ],
     Television: [
@@ -66,13 +79,17 @@ const LatestTrends = () => {
         title: "Reality Show Highlights",
         description: "Best moments compilation",
         videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-        duration: "5:30"
+        duration: "5:30",
+        views: "5.2M",
+        rating: 4.6
       },
       {
         title: "Crime Series Teaser",
         description: "Suspenseful investigation drama",
         videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-        duration: "1:45"
+        duration: "1:45",
+        views: "7.8M",
+        rating: 4.7
       }
     ],
     YouTube: [
@@ -80,13 +97,17 @@ const LatestTrends = () => {
         title: "Educational Content Special",
         description: "Learning made engaging",
         videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-        duration: "8:20"
+        duration: "8:20",
+        views: "3.4M",
+        rating: 4.8
       },
       {
         title: "Gaming Livestream",
         description: "Epic gaming moments",
         videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-        duration: "12:15"
+        duration: "12:15",
+        views: "2.1M",
+        rating: 4.9
       }
     ],
     OTT: [
@@ -94,194 +115,111 @@ const LatestTrends = () => {
         title: "International Series Preview",
         description: "Global content showcase",
         videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-        duration: "3:40"
+        duration: "3:40",
+        views: "9.6M",
+        rating: 4.8
       },
       {
         title: "Documentary Feature",
         description: "Real stories, real impact",
         videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-        duration: "6:25"
+        duration: "6:25",
+        views: "4.3M",
+        rating: 4.9
       }
     ]
   };
 
   const handleCategorySelect = (categoryId: string) => {
     setActiveCategory(categoryId);
-    if (isMobile) {
-      setIsDropdownOpen(false);
-    }
   };
 
   return (
-    <section className="py-16 bg-gradient-to-br from-[#f7f4f3] to-white dark:from-black dark:to-gray-900">
-      <div className="container mx-auto px-4">
+    <section className="py-20 bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-black dark:to-gray-800 relative overflow-hidden">
+      {/* Background decorations */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.1, 0.2, 0.1],
+            rotate: [0, 180, 360]
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute -top-1/4 -right-1/4 w-96 h-96 bg-gradient-to-br from-[#5b2333]/20 to-[#983b55]/20 rounded-full blur-3xl"
+        />
+        <motion.div
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.05, 0.15, 0.05],
+            rotate: [360, 180, 0]
+          }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          className="absolute -bottom-1/4 -left-1/4 w-80 h-80 bg-gradient-to-br from-[#983b55]/20 to-[#5b2333]/20 rounded-full blur-3xl"
+        />
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <h2 className="heading-lg text-[#5b2333] dark:text-white mb-4">
+          <motion.div
+            initial={{ scale: 0.9 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-3 bg-gradient-to-r from-[#5b2333]/10 to-[#983b55]/10 backdrop-blur-sm border border-[#5b2333]/20 px-6 py-3 rounded-full mb-6"
+          >
+            <TrendingUp className="w-5 h-5 text-[#5b2333]" />
+            <span className="text-[#5b2333] font-medium">Trending Now</span>
+          </motion.div>
+          
+          <h2 className="text-4xl md:text-5xl font-bold text-[#5b2333] dark:text-white mb-6 leading-tight">
             Latest Entertainment Videos
           </h2>
-          <p className="body-base text-black/70 dark:text-white/70 max-w-2xl mx-auto">
-            Watch exclusive content and trailers from across the entertainment industry
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            Discover exclusive content, trailers, and behind-the-scenes footage from across the entertainment industry
           </p>
         </motion.div>
 
-        {/* Category Selection */}
-        <div className="mb-8">
-          {isMobile ? (
-            // Mobile Dropdown
-            <div className="relative">
-              <button
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg font-medium text-black dark:text-white"
-              >
-                <span>{categories.find(c => c.id === activeCategory)?.label}</span>
-                <ChevronDown className={`w-4 h-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
-              </button>
+        <CategorySelector
+          categories={categories}
+          activeCategory={activeCategory}
+          onCategorySelect={handleCategorySelect}
+        />
 
-              <AnimatePresence>
-                {isDropdownOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50"
-                  >
-                    {categories.map((category) => (
-                      <button
-                        key={category.id}
-                        onClick={() => handleCategorySelect(category.id)}
-                        className="w-full flex items-center gap-2 px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors first:rounded-t-lg last:rounded-b-lg"
-                      >
-                        {category.label}
-                      </button>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          ) : (
-            // Desktop Tabs
-            <div className="flex flex-wrap justify-center gap-2">
-              {categories.map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => handleCategorySelect(category.id)}
-                  className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                    activeCategory === category.id
-                      ? "bg-[#5b2333] text-white dark:bg-white dark:text-black"
-                      : "bg-white/70 text-black hover:bg-white dark:bg-gray-800/70 dark:text-white dark:hover:bg-gray-800"
-                  }`}
-                >
-                  {category.label}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Video Content */}
+        {/* Enhanced Video Content */}
         <AnimatePresence mode="wait">
           <motion.div
             key={activeCategory}
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3 }}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12"
+            transition={{ duration: 0.4 }}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16"
           >
             {videoContent[activeCategory as keyof typeof videoContent].map((video, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
-                className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700"
-              >
-                <div className="relative aspect-video">
-                  <iframe
-                    src={video.videoUrl}
-                    title={video.title}
-                    className="w-full h-full"
-                    allowFullScreen
-                  ></iframe>
-                  <div className="absolute bottom-2 right-2 bg-black/70 text-white px-2 py-1 rounded text-sm">
-                    {video.duration}
-                  </div>
-                </div>
-                <div className="p-6">
-                  <h3 className="font-semibold text-lg text-black dark:text-white mb-2">
-                    {video.title}
-                  </h3>
-                  <p className="text-black/70 dark:text-white/70">
-                    {video.description}
-                  </p>
-                </div>
-              </motion.div>
+              <VideoCard key={index} video={video} index={index} />
             ))}
           </motion.div>
         </AnimatePresence>
 
-        {/* Advertising & Contact Section */}
+        {/* Enhanced Advertising & Contact Section */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="bg-gradient-to-r from-[#5b2333] to-[#983b55] rounded-xl p-8 text-white"
+          className="relative bg-gradient-to-r from-[#5b2333] via-[#7a3444] to-[#983b55] rounded-3xl p-10 text-white overflow-hidden"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Advertising Section */}
-            <div>
-              <h3 className="text-2xl font-bold mb-4">Advertise With Us</h3>
-              <p className="mb-6 text-white/90">
-                Reach millions of entertainment enthusiasts through our platform. 
-                Partner with MoviePulse to showcase your content to engaged audiences.
-              </p>
-              <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-white rounded-full"></div>
-                  <span>Targeted audience reach</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-white rounded-full"></div>
-                  <span>Multi-platform advertising</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-white rounded-full"></div>
-                  <span>Real-time analytics</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Contact Section */}
-            <div>
-              <h3 className="text-2xl font-bold mb-4">Get In Touch</h3>
-              <p className="mb-6 text-white/90">
-                Ready to collaborate? Contact our team to discuss advertising opportunities 
-                and partnership possibilities.
-              </p>
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <Mail className="w-5 h-5" />
-                  <span>advertise@moviepulse.com</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Phone className="w-5 h-5" />
-                  <span>+1 (555) 123-4567</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <MapPin className="w-5 h-5" />
-                  <span>Entertainment District, Los Angeles, CA</span>
-                </div>
-              </div>
-              <button className="mt-6 bg-white text-[#5b2333] px-6 py-3 rounded-lg font-semibold hover:bg-white/90 transition-colors">
-                Contact Sales Team
-              </button>
-            </div>
+          {/* Background pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-white/10 rounded-3xl"></div>
+          </div>
+          
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <AdvertisingSection />
+            <ContactSection />
           </div>
         </motion.div>
       </div>

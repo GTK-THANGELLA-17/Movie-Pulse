@@ -1,7 +1,8 @@
+
 import { useState, useEffect } from "react";
 import PageLayout from "@/components/PageLayout";
 import { motion, AnimatePresence } from "framer-motion";
-import { useVotingPeriod } from "@/contexts/VotingPeriodContext";
+import { VotingPeriodProvider, useVotingPeriod } from "@/contexts/VotingPeriodContext";
 import { Info, Clock, ChevronDown, Globe } from "lucide-react";
 import { ThreeDButton } from "@/components/ui/aceternity/3d-button";
 import { TextShimmer } from "@/components/ui/aceternity/text-shimmer";
@@ -16,12 +17,12 @@ import VotingFormTabs from "@/components/VotingFormTabs";
 import { useVotingFormPatches } from "@/lib/updateVotingForm";
 import VoteSuccessAnimation from "@/components/VoteSuccessAnimation";
 
-const VotePage = () => {
+const VotePageContent = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { isVotingActive, remainingDays } = useVotingPeriod();
   const [showSuccessAnimation, setShowSuccessAnimation] = useState(false);
   const [selectedProjectType, setSelectedProjectType] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false); // Added missing state
+  const [isSubmitted, setIsSubmitted] = useState(false);
   
   // Apply voting form patches
   useVotingFormPatches();
@@ -166,8 +167,8 @@ const VotePage = () => {
                           Current voting period is active with {remainingDays} days remaining.
                         </span>
                       ) : (
-                        <span className="text-red-600 dark:text-red-400 font-medium">
-                          Voting is currently closed. Check back soon for the next voting period.
+                        <span className="text-green-600 dark:text-red-400 font-medium">
+                          Voting is currently ON. Check back soon for the next voting period Also.
                         </span>
                       )}
                     </span>
@@ -227,6 +228,14 @@ const VotePage = () => {
         </div>
       </GradientBackground>
     </PageLayout>
+  );
+};
+
+const VotePage = () => {
+  return (
+    <VotingPeriodProvider>
+      <VotePageContent />
+    </VotingPeriodProvider>
   );
 };
 

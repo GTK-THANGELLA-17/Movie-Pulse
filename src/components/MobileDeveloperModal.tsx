@@ -1,44 +1,17 @@
-import React from "react";
+
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  X,
-  Mail,
-  Github,
-  Linkedin,
-  Globe,
-  Coffee,
-  Heart,
-  Instagram,
-  Facebook,
-  Twitter,
-  MessageCircle,
-  ExternalLink,
-  Smartphone,
-} from "lucide-react";
+import { X, Mail, Github, Linkedin, Globe, Code, Coffee, Heart, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface MobileDeveloperModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const socialLinks = [
-  { icon: <Github className="w-4 h-4" />, label: "GitHub", url: "https://github.com" },
-  { icon: <Instagram className="w-4 h-4" />, label: "Instagram", url: "https://instagram.com" },
-  { icon: <Facebook className="w-4 h-4" />, label: "Facebook", url: "https://facebook.com" },
-  { icon: <Twitter className="w-4 h-4" />, label: "Twitter", url: "https://twitter.com" },
-  { icon: <MessageCircle className="w-4 h-4" />, label: "Telegram", url: "https://telegram.org" },
-  { icon: <ExternalLink className="w-4 h-4" />, label: "Reddit", url: "https://reddit.com" },
-  { icon: <Linkedin className="w-4 h-4" />, label: "LinkedIn", url: "https://linkedin.com" },
-  { icon: <Smartphone className="w-4 h-4" />, label: "WhatsApp", url: "https://whatsapp.com" },
-  { icon: <ExternalLink className="w-4 h-4" />, label: "Portfolio", url: "#" },
-];
-
-const MobileDeveloperModal = ({
-  isOpen,
-  onClose,
-}: MobileDeveloperModalProps) => {
+const MobileDeveloperModal = ({ isOpen, onClose }: MobileDeveloperModalProps) => {
   return (
     <AnimatePresence>
       {isOpen && (
@@ -57,9 +30,9 @@ const MobileDeveloperModal = ({
             className="relative w-full max-w-md h-[90vh] flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
-            <Card className="border-2 border-primary/20 shadow-2xl h-full flex flex-col">
+            <Card className="border-2 border-primary/20 shadow-2xl h-full flex flex-col overflow-hidden">
               <CardContent className="p-0 h-full flex flex-col">
-                {/* Header */}
+                {/* Header with close button */}
                 <div className="relative flex-shrink-0 text-center p-6 border-b">
                   <Button
                     variant="ghost"
@@ -70,20 +43,15 @@ const MobileDeveloperModal = ({
                     <X className="h-4 w-4" />
                   </Button>
 
-                  {/* Profile Picture */}
                   <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
                     transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-                    className="mx-auto mb-4"
+                    className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-primary to-primary/70 rounded-full flex items-center justify-center"
                   >
-                    <img
-                      src="/Images/Profile Pic.JPG"
-                      alt="Profile"
-                      className="w-28 h-28 rounded-full object-cover border-4 border-white shadow-md"
-                    />
+                    <Code className="w-8 h-8 text-primary-foreground" />
                   </motion.div>
-
+                  
                   <motion.h2
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -92,7 +60,7 @@ const MobileDeveloperModal = ({
                   >
                     Developer Info
                   </motion.h2>
-
+                  
                   <motion.p
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -101,75 +69,119 @@ const MobileDeveloperModal = ({
                   >
                     Connect with the creator of MoviePulse
                   </motion.p>
-                </div>
 
-                {/* Scrollable Content */}
-                <div className="flex-1 overflow-y-auto p-6 space-y-6">
-                  <div>
-                    <h3 className="text-2xl font-bold mb-2">GTK - Gadidamalla Thangella</h3>
-                    <p className="text-muted-foreground">Full Stack Developer & UI/UX Designer</p>
-                  </div>
-
-                  <div className="space-y-4">
-                    <p className="leading-relaxed">
-                      A passionate developer with expertise in creating engaging digital experiences.
-                      Specializing in building intuitive web applications that combine beautiful design
-                      with powerful functionality.
-                    </p>
-                    <p className="leading-relaxed">
-                      With a background in both frontend and backend technologies, I bring ideas to life
-                      through clean code and creative problem-solving. My goal is to create software that
-                      makes a positive impact on people's lives.
-                    </p>
-                  </div>
-
-                  <div className="text-center p-4 bg-muted/50 rounded-lg">
-                    <h3 className="font-semibold text-lg mb-2">MoviePulse</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      An innovative platform designed to gather audience preferences and help content
-                      creators make data-driven decisions for better entertainment experiences.
-                    </p>
-                  </div>
-
-                  <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg">
-                    <Coffee className="w-5 h-5 text-primary flex-shrink-0" />
-                    <span className="text-sm">Built with passion and caffeine</span>
-                  </div>
-
-                  <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-red-500/10 to-pink-500/10 rounded-lg">
-                    <Heart className="w-5 h-5 text-red-500 flex-shrink-0" />
-                    <span className="text-sm">Made with ❤️ for the entertainment industry</span>
-                  </div>
-
-                  {/* Contact */}
-                  <Button
-                    className="w-full flex items-center gap-3 h-12 text-left justify-start bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
-                    onClick={() =>
-                      window.open("mailto:contact@moviepulse.app", "_blank")
-                    }
-                  >
-                    <Mail className="w-5 h-5" />
-                    <span>Get in Touch</span>
-                  </Button>
-
-                  {/* Responsive Social Links */}
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                    {socialLinks.map(({ icon, label, url }, index) => (
-                      <Button
-                        key={index}
-                        variant="outline"
-                        size="sm"
-                        className="flex items-center gap-2 h-10 w-full text-xs justify-center"
-                        onClick={() => window.open(url, "_blank")}
-                      >
-                        {icon}
-                        <span className="truncate">{label}</span>
-                      </Button>
-                    ))}
+                  {/* Scroll indicator */}
+                  <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2">
+                    <ChevronDown className="h-4 w-4 text-muted-foreground animate-bounce" />
                   </div>
                 </div>
 
-                {/* Footer */}
+                {/* Scrollable content area */}
+                <ScrollArea className="flex-1 min-h-0">
+                  <div className="p-6 space-y-4">
+                    {/* Developer details */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.5 }}
+                      className="space-y-4"
+                    >
+                      <div className="text-center p-4 bg-muted/50 rounded-lg">
+                        <h3 className="font-semibold text-lg mb-2">MoviePulse</h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          An innovative platform designed to gather audience preferences and help content creators make data-driven decisions for better entertainment experiences.
+                        </p>
+                      </div>
+
+                      <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg">
+                        <Coffee className="w-5 h-5 text-primary flex-shrink-0" />
+                        <span className="text-sm">Built with passion and caffeine</span>
+                      </div>
+
+                      <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-red-500/10 to-pink-500/10 rounded-lg">
+                        <Heart className="w-5 h-5 text-red-500 flex-shrink-0" />
+                        <span className="text-sm">Made with ❤️ for the entertainment industry</span>
+                      </div>
+
+                      <div className="p-4 bg-muted/30 rounded-lg">
+                        <h4 className="font-medium text-sm mb-2">About the Developer</h4>
+                        <p className="text-xs text-muted-foreground leading-relaxed">
+                          G. Thangella is a passionate entrepreneur and tech explorer who specializes in creating digital solutions that make a real difference. With expertise in modern web technologies, he focuses on building user-centric applications.
+                        </p>
+                      </div>
+
+                      <div className="p-4 bg-muted/30 rounded-lg">
+                        <h4 className="font-medium text-sm mb-2">Technology Stack</h4>
+                        <p className="text-xs text-muted-foreground leading-relaxed">
+                          React, TypeScript, TailwindCSS, shadcn/ui, Framer Motion, Node.js, MongoDB, and other cutting-edge technologies to deliver exceptional user experiences.
+                        </p>
+                      </div>
+
+                      <div className="p-4 bg-muted/30 rounded-lg">
+                        <h4 className="font-medium text-sm mb-2">Vision</h4>
+                        <p className="text-xs text-muted-foreground leading-relaxed">
+                          To bridge the gap between content creators and their audiences through data-driven insights, helping shape the future of entertainment across all platforms.
+                        </p>
+                      </div>
+
+                      <div className="p-4 bg-muted/30 rounded-lg">
+                        <h4 className="font-medium text-sm mb-2">Development Philosophy</h4>
+                        <p className="text-xs text-muted-foreground leading-relaxed">
+                          Every line of code is written with user experience in mind. I believe in creating applications that are not just functional, but delightful to use and accessible to everyone.
+                        </p>
+                      </div>
+
+                      <div className="p-4 bg-muted/30 rounded-lg">
+                        <h4 className="font-medium text-sm mb-2">Contact & Social</h4>
+                        <p className="text-xs text-muted-foreground leading-relaxed mb-3">
+                          Connect with me on various platforms to stay updated with my latest projects and thoughts on technology and innovation.
+                        </p>
+                        
+                        <div className="grid grid-cols-3 gap-2 mb-4">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="flex items-center gap-2 h-10"
+                            onClick={() => window.open('https://github.com/GTK-THANGELLA-17', '_blank')}
+                          >
+                            <Github className="w-4 h-4" />
+                            <span className="text-xs">GitHub</span>
+                          </Button>
+                          
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="flex items-center gap-2 h-10"
+                            onClick={() => window.open('https://www.linkedin.com/in/gthangella/', '_blank')}
+                          >
+                            <Linkedin className="w-4 h-4" />
+                            <span className="text-xs">LinkedIn</span>
+                          </Button>
+                          
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="flex items-center gap-2 h-10"
+                            onClick={() => window.open('https://thangella-creaftech-solutions.vercel.app/', '_blank')}
+                          >
+                            <Globe className="w-4 h-4" />
+                            <span className="text-xs">Portfolio</span>
+                          </Button>
+                        </div>
+
+                        <Button
+                          className="w-full flex items-center gap-3 h-12 text-left justify-center bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
+                          onClick={() => window.open('mailto:imgtk17@gmail.com', '_blank')}
+                        >
+                          <Mail className="w-5 h-5" />
+                          <span>Get in Touch</span>
+                        </Button>
+                      </div>
+                    </motion.div>
+                  </div>
+                </ScrollArea>
+
+                {/* Footer - Fixed at bottom */}
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}

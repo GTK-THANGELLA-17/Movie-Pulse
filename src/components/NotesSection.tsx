@@ -1,170 +1,29 @@
 
-import { useState, useEffect } from "react";
-import { MessageSquare, Calendar, User, Filter, Tv } from "lucide-react";
-import { getVotes } from "@/lib/data";
-import { PROJECT_TYPE_LABELS } from "@/lib/data";
-import { Vote } from "@/lib/types";
-import { motion } from "framer-motion";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 
 interface NotesSectionProps {
-  projectTypes: string[];
+  notes: string;
+  setNotes: (notes: string) => void;
 }
 
-const NotesSection = ({ projectTypes }: NotesSectionProps) => {
-  const [userNotes, setUserNotes] = useState<Vote[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [filterGenre, setFilterGenre] = useState<string>("");
-  
-  useEffect(() => {
-    loadUserNotes();
-  }, [projectTypes, filterGenre]);
-  
-  const loadUserNotes = () => {
-    setIsLoading(true);
-    
-    // Simulate API call with improved filtering
-    setTimeout(() => {
-      const allVotes = getVotes();
-      let filteredVotes = allVotes.filter(vote => 
-        projectTypes.includes(vote.projectType) && 
-        vote.notes?.trim()
-      );
-      
-      // Apply genre filter if selected
-      if (filterGenre) {
-        filteredVotes = filteredVotes.filter(vote => vote.genre === filterGenre);
-      }
-      
-      // Sort by timestamp, most recent first
-      filteredVotes.sort((a, b) => 
-        new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
-      );
-      
-      setUserNotes(filteredVotes);
-      setIsLoading(false);
-    }, 300);
-  };
-
-  // Get unique genres from the filtered votes
-  const getUniqueGenres = () => {
-    const allVotes = getVotes();
-    const filteredVotes = allVotes.filter(vote => 
-      projectTypes.includes(vote.projectType) && vote.notes?.trim()
-    );
-    
-    const genres = filteredVotes.map(vote => vote.genre);
-    return Array.from(new Set(genres)).filter(Boolean);
-  };
-  
-  if (isLoading) {
-    return (
-      <div className="flex justify-center p-6">
-        <div className="animate-pulse space-y-4 w-full max-w-3xl">
-          {[1, 2, 3].map(i => (
-            <div key={i} className="bg-muted rounded-lg h-24 w-full"></div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-  
-  if (userNotes.length === 0) {
-    return (
-      <div className="text-center py-12">
-        <MessageSquare className="mx-auto h-12 w-12 text-muted-foreground opacity-20" />
-        <h3 className="mt-4 text-lg font-medium">No Comments Yet</h3>
-        <p className="mt-2 text-muted-foreground">
-          There are currently no user notes for this section. 
-          Notes will appear here once people start sharing their thoughts.
-        </p>
-      </div>
-    );
-  }
-  
+const NotesSection = ({ notes, setNotes }: NotesSectionProps) => {
   return (
-    <div className="space-y-6">
-      <div className="flex flex-wrap justify-between items-center gap-4">
-        <div>
-          <h3 className="text-lg font-medium">User Comments & Insights</h3>
-          <p className="text-sm text-muted-foreground">{userNotes.length} comments</p>
-        </div>
-        
-        <div className="flex items-center gap-2">
-          <Filter className="w-4 h-4 text-muted-foreground" />
-          <select
-            value={filterGenre}
-            onChange={(e) => setFilterGenre(e.target.value)}
-            className="bg-muted/50 border border-input rounded-md px-3 py-1 text-sm"
-          >
-            <option value="">All Genres</option>
-            {getUniqueGenres().map(genre => (
-              <option key={genre as string} value={genre as string}>{genre}</option>
-            ))}
-          </select>
-        </div>
-      </div>
-      
-      <div className="divide-y space-y-1">
-        {userNotes.map((vote, index) => (
-          <motion.div 
-            key={vote.id} 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: index * 0.05 }}
-            className="py-5 first:pt-0"
-          >
-            <div className="flex flex-wrap justify-between items-start mb-3">
-              <div>
-                <div className="flex items-center gap-2">
-                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
-                    {vote.genre && (
-                      <span className="bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium">
-                        {vote.genre}
-                      </span>
-                    )}
-                    {vote.filmIndustry && (
-                      <span className="bg-secondary/50 px-2 py-0.5 rounded-full">
-                        {vote.filmIndustry}
-                      </span>
-                    )}
-                    <span className="bg-muted px-2 py-0.5 rounded-full">
-                      {PROJECT_TYPE_LABELS[vote.projectType]}
-                    </span>
-                    {vote.ottPlatform && (
-                      <span className="bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 px-2 py-0.5 rounded-full">
-                        {vote.ottPlatform}
-                      </span>
-                    )}
-                    {vote.televisionChannel && (
-                      <span className="bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300 px-2 py-0.5 rounded-full flex items-center gap-1">
-                        <Tv className="w-3 h-3" /> {vote.televisionChannel}
-                      </span>
-                    )}
-                    {vote.televisionContentType && (
-                      <span className="bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 px-2 py-0.5 rounded-full">
-                        {vote.televisionContentType}
-                      </span>
-                    )}
-                    {vote.youtubeContentCategory && (
-                      <span className="bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300 px-2 py-0.5 rounded-full">
-                        {vote.youtubeContentCategory.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
-                      </span>
-                    )}
-                  </div>
-                </div>
-                <div className="text-xs text-muted-foreground mt-1 flex items-center gap-2">
-                  <User className="w-3 h-3" /> {vote.country} 
-                  <span>•</span> 
-                  <Calendar className="w-3 h-3" /> {new Date(vote.timestamp).toLocaleDateString()} at {new Date(vote.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
-                </div>
-              </div>
-            </div>
-            <div className="mt-2 text-muted-foreground border-l-4 border-muted pl-4 italic">
-              "{vote.notes}"
-            </div>
-          </motion.div>
-        ))}
-      </div>
+    <div className="space-y-2">
+      <Label htmlFor="notes" className="text-sm font-medium">
+        Suggestions/Feedback/Comments/Notes (Optional)
+      </Label>
+      <Textarea
+        id="notes"
+        placeholder="Share your thoughts, suggestions, or feedback about this content type. Your insights help creators understand audience preferences..."
+        value={notes}
+        onChange={(e) => setNotes(e.target.value)}
+        className="min-h-[80px] resize-none"
+        maxLength={500}
+      />
+      <p className="text-xs text-muted-foreground">
+        Your suggestions and feedback are valuable for content creators to understand audience preferences and improve their work.
+      </p>
     </div>
   );
 };

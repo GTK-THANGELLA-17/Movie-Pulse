@@ -38,7 +38,7 @@ export function VotingPeriodProvider({ children }: { children: ReactNode }) {
       new Date(storedPeriod.endDate) < today
     ) {
       // Set default period in localStorage and state if no valid current period
-      localStorage.setItem("moviepulse-voting-period", JSON.stringify(defaultPeriod));
+      localStorage.setItem("Audience-Pulse-voting-period", JSON.stringify(defaultPeriod));
       setVotingPeriod(defaultPeriod);
     } else {
       // Otherwise, use whatever is in storage (keep previous logic for backward compatibility)
@@ -54,7 +54,7 @@ export function VotingPeriodProvider({ children }: { children: ReactNode }) {
     // Debug: Log the current voting period
     setTimeout(() => {
       try {
-        const currentPeriod = JSON.parse(localStorage.getItem("moviepulse-voting-period") || "{}");
+        const currentPeriod = JSON.parse(localStorage.getItem("Audience-Pulse-voting-period") || "{}");
         console.log("Current voting period (localStorage):", currentPeriod);
       } catch (e) {
         console.warn("Error parsing voting period:", e);
@@ -80,8 +80,8 @@ export function VotingPeriodProvider({ children }: { children: ReactNode }) {
       return Math.abs(hash).toString(36);
     };
     // Set browser fingerprint in local storage if not already present
-    if (!localStorage.getItem('moviepulse-browser-fingerprint')) {
-      localStorage.setItem('moviepulse-browser-fingerprint', generateBrowserFingerprint());
+    if (!localStorage.getItem('Audience-Pulse-browser-fingerprint')) {
+      localStorage.setItem('Audience-Pulse-browser-fingerprint', generateBrowserFingerprint());
     }
   }, []);
 

@@ -14,7 +14,7 @@ const ContactSection = () => {
       </p>
       <div className="space-y-6">
         {[
-          { icon: Mail, text: "advertise@moviepulse.com" },
+          { icon: Mail, text: "advertise@Audience-Pulse.com" },
           { icon: Phone, text: "+91 8499090369" },
           { icon: MapPin, text: "Hyderabad, Telangana, India" }
         ].map((contact, index) => (

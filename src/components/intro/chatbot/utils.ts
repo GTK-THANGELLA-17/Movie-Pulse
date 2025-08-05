@@ -4,11 +4,11 @@ export const getAdvancedResponse = (input: string): string => {
   
   // Enhanced responses with comprehensive platform information
   if (lowerInput.includes('platform') || lowerInput.includes('what is') || lowerInput.includes('about')) {
-    return "🎬 MoviePulse is the world's most comprehensive entertainment intelligence platform! We collect and analyze audience preferences across Films, Television, OTT platforms, and YouTube content from viewers worldwide. Our mission is to democratize entertainment insights and help creators make data-driven decisions that resonate with global audiences. We're building the future where every voice shapes entertainment! ✨🌍";
+    return "🎬 Audience-Pulse is the world's most comprehensive entertainment intelligence platform! We collect and analyze audience preferences across Films, Television, OTT platforms, and YouTube content from viewers worldwide. Our mission is to democratize entertainment insights and help creators make data-driven decisions that resonate with global audiences. We're building the future where every voice shapes entertainment! ✨🌍";
   }
   
   if (lowerInput.includes('how') && (lowerInput.includes('work') || lowerInput.includes('use'))) {
-    return "📝 Using MoviePulse is incredibly simple and powerful! Step 1: Navigate to 'Cast Your Opinion' → Step 2: Choose your content category (Films, TV, OTT, YouTube) → Step 3: Rate content and share detailed feedback → Step 4: Provide demographic details to enhance insights → Step 5: Submit and instantly see your impact on global entertainment intelligence! Your opinion immediately becomes part of our worldwide analytics that creators and studios use for decision-making! 🚀";
+    return "📝 Using Audience-Pulse is incredibly simple and powerful! Step 1: Navigate to 'Cast Your Opinion' → Step 2: Choose your content category (Films, TV, OTT, YouTube) → Step 3: Rate content and share detailed feedback → Step 4: Provide demographic details to enhance insights → Step 5: Submit and instantly see your impact on global entertainment intelligence! Your opinion immediately becomes part of our worldwide analytics that creators and studios use for decision-making! 🚀";
   }
   
   if (lowerInput.includes('stats') || lowerInput.includes('data') || lowerInput.includes('analytics')) {
@@ -44,7 +44,7 @@ export const getAdvancedResponse = (input: string): string => {
   }
   
   if (lowerInput.includes('vote') || lowerInput.includes('voting') || lowerInput.includes('opinion') || lowerInput.includes('cast')) {
-    return "🗳️ Voting is your superpower on MoviePulse! Head to our 'Cast Your Opinion' section to rate and review Films, TV shows, OTT content, and YouTube videos. Each vote joins a global chorus shaping entertainment's future - your voice influences everything from genre preferences to budget decisions! The current voting period runs until August 15, 2025, with the next period starting September 1-15, 2025! 🌊⚡";
+    return "🗳️ Voting is your superpower on Audience-Pulse! Head to our 'Cast Your Opinion' section to rate and review Films, TV shows, OTT content, and YouTube videos. Each vote joins a global chorus shaping entertainment's future - your voice influences everything from genre preferences to budget decisions! The current voting period runs until August 15, 2025, with the next period starting September 1-15, 2025! 🌊⚡";
   }
   
   if (lowerInput.includes('period') || lowerInput.includes('deadline') || lowerInput.includes('when')) {
@@ -60,5 +60,5 @@ export const getAdvancedResponse = (input: string): string => {
   }
   
   // Default comprehensive response
-  return "🎬 Welcome to MoviePulse - where every opinion shapes entertainment's future! I'm your AI assistant, ready to help you discover how our platform revolutionizes the entertainment industry through audience intelligence. Ask me about features, voting periods, analytics, privacy, global reach, or anything else about MoviePulse! What aspect interests you most? ✨🎭";
+  return "🎬 Welcome to Audience-Pulse - where every opinion shapes entertainment's future! I'm your AI assistant, ready to help you discover how our platform revolutionizes the entertainment industry through audience intelligence. Ask me about features, voting periods, analytics, privacy, global reach, or anything else about Audience-Pulse! What aspect interests you most? ✨🎭";
 };

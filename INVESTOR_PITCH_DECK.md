@@ -1,4 +1,4 @@
-# MOVIEPULSE: Global Entertainment Intelligence Platform
+# Audience-Pulse: Global Entertainment Intelligence Platform
 ## Investor Pitch Deck
 
 ---
@@ -35,7 +35,7 @@
 
 ---
 
-## 💡 THE SOLUTION: MOVIEPULSE
+## 💡 THE SOLUTION: Audience-Pulse
 
 ### Core Platform Features
 1. **Global Audience Intelligence**
@@ -388,7 +388,7 @@
 
 ## 🎬 CONCLUSION
 
-MoviePulse represents a **once-in-a-decade opportunity** to transform the entertainment industry through data intelligence. With:
+Audience-Pulse represents a **once-in-a-decade opportunity** to transform the entertainment industry through data intelligence. With:
 
 - **Massive Market:** $2.3 Trillion entertainment industry
 - **Clear Problem:** 70% content failure rate, billions wasted
@@ -403,10 +403,10 @@ We are positioned to become the **industry standard** for entertainment intellig
 ---
 
 ### Contact Information
-**Email:** investor@moviepulse.com  
+**Email:** investor@Audience-Pulse.com  
 **Phone:** +91-XXX-XXX-XXXX  
-**Website:** www.moviepulse.com  
-**LinkedIn:** /company/moviepulse  
+**Website:** www.Audience-Pulse.com  
+**LinkedIn:** /company/Audience-Pulse  
 
 ### Due Diligence Materials Available
 - Financial projections (detailed 5-year model)

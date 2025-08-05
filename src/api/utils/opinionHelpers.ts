@@ -17,7 +17,7 @@ export function generateAnswerFromOpinionData(data: OpinionData): string {
 
 export function updateEnhancedVotesTracker(projectType: string, response: any) {
   try {
-    const votesData = localStorage.getItem('moviepulse-votes-enhanced') || '{}';
+    const votesData = localStorage.getItem('Audience-Pulse-votes-enhanced') || '{}';
     const votes = JSON.parse(votesData);
     
     if (!votes.categories) votes.categories = {};
@@ -36,7 +36,7 @@ export function updateEnhancedVotesTracker(projectType: string, response: any) {
       votes.votingPeriodEnd = endDate.toISOString();
     }
     
-    localStorage.setItem('moviepulse-votes-enhanced', JSON.stringify(votes));
+    localStorage.setItem('Audience-Pulse-votes-enhanced', JSON.stringify(votes));
     console.log('✅ Enhanced votes tracker updated');
   } catch (error) {
     console.error('❌ Enhanced vote tracker error:', error);

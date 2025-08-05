@@ -1,7 +1,7 @@
 
-# MoviePulse Backend
+# Audience-Pulse Backend
 
-This is the backend server for the MoviePulse application. It's built with Node.js, Express, and MongoDB to store and retrieve user opinions, analytics data, and provide real-time statistics.
+This is the backend server for the Audience-Pulse application. It's built with Node.js, Express, and MongoDB to store and retrieve user opinions, analytics data, and provide real-time statistics.
 
 ## Setup
 

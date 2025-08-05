@@ -23,42 +23,42 @@ export function generateShareableContent(projectType: string): { title: string; 
   switch (projectType) {
     case 'HighBudgetFilm':
       return {
-        title: "I just voted on high-budget films on MoviePulse!",
+        title: "I just voted on high-budget films on Audience-Pulse!",
         description: "Help shape the future of entertainment by sharing your preferences for high-budget films."
       };
     case 'LowBudgetFilm':
       return {
-        title: "I just supported low-budget films on MoviePulse!",
+        title: "I just supported low-budget films on Audience-Pulse!",
         description: "Independent cinema needs your voice! Share your preferences for low-budget films."
       };
     case 'ShortFilm':
       return {
-        title: "I just voted for short films on MoviePulse!",
+        title: "I just voted for short films on Audience-Pulse!",
         description: "Short films deserve attention too! Share your preferences and help filmmakers."
       };
     case 'YouTubeFilm':
       return {
-        title: "I just voted for YouTube films on MoviePulse!",
+        title: "I just voted for YouTube films on Audience-Pulse!",
         description: "YouTube filmmakers need your feedback! Share your preferences for YouTube films."
       };
     case 'YouTubeContent':
       return {
-        title: "I just voted for YouTube content on MoviePulse!",
+        title: "I just voted for YouTube content on Audience-Pulse!",
         description: "Your opinion matters! Help shape the future of YouTube content creation."
       };
     case 'OTTPlatform':
       return {
-        title: "I just voted for OTT content on MoviePulse!",
+        title: "I just voted for OTT content on Audience-Pulse!",
         description: "Streaming services need your feedback! Share your preferences for OTT content."
       };
     case 'Television':
       return {
-        title: "I just voted for television content on MoviePulse!",
+        title: "I just voted for television content on Audience-Pulse!",
         description: "Help shape the future of television by sharing your content preferences!"
       };
     default:
       return {
-        title: "I just shared my opinion on MoviePulse!",
+        title: "I just shared my opinion on Audience-Pulse!",
         description: "Help shape the future of entertainment by sharing your preferences."
       };
   }

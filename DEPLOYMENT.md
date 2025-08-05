@@ -1,5 +1,5 @@
 
-# MoviePulse Deployment Guide
+# Audience-Pulse Deployment Guide
 
 ## Platform Requirements
 
@@ -8,21 +8,21 @@
 - **Build Command**: `npm run build`
 - **Output Directory**: `dist`
 - **Environment Variables**:
-  - `API_URL`: https://moviepulse-api-snfl.onrender.com/api
+  - `API_URL`: https://Audience-Pulse-api-snfl.onrender.com/api
 
 ### Backend (Render.com)
 - **Node.js Version**: 20.x
 - **Build Command**: None (Using Node.js runtime)
 - **Start Command**: `node server.js`
 - **Environment Variables**:
-  - `MONGODB_URI`: mongodb+srv://Thangella:EBe32hlqLKlnxoku@moviepulse-prod.frahevk.mongodb.net/?retryWrites=true&w=majority&appName=MoviePulse-Prod
+  - `MONGODB_URI`: mongodb+srv://Thangella:EBe32hlqLKlnxoku@Audience-Pulse-prod.frahevk.mongodb.net/?retryWrites=true&w=majority&appName=Audience-Pulse-Prod
   - `NODE_ENV`: production
   - `PORT`: 5000 (or the port assigned by the platform)
 
 ## Important URLs
-- **Frontend URL**: https://moviepulse-nu.vercel.app/
-- **Backend URL**: https://moviepulse-api-snfl.onrender.com/
-- **API Base URL**: https://moviepulse-api-snfl.onrender.com/api
+- **Frontend URL**: https://Audience-Pulse-nu.vercel.app/
+- **Backend URL**: https://Audience-Pulse-api-snfl.onrender.com/
+- **API Base URL**: https://Audience-Pulse-api-snfl.onrender.com/api
 
 ## Deployment Steps
 
@@ -34,7 +34,7 @@
    - Build Command: `npm run build`
    - Output Directory: `dist`
 4. Add the required environment variables:
-   - `API_URL`: https://moviepulse-api-snfl.onrender.com/api
+   - `API_URL`: https://Audience-Pulse-api-snfl.onrender.com/api
 5. Deploy the project
 
 ### Backend Deployment on Render.com
@@ -43,7 +43,7 @@
 3. Select the Node.js environment
 4. Configure the start command as `node server.js`
 5. Add the required environment variables:
-   - `MONGODB_URI`: mongodb+srv://Thangella:EBe32hlqLKlnxoku@moviepulse-prod.frahevk.mongodb.net/?retryWrites=true&w=majority&appName=MoviePulse-Prod
+   - `MONGODB_URI`: mongodb+srv://Thangella:EBe32hlqLKlnxoku@Audience-Pulse-prod.frahevk.mongodb.net/?retryWrites=true&w=majority&appName=Audience-Pulse-Prod
    - `NODE_ENV`: production
    - `PORT`: 5000 (or the port assigned by the platform)
 6. Deploy the service
@@ -56,11 +56,11 @@ If the frontend cannot connect to the backend, ensure:
 3. The backend service is running and accessible
 
 To check if the backend API is working:
-1. Visit https://moviepulse-api-snfl.onrender.com/health
+1. Visit https://Audience-Pulse-api-snfl.onrender.com/health
 2. You should see a JSON response with status "OK" and mongoDbStatus "connected"
 
 If votes are not being stored in MongoDB:
-1. Check MongoDB connection status at https://moviepulse-api-snfl.onrender.com/health
+1. Check MongoDB connection status at https://Audience-Pulse-api-snfl.onrender.com/health
 2. Check server logs on Render.com for any connection errors
 3. Ensure the API endpoints are correctly configured
 

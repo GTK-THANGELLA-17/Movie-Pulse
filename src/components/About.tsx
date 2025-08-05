@@ -47,10 +47,10 @@ const About = () => {
     <section id="about" className="section-container py-20">
       <div className="space-y-16">
         <div className="text-center space-y-4 max-w-3xl mx-auto">
-          <div className="chip bg-primary/10 text-primary mx-auto">About MoviePulse</div>
+          <div className="chip bg-primary/10 text-primary mx-auto">About Audience-Pulse</div>
           <h2 className="heading-lg">Shaping the Future of Cinema</h2>
           <p className="body-md text-muted-foreground">
-            MoviePulse is a platform designed to collect and analyze movie genre preferences from audiences worldwide. 
+            Audience-Pulse is a platform designed to collect and analyze movie genre preferences from audiences worldwide. 
             Your opinion helps filmmakers make informed decisions and shapes the future of global cinema.
           </p>
         </div>

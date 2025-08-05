@@ -1,9 +1,9 @@
 
-// Production configuration for MoviePulse
+// Production configuration for Audience-Pulse
 export const PRODUCTION_CONFIG = {
   // API Configuration
   API: {
-    BASE_URL: 'https://moviepulse-api-snfl.onrender.com/api',
+    BASE_URL: 'https://Audience-Pulse-api-snfl.onrender.com/api',
     TIMEOUT: 30000,
     MAX_RETRIES: 3,
     RETRY_DELAY: 1000,
@@ -19,7 +19,7 @@ export const PRODUCTION_CONFIG = {
   
   // SEO and Meta
   SEO: {
-    TITLE: 'MoviePulse - Your Voice Shapes Entertainment',
+    TITLE: 'Audience-Pulse - Your Voice Shapes Entertainment',
     DESCRIPTION: 'Share opinions on movies, TV shows, music, and more. Help shape the future of entertainment with your valuable feedback.',
     KEYWORDS: 'movie opinions, tv shows, music feedback, entertainment reviews, audience insights',
     OG_IMAGE: '/og-image.png',

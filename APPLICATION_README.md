@@ -1,15 +1,15 @@
 
-# MoviePulse - Global Entertainment Intelligence Platform
+# Audience-Pulse - Global Entertainment Intelligence Platform
 
-## 🎬 What is MoviePulse?
+## 🎬 What is Audience-Pulse?
 
-MoviePulse is a revolutionary entertainment intelligence platform that bridges the gap between content creators and global audiences. We collect, analyze, and visualize audience preferences across all major entertainment platforms to help shape the future of content creation.
+Audience-Pulse is a revolutionary entertainment intelligence platform that bridges the gap between content creators and global audiences. We collect, analyze, and visualize audience preferences across all major entertainment platforms to help shape the future of content creation.
 
-**Live Application**: [https://moviepulse-nu.vercel.app](https://moviepulse-nu.vercel.app)
+**Live Application**: [https://Audience-Pulse-nu.vercel.app](https://Audience-Pulse-nu.vercel.app)
 
-## 🌟 Why MoviePulse Matters
+## 🌟 Why Audience-Pulse Matters
 
-In today's rapidly evolving entertainment landscape, understanding audience preferences before creating content is crucial for success. MoviePulse addresses this critical need by providing:
+In today's rapidly evolving entertainment landscape, understanding audience preferences before creating content is crucial for success. Audience-Pulse addresses this critical need by providing:
 
 ### The Problem We Solve
 - **Content creators** struggle to understand what audiences truly want
@@ -19,7 +19,7 @@ In today's rapidly evolving entertainment landscape, understanding audience pref
 - **Audience feedback** typically comes after content is already produced
 
 ### Our Solution
-MoviePulse democratizes audience intelligence by collecting real-time preferences from viewers worldwide, providing data-driven insights that help creators make informed decisions before investing in production.
+Audience-Pulse democratizes audience intelligence by collecting real-time preferences from viewers worldwide, providing data-driven insights that help creators make informed decisions before investing in production.
 
 ## 🚀 Key Features
 
@@ -142,10 +142,10 @@ MoviePulse democratizes audience intelligence by collecting real-time preference
 ## 🌍 Global Impact
 
 ### Entertainment Industry Transformation
-MoviePulse is democratizing content creation by giving creators access to the same level of audience intelligence previously available only to major studios. This levels the playing field and encourages diverse storytelling.
+Audience-Pulse is democratizing content creation by giving creators access to the same level of audience intelligence previously available only to major studios. This levels the playing field and encourages diverse storytelling.
 
 ### Cultural Bridge
-By collecting preferences globally, MoviePulse helps creators understand cultural nuances and preferences, leading to more inclusive and globally appealing content.
+By collecting preferences globally, Audience-Pulse helps creators understand cultural nuances and preferences, leading to more inclusive and globally appealing content.
 
 ### Economic Impact
 Reduced production risks lead to more innovative content, job creation in entertainment industries worldwide, and better allocation of creative resources.
@@ -169,7 +169,7 @@ Reduced production risks lead to more innovative content, job creation in entert
 ## 🚀 Getting Started
 
 ### For Viewers (Opinion Providers)
-1. Visit [MoviePulse](https://moviepulse-nu.vercel.app)
+1. Visit [Audience-Pulse](https://Audience-Pulse-nu.vercel.app)
 2. Choose your content category of interest
 3. Provide your preferences and demographics
 4. View real-time statistics and trends
@@ -211,7 +211,7 @@ Reduced production risks lead to more innovative content, job creation in entert
 - **Feature Requests**: Submit ideas for improvements
 
 ### For Businesses
-- **Partnership Opportunities**: Collaborate with MoviePulse
+- **Partnership Opportunities**: Collaborate with Audience-Pulse
 - **Custom Solutions**: Tailored analytics for your organization
 - **Data Licensing**: Access aggregated insights for your business
 
@@ -222,6 +222,6 @@ Reduced production risks lead to more innovative content, job creation in entert
 
 ---
 
-**MoviePulse** - Empowering creators with audience intelligence, one opinion at a time.
+**Audience-Pulse** - Empowering creators with audience intelligence, one opinion at a time.
 
 *Join thousands of viewers worldwide in shaping the future of entertainment.*

@@ -71,7 +71,7 @@ const ImageSlideshow = () => {
         >
           <h2 className="text-3xl font-bold mb-4">Platform Highlights</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Explore how MoviePulse revolutionizes content creation through data-driven insights.
+            Explore how Audience-Pulse revolutionizes content creation through data-driven insights.
           </p>
         </motion.div>
         

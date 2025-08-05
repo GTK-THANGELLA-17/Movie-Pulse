@@ -58,7 +58,7 @@ export function VotingFormDebug() {
         if (typeof localStorage !== 'undefined') {
           for (let i = 0; i < localStorage.length; i++) {
             const key = localStorage.key(i);
-            if (key && key.startsWith('moviepulse-opinion-')) {
+            if (key && key.startsWith('Audience-Pulse-opinion-')) {
               try {
                 const opinion = JSON.parse(localStorage.getItem(key) || '{}');
                 storedOpinions.push(opinion);
@@ -82,7 +82,7 @@ export function VotingFormDebug() {
         
         // Log vote tracking data
         if (typeof localStorage !== 'undefined') {
-          const votesData = localStorage.getItem('moviepulse-votes');
+          const votesData = localStorage.getItem('Audience-Pulse-votes');
           console.log('📊 Vote tracking data:', votesData ? JSON.parse(votesData) : 'None');
         }
         

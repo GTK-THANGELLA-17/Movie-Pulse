@@ -291,7 +291,7 @@ export const getFilteredVoteStats = (filters: any) => {
   let storedOpinions: any[] = [];
 
   Object.keys(localStorage).forEach(key => {
-    if (key.startsWith("moviepulse-opinions-")) {
+    if (key.startsWith("Audience-Pulse-opinions-")) {
       const opinions = JSON.parse(localStorage.getItem(key) || "[]");
       if (Array.isArray(opinions)) {
         storedOpinions = storedOpinions.concat(opinions);
@@ -371,7 +371,7 @@ export const DEFAULT_VOTING_PERIOD = {
 
 // Retrieve voting period from localStorage
 export function getVotingPeriod() {
-  const key = "moviepulse-voting-period";
+  const key = "Audience-Pulse-voting-period";
   const stored = localStorage.getItem(key);
   if (stored) {
     try {
@@ -383,7 +383,7 @@ export function getVotingPeriod() {
 
 // Save voting period to localStorage and return updated period
 export function saveVotingPeriod(period: any) {
-  const key = "moviepulse-voting-period";
+  const key = "Audience-Pulse-voting-period";
   localStorage.setItem(key, JSON.stringify(period));
   return period;
 }

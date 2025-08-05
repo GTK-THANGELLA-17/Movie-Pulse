@@ -37,9 +37,9 @@ const PlatformVideo = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl font-bold mb-4">See MoviePulse in Action</h2>
+          <h2 className="text-3xl font-bold mb-4">See Audience-Pulse in Action</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Watch how MoviePulse helps content creators make data-driven decisions to produce 
+            Watch how Audience-Pulse helps content creators make data-driven decisions to produce 
             more engaging and successful content across all platforms.
           </p>
         </motion.div>
@@ -89,7 +89,7 @@ const PlatformVideo = () => {
           <div className="bg-card p-6 dark:bg-card">
             <h3 className="text-xl font-bold mb-2">Platform Overview</h3>
             <p className="text-muted-foreground text-sm">
-              This short video demonstrates how MoviePulse collects, analyzes, and visualizes audience 
+              This short video demonstrates how Audience-Pulse collects, analyzes, and visualizes audience 
               preferences to help content creators make better decisions.
             </p>
           </div>

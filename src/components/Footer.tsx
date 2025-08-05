@@ -29,7 +29,7 @@ const Footer = ({ onDeveloperClick }: FooterProps) => {
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <Activity className="w-5 h-5 text-primary animate-pulse" />
-              <h3 className="font-bold text-lg">MoviePulse</h3>
+              <h3 className="font-bold text-lg">Audience-Pulse</h3>
             </div>
             <p className="text-muted-foreground">
               Helping content creators develop media that resonates with global audiences by providing insights on entertainment preferences across films, TV, streaming platforms, YouTube content, and more.
@@ -43,7 +43,7 @@ const Footer = ({ onDeveloperClick }: FooterProps) => {
           <div className="space-y-4">
             <h3 className="font-bold text-lg">About</h3>
             <p className="text-muted-foreground">
-              MoviePulse is a comprehensive entertainment analytics platform providing valuable insights for filmmakers, TV producers, streaming platforms, YouTube creators, and content creators of all types.
+              Audience-Pulse is a comprehensive entertainment analytics platform providing valuable insights for filmmakers, TV producers, streaming platforms, YouTube creators, and content creators of all types.
             </p>
             <p className="text-muted-foreground">
               We help you understand audience preferences across multiple media formats to create content that engages and delights viewers worldwide.
@@ -61,7 +61,7 @@ const Footer = ({ onDeveloperClick }: FooterProps) => {
         <div className="mt-8 pt-8 border-t border-border">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-muted-foreground text-sm">
-              © {new Date().getFullYear()} MoviePulse. All rights reserved.
+              © {new Date().getFullYear()} Audience-Pulse. All rights reserved.
             </p>
             <p className="text-muted-foreground text-sm flex items-center gap-1">
               Designed and developed with <Heart className="w-4 h-4 text-red-500" /> by G. Thangella

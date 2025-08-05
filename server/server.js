@@ -27,7 +27,7 @@ app.use(cors({
   origin: [
     'http://localhost:5173',
     'http://localhost:3000', 
-    'https://moviepulse-api-snfl.onrender.com',
+    'https://Audience-Pulse-api-snfl.onrender.com',
     /\.lovable\.app$/,
     /\.vercel\.app$/,
     /\.netlify\.app$/,
@@ -99,7 +99,7 @@ app.get('/health', (req, res) => {
 // Root endpoint
 app.get('/', (req, res) => {
   res.json({
-    message: 'MoviePulse API Server',
+    message: 'Audience-Pulse API Server',
     version: '2.0',
     timestamp: new Date(),
     endpoints: [

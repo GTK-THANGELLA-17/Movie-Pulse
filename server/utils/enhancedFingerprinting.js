@@ -38,7 +38,7 @@ class EnhancedFingerprinting {
     ];
 
     const fingerprintData = factors.filter(f => f).join('|||');
-    const salt = process.env.ENHANCED_FINGERPRINT_SALT || 'moviepulse-enhanced-2024';
+    const salt = process.env.ENHANCED_FINGERPRINT_SALT || 'Audience-Pulse-enhanced-2024';
     
     return crypto.createHash('sha256')
       .update(fingerprintData + salt)

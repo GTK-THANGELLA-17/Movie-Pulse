@@ -25,7 +25,7 @@ const getEnhancedDeviceInfo = async () => {
       if (ctx) {
         ctx.textBaseline = 'top';
         ctx.font = '14px Arial';
-        ctx.fillText('MoviePulse fingerprint test 🎬', 2, 2);
+        ctx.fillText('Audience-Pulse fingerprint test 🎬', 2, 2);
         deviceInfo.canvasFingerprint = canvas.toDataURL().slice(-50); // Last 50 chars
       }
     } catch (e) {
@@ -88,7 +88,7 @@ export const submitEnhancedOpinion = async (opinionData: OpinionData) => {
     console.log('🚀 Enhanced submission data prepared with security features');
     
     // Enhanced local backup with security features
-    const backupKey = `moviepulse-opinion-enhanced-v2-${Date.now()}`;
+    const backupKey = `Audience-Pulse-opinion-enhanced-v2-${Date.now()}`;
     localStorage.setItem(backupKey, JSON.stringify({
       ...enhancedOpinionData,
       backupTimestamp: new Date().toISOString(),
@@ -105,7 +105,7 @@ export const submitEnhancedOpinion = async (opinionData: OpinionData) => {
     localStorage.removeItem(backupKey);
     
     // Enhanced vote tracking with security
-    const voteKey = `moviepulse-vote-enhanced-v2-${userId}-${opinionData.projectType}`;
+    const voteKey = `Audience-Pulse-vote-enhanced-v2-${userId}-${opinionData.projectType}`;
     localStorage.setItem(voteKey, JSON.stringify({
       voted: true,
       timestamp: new Date().toISOString(),
@@ -172,9 +172,9 @@ export const checkEnhancedVoteStatus = async (projectType: string) => {
     
     // Enhanced local fallback with v2 support
     const userId = await getBrowserFingerprint();
-    const enhancedV2VoteKey = `moviepulse-vote-enhanced-v2-${userId}-${projectType}`;
-    const enhancedVoteKey = `moviepulse-vote-enhanced-${userId}-${projectType}`;
-    const legacyVoteKey = `moviepulse-vote-${userId}-${projectType}`;
+    const enhancedV2VoteKey = `Audience-Pulse-vote-enhanced-v2-${userId}-${projectType}`;
+    const enhancedVoteKey = `Audience-Pulse-vote-enhanced-${userId}-${projectType}`;
+    const legacyVoteKey = `Audience-Pulse-vote-${userId}-${projectType}`;
     
     const enhancedV2Vote = localStorage.getItem(enhancedV2VoteKey);
     const enhancedVote = localStorage.getItem(enhancedVoteKey);

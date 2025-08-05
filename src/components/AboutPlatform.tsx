@@ -156,16 +156,16 @@ const AboutPlatform = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
-            About <span className="text-primary">MoviePulse</span>
+            About <span className="text-primary">Audience-Pulse</span>
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
-            MoviePulse is a comprehensive entertainment intelligence platform that bridges the gap between 
+            Audience-Pulse is a comprehensive entertainment intelligence platform that bridges the gap between 
             content creators and global audiences. We collect, analyze, and visualize audience preferences 
             across all major entertainment platforms to help shape the future of content creation.
           </p>
         </motion.div>
 
-        {/* What MoviePulse Is */}
+        {/* What Audience-Pulse Is */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -175,12 +175,12 @@ const AboutPlatform = () => {
         >
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
             <h3 className="text-3xl font-bold mb-6 text-center text-gray-900 dark:text-white">
-              What is MoviePulse?
+              What is Audience-Pulse?
             </h3>
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
                 <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">
-                  MoviePulse is an advanced audience intelligence platform specifically designed for the 
+                  Audience-Pulse is an advanced audience intelligence platform specifically designed for the 
                   entertainment industry. It serves as a centralized hub where viewers from around the 
                   world can share their content preferences across multiple entertainment formats.
                 </p>
@@ -254,7 +254,7 @@ const AboutPlatform = () => {
           <div className="grid lg:grid-cols-2 gap-12">
             <div>
               <h3 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
-                Why MoviePulse Matters
+                Why Audience-Pulse Matters
               </h3>
               <div className="space-y-6">
                 {benefits.map((benefit, index) => (
@@ -288,7 +288,7 @@ const AboutPlatform = () => {
               </h3>
               <div className="bg-gradient-to-br from-primary/10 to-primary/5 dark:from-primary/20 dark:to-primary/10 p-6 rounded-xl">
                 <p className="text-lg text-gray-700 dark:text-gray-300 mb-6">
-                  MoviePulse transforms how the entertainment industry understands and responds to 
+                  Audience-Pulse transforms how the entertainment industry understands and responds to 
                   audience preferences, creating measurable benefits across the entire content ecosystem:
                 </p>
                 <ul className="space-y-3">

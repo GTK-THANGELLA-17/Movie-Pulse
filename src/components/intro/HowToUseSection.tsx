@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { Play, Video } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -9,7 +8,6 @@ const HowToUseSection = () => {
 
   const handlePlayVideo = () => {
     setIsVideoPlaying(true);
-    // You can replace this with actual video functionality
     console.log("Playing tutorial video...");
   };
 
@@ -25,9 +23,9 @@ const HowToUseSection = () => {
         >
           <div className="flex items-center justify-center gap-2 mb-6">
             <Video className="w-8 h-8 text-[#5b2333]" />
-            <h2 className="text-3xl md:text-4xl font-bold">How to Use MoviePulse</h2>
+            <h2 className="text-3xl md:text-4xl font-bold">How to Use Audience-Pulse</h2>
           </div>
-          
+
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
             Watch this quick tutorial to learn how to share your content preferences and help shape the future of entertainment
           </p>
@@ -52,15 +50,14 @@ const HowToUseSection = () => {
                   </div>
                 </div>
               ) : (
-                <div className="flex items-center justify-center h-full bg-black text-white">
-                  <div className="text-center">
-                    <Video className="w-16 h-16 mx-auto mb-4 opacity-70" />
-                    <p>Video would play here</p>
-                    <p className="text-sm text-gray-400 mt-2">
-                      (Integration with your video hosting service)
-                    </p>
-                  </div>
-                </div>
+                <video
+                  src="/About-Movie-Pulse.mp4"
+                  controls
+                  autoPlay
+                  className="w-full h-full object-cover"
+                >
+                  Your browser does not support the video tag.
+                </video>
               )}
             </div>
           </div>

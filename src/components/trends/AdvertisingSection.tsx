@@ -9,7 +9,7 @@ const AdvertisingSection = () => {
       </h3>
       <p className="mb-8 text-white/90 text-lg leading-relaxed">
         Reach millions of entertainment enthusiasts through our platform. 
-        Partner with MoviePulse to showcase your content to engaged audiences.
+        Partner with Audience-Pulse to showcase your content to engaged audiences.
       </p>
       <div className="space-y-4">
         {[

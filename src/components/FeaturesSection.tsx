@@ -74,7 +74,7 @@ const FeaturesSection = () => {
         >
           <h2 className="text-3xl font-bold mb-4">Platform Features</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            MoviePulse offers a comprehensive set of tools to help content creators 
+            Audience-Pulse offers a comprehensive set of tools to help content creators 
             understand and respond to audience preferences across all forms of media.
           </p>
         </motion.div>

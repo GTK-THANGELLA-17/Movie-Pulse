@@ -9,7 +9,7 @@ export const useOpinionStorage = () => {
 
   // Use a consistent storage key format
   const getStorageKey = () => {
-    return `moviepulse-opinions-${currentPeriodId}`;
+    return `Audience-Pulse-opinions-${currentPeriodId}`;
   };
 
   const loadOpinions = () => {

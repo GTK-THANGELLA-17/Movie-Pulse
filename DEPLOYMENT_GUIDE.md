@@ -1,9 +1,9 @@
 
-# MoviePulse Deployment Guide
+# Audience-Pulse Deployment Guide
 
 ## Current Architecture Overview
 
-MoviePulse uses a modern three-tier architecture:
+Audience-Pulse uses a modern three-tier architecture:
 - **Frontend**: Vercel (React/Vite application)
 - **Backend**: Render.com (Node.js/Express API)
 - **Database**: MongoDB Atlas (Opinion storage and analytics)
@@ -19,7 +19,7 @@ MoviePulse uses a modern three-tier architecture:
 
 ## Prerequisites
 
-- GitHub account with your MoviePulse repository
+- GitHub account with your Audience-Pulse repository
 - MongoDB Atlas account (free tier available)
 - Render.com account (free tier available)
 - Vercel account (free tier available)
@@ -56,7 +56,7 @@ MoviePulse uses a modern three-tier architecture:
    mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority
    ```
 4. Replace `<username>` and `<password>` with your credentials
-5. Add database name: `moviepulse` at the end before the query parameters
+5. Add database name: `Audience-Pulse` at the end before the query parameters
 
 ## Backend Deployment (Render.com)
 
@@ -65,7 +65,7 @@ MoviePulse uses a modern three-tier architecture:
 2. Click "New +" → "Web Service"
 3. Connect your GitHub repository
 4. Configure service settings:
-   - **Name**: `moviepulse-api`
+   - **Name**: `Audience-Pulse-api`
    - **Environment**: Node
    - **Region**: Choose closest to your audience
    - **Branch**: `main` (or your default branch)
@@ -79,14 +79,14 @@ Add these in Render's Environment section:
 ```bash
 NODE_ENV=production
 PORT=10000
-MONGODB_URI=mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/moviepulse?retryWrites=true&w=majority
+MONGODB_URI=mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/Audience-Pulse?retryWrites=true&w=majority
 CORS_ORIGIN=https://your-vercel-app.vercel.app
 ```
 
 ### 3. Deploy Backend
 1. Click "Create Web Service"
 2. Wait for build and deployment (5-10 minutes)
-3. Note your API URL: `https://moviepulse-api-xxxx.onrender.com`
+3. Note your API URL: `https://Audience-Pulse-api-xxxx.onrender.com`
 
 ## Frontend Deployment (Vercel)
 
@@ -106,7 +106,7 @@ Before deploying, update the API URL in your frontend code. In your Vercel proje
 ### 3. Environment Variables (Optional)
 If needed, add environment variables in Vercel project settings:
 ```bash
-VITE_API_URL=https://moviepulse-api-xxxx.onrender.com
+VITE_API_URL=https://Audience-Pulse-api-xxxx.onrender.com
 ```
 
 ### 4. Deploy
@@ -123,7 +123,7 @@ NODE_ENV=production
 PORT=10000
 
 # Database
-MONGODB_URI=mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/moviepulse?retryWrites=true&w=majority
+MONGODB_URI=mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/Audience-Pulse?retryWrites=true&w=majority
 
 # CORS (Important!)
 CORS_ORIGIN=https://your-vercel-app.vercel.app
@@ -147,7 +147,7 @@ const corsOptions = {
 
 ### 1. Test API Health
 ```bash
-curl https://moviepulse-api-xxxx.onrender.com/health
+curl https://Audience-Pulse-api-xxxx.onrender.com/health
 # Should return: {"status": "OK", "timestamp": "..."}
 ```
 
@@ -166,7 +166,7 @@ Visit your Vercel app and:
 
 ### 4. Test Database Connection
 ```bash
-curl https://moviepulse-api-xxxx.onrender.com/api/opinions/analytics
+curl https://Audience-Pulse-api-xxxx.onrender.com/api/opinions/analytics
 # Should return comprehensive analytics data
 ```
 
@@ -188,7 +188,7 @@ curl https://moviepulse-api-xxxx.onrender.com/api/opinions/analytics
 ## Monitoring and Maintenance
 
 ### Health Monitoring
-- **Backend Health**: `https://moviepulse-api-xxxx.onrender.com/health`
+- **Backend Health**: `https://Audience-Pulse-api-xxxx.onrender.com/health`
 - **Database Status**: Check MongoDB Atlas monitoring dashboard
 - **Frontend Status**: Vercel automatically monitors deployments
 
@@ -233,4 +233,4 @@ curl https://moviepulse-api-xxxx.onrender.com/api/opinions/analytics
 - Verify all dependencies are listed in package.json
 - Ensure Node.js version compatibility
 
-This deployment setup provides a robust, scalable foundation for MoviePulse with proper separation of concerns and modern best practices.
+This deployment setup provides a robust, scalable foundation for Audience-Pulse with proper separation of concerns and modern best practices.

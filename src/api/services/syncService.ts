@@ -20,7 +20,7 @@ export const syncLocalOpinions = async (): Promise<void> => {
     const enhancedOpinionKeys: string[] = [];
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
-      if (key && key.startsWith('moviepulse-opinion-enhanced-')) {
+      if (key && key.startsWith('Audience-Pulse-opinion-enhanced-')) {
         enhancedOpinionKeys.push(key);
       }
     }
@@ -73,8 +73,8 @@ export const syncVoteStatus = async (): Promise<void> => {
     const localVotes: Record<string, boolean> = {};
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
-      if (key && key.startsWith(`moviepulse-vote-${userId}`)) {
-        const projectType = key.replace(`moviepulse-vote-${userId}-`, '');
+      if (key && key.startsWith(`Audience-Pulse-vote-${userId}`)) {
+        const projectType = key.replace(`Audience-Pulse-vote-${userId}-`, '');
         localVotes[projectType] = true;
       }
     }
@@ -92,7 +92,7 @@ export const syncVoteStatus = async (): Promise<void> => {
           { method: 'GET' }
         );
         
-        const voteKey = `moviepulse-vote-${userId}-${projectType}`;
+        const voteKey = `Audience-Pulse-vote-${userId}-${projectType}`;
         
         // If voted on server but not locally, update local storage
         if (serverVoteStatus.hasVoted && !localVotes[projectType]) {
@@ -106,7 +106,7 @@ export const syncVoteStatus = async (): Promise<void> => {
     
     // Update the all votes tracker
     try {
-      const votesData = localStorage.getItem('moviepulse-votes') || '{}';
+      const votesData = localStorage.getItem('Audience-Pulse-votes') || '{}';
       const votes = JSON.parse(votesData);
       
       if (!votes.categories) {
@@ -117,11 +117,11 @@ export const syncVoteStatus = async (): Promise<void> => {
       for (const projectType in localVotes) {
         votes.categories[projectType] = {
           voted: true,
-          timestamp: localStorage.getItem(`moviepulse-vote-${userId}-${projectType}`) || new Date().toISOString()
+          timestamp: localStorage.getItem(`Audience-Pulse-vote-${userId}-${projectType}`) || new Date().toISOString()
         };
       }
       
-      localStorage.setItem('moviepulse-votes', JSON.stringify(votes));
+      localStorage.setItem('Audience-Pulse-votes', JSON.stringify(votes));
       console.log('✅ Updated votes tracker');
     } catch (error) {
       console.error('❌ Error updating votes tracker:', error);

@@ -37,9 +37,9 @@ interface AppSocialShareProps {
 }
 
 const AppSocialShare = ({
-  title = "MoviePulse - Shape the Future of Entertainment",
+  title = "Audience-Pulse - Shape the Future of Entertainment",
   description = "Share your content preferences and help creators understand what audiences really want!",
-  url = "https://moviepulse-nu.vercel.app",
+  url = "https://Audience-Pulse-nu.vercel.app",
   variant = "button",
   showStats = false
 }: AppSocialShareProps) => {
@@ -47,7 +47,7 @@ const AppSocialShare = ({
   const [isOpen, setIsOpen] = useState(false);
   
   // Use the correct public URL
-  const baseUrl = "https://moviepulse-nu.vercel.app";
+  const baseUrl = "https://Audience-Pulse-nu.vercel.app";
   const statsUrl = `${baseUrl}/stats`;
   const shareUrl = showStats ? statsUrl : baseUrl;
 
@@ -94,7 +94,7 @@ const AppSocialShare = ({
         setCopied(true);
         toast({
           title: "Link copied!",
-          description: "The MoviePulse link has been copied to your clipboard",
+          description: "The Audience-Pulse link has been copied to your clipboard",
         });
         
         setTimeout(() => setCopied(false), 2000);
@@ -141,7 +141,7 @@ const AppSocialShare = ({
             </Button>
           </TooltipTrigger>
           <TooltipContent>
-            <p>Share MoviePulse</p>
+            <p>Share Audience-Pulse</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
@@ -159,9 +159,9 @@ const AppSocialShare = ({
         </DialogTrigger>
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle>Share MoviePulse {showStats ? "Stats" : ""}</DialogTitle>
+            <DialogTitle>Share Audience-Pulse {showStats ? "Stats" : ""}</DialogTitle>
             <DialogDescription>
-              Spread the word about MoviePulse and help us gather more audience insights!
+              Spread the word about Audience-Pulse and help us gather more audience insights!
             </DialogDescription>
           </DialogHeader>
           
@@ -205,7 +205,7 @@ const AppSocialShare = ({
     <div className="space-y-4">
       <h3 className="font-medium text-lg flex items-center gap-2">
         <Share2 className="w-5 h-5 text-primary" /> 
-        Share MoviePulse {showStats ? "Stats" : ""}
+        Share Audience-Pulse {showStats ? "Stats" : ""}
       </h3>
       
       <div className="grid grid-cols-2 md:grid-cols-3 gap-3">

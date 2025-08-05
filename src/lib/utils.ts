@@ -10,7 +10,7 @@ export function cn(...inputs: ClassValue[]) {
 // Enhanced device fingerprinting for tracking votes
 export async function getBrowserFingerprint(): Promise<string> {
   // Check if we already have a fingerprint in localStorage
-  const storedFingerprint = localStorage.getItem('moviepulse-browser-fingerprint');
+  const storedFingerprint = localStorage.getItem('Audience-Pulse-browser-fingerprint');
   
   if (storedFingerprint) {
     return storedFingerprint;
@@ -28,13 +28,13 @@ export async function getBrowserFingerprint(): Promise<string> {
     const fingerprint = result.visitorId;
     
     // Store it for future use
-    localStorage.setItem('moviepulse-browser-fingerprint', fingerprint);
+    localStorage.setItem('Audience-Pulse-browser-fingerprint', fingerprint);
     
     return fingerprint;
   } catch (error) {
     // Fallback to a simple browser-based fingerprint
     const fallbackFingerprint = generateFallbackFingerprint();
-    localStorage.setItem('moviepulse-browser-fingerprint', fallbackFingerprint);
+    localStorage.setItem('Audience-Pulse-browser-fingerprint', fallbackFingerprint);
     
     return fallbackFingerprint;
   }

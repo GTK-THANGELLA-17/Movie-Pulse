@@ -27,7 +27,7 @@ interface SocialShareProps {
 }
 
 const SocialShare = ({
-  title = "Share your opinion on MoviePulse",
+  title = "Share your opinion on Audience-Pulse",
   description = "Help shape the future of entertainment by sharing your content preferences",
   url = typeof window !== 'undefined' ? window.location.href : '',
   className = "",

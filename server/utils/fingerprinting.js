@@ -26,7 +26,7 @@ class FingerprintingUtils {
     ].join('|||');
 
     // Generate hash with salt
-    const salt = process.env.FINGERPRINT_SALT || 'moviepulse-salt-2024';
+    const salt = process.env.FINGERPRINT_SALT || 'Audience-Pulse-salt-2024';
     return crypto.createHash('sha256')
       .update(fingerprintData + salt)
       .digest('hex');

@@ -1,7 +1,7 @@
 
-# Deployment Guide for MoviePulse
+# Deployment Guide for Audience-Pulse
 
-This guide provides step-by-step instructions for deploying the MoviePulse application using GitHub, Vercel for the frontend, Render.com for the backend, and MongoDB Atlas for the database.
+This guide provides step-by-step instructions for deploying the Audience-Pulse application using GitHub, Vercel for the frontend, Render.com for the backend, and MongoDB Atlas for the database.
 
 ## Table of Contents
 1. [Project Setup](#project-setup)
@@ -25,14 +25,14 @@ This guide provides step-by-step instructions for deploying the MoviePulse appli
    git add .
    git commit -m "Initial commit"
    git branch -M main
-   git remote add origin https://github.com/yourusername/moviepulse.git
+   git remote add origin https://github.com/yourusername/Audience-Pulse.git
    git push -u origin main
    ```
 
 ### 2. Organize Project Structure
 Ensure your project is organized with clear separation between frontend and backend:
 ```
-moviepulse/
+Audience-Pulse/
 ├── server/           # Backend code
 │   ├── models/       # MongoDB models
 │   ├── routes/       # API routes
@@ -51,7 +51,7 @@ moviepulse/
 
 ### 1. Create a MongoDB Atlas Account
 1. Go to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) and sign up or log in.
-2. Create a new project for MoviePulse.
+2. Create a new project for Audience-Pulse.
 
 ### 2. Create a Cluster
 1. Create a new cluster (you can use the free tier for starting).
@@ -87,7 +87,7 @@ moviepulse/
 1. Click "New" and select "Web Service".
 2. Connect your GitHub repository.
 3. Configure the service:
-   - Name: `moviepulse-api`
+   - Name: `Audience-Pulse-api`
    - Root Directory: `server`
    - Runtime: Node
    - Build Command: `npm install`
@@ -100,13 +100,13 @@ moviepulse/
    - `PORT`: `8080` (or your preferred port)
    - `NODE_ENV`: `production`
    - `JWT_SECRET`: A secure random string for JWT authentication
-   - `CORS_ORIGIN`: The URL of your frontend (e.g., `https://moviepulse.vercel.app`)
+   - `CORS_ORIGIN`: The URL of your frontend (e.g., `https://Audience-Pulse.vercel.app`)
 
 ### 4. Deploy the Backend
 1. Click "Create Web Service".
 2. Render will automatically build and deploy your backend.
 3. Wait for the deployment to complete.
-4. Note the URL of your deployed backend (e.g., `https://moviepulse-api.onrender.com`).
+4. Note the URL of your deployed backend (e.g., `https://Audience-Pulse-api.onrender.com`).
 
 ## Frontend Deployment on Vercel
 
@@ -120,7 +120,7 @@ moviepulse/
 3. Vercel will automatically detect that it's a React project.
 
 ### 3. Configure the Project
-1. Project Name: `moviepulse`
+1. Project Name: `Audience-Pulse`
 2. Framework Preset: React (Vite)
 3. Root Directory: Leave as default (the project root)
 4. Build Command: Leave as default (`npm run build` or `vite build`)
@@ -128,13 +128,13 @@ moviepulse/
 
 ### 4. Set Environment Variables
 1. Under "Environment Variables", add:
-   - `VITE_API_URL`: The URL of your Render.com backend (e.g., `https://moviepulse-api.onrender.com`)
+   - `VITE_API_URL`: The URL of your Render.com backend (e.g., `https://Audience-Pulse-api.onrender.com`)
    - Any other environment variables your frontend needs
 
 ### 5. Deploy the Frontend
 1. Click "Deploy".
 2. Vercel will build and deploy your frontend.
-3. When deployment completes, you'll get a URL for your site (e.g., `https://moviepulse.vercel.app`).
+3. When deployment completes, you'll get a URL for your site (e.g., `https://Audience-Pulse.vercel.app`).
 
 ## Connecting Services
 
@@ -246,6 +246,6 @@ app.use(cors(corsOptions));
 
 ---
 
-This deployment guide provides a comprehensive approach to deploying your MoviePulse application. By following these steps, you'll have a fully functioning application with a secure database, scalable backend, and optimized frontend.
+This deployment guide provides a comprehensive approach to deploying your Audience-Pulse application. By following these steps, you'll have a fully functioning application with a secure database, scalable backend, and optimized frontend.
 
 Remember to regularly monitor your application, update dependencies, and implement security best practices to ensure a smooth user experience and protect user data.

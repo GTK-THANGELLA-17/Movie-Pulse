@@ -1,8 +1,8 @@
 
 {
-  "name": "moviepulse-backend",
+  "name": "Audience-Pulse-backend",
   "version": "1.0.0",
-  "description": "Backend server for MoviePulse application",
+  "description": "Backend server for Audience-Pulse application",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

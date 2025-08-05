@@ -49,7 +49,7 @@ const LoadingIndicator = ({
           transition={{ delay: 0.3 }}
           className="text-2xl font-bold mt-4 text-primary dark:text-white"
         >
-          MoviePulse
+          Audience-Pulse
         </motion.h1>
         {message && (
           <motion.p

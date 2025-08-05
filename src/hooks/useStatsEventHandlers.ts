@@ -30,7 +30,7 @@ export const useStatsEventHandlers = ({
     };
 
     const handleStorageChange = (event: StorageEvent) => {
-      if (event.key && event.key.includes('moviepulse-opinions-')) {
+      if (event.key && event.key.includes('Audience-Pulse-opinions-')) {
         console.log('StatsEventHandlers: Storage changed, refreshing local stats');
         if (dataSource === 'local') {
           setTimeout(() => loadStats(), 50);

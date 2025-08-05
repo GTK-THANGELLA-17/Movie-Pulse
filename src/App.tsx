@@ -43,7 +43,7 @@ const queryClient = new QueryClient({
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider defaultTheme="light" storageKey="moviepulse-theme">
+      <ThemeProvider defaultTheme="light" storageKey="Audience-Pulse-theme">
         <VotingPeriodProvider>
           <VotedProvider>
             <TooltipProvider>

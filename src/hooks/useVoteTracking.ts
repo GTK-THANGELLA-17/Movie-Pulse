@@ -30,7 +30,7 @@ export const useVoteTracking = () => {
 
   // Use consistent storage key format
   const getStorageKey = () => {
-    return `moviepulse-opinions-${currentPeriodId}`;
+    return `Audience-Pulse-opinions-${currentPeriodId}`;
   };
 
   // Check vote status by reading the same storage location as useOpinionStorage

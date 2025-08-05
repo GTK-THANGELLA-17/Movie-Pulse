@@ -1,8 +1,8 @@
 
-# MoviePulse Backend Deployment Guide
+# Audience-Pulse Backend Deployment Guide
 
 ## Overview
-This guide covers the complete setup and deployment of the MoviePulse backend API using Node.js, Express, and MongoDB.
+This guide covers the complete setup and deployment of the Audience-Pulse backend API using Node.js, Express, and MongoDB.
 
 ## Prerequisites
 - Node.js (v18 or higher)
@@ -27,15 +27,15 @@ Create a `.env` file in the server directory with:
 
 ```env
 # Database
-MONGODB_URI=mongodb+srv://Thangella:EBe32hlqLKlnxoku@moviepulse-prod.frahevk.mongodb.net/?retryWrites=true&w=majority&appName=MoviePulse-Prod
+MONGODB_URI=mongodb+srv://Thangella:EBe32hlqLKlnxoku@Audience-Pulse-prod.frahevk.mongodb.net/?retryWrites=true&w=majority&appName=Audience-Pulse-Prod
 
 # Server Configuration
 PORT=3001
 NODE_ENV=production
 
 # CORS Configuration
-FRONTEND_URL=https://moviepulse-nu.vercel.app
-ALLOWED_ORIGINS=https://moviepulse-nu.vercel.app,http://localhost:5173,http://localhost:3000
+FRONTEND_URL=https://Audience-Pulse-nu.vercel.app
+ALLOWED_ORIGINS=https://Audience-Pulse-nu.vercel.app,http://localhost:5173,http://localhost:3000
 
 # Admin Configuration (optional)
 ADMIN_KEY=your-secure-admin-key-here
@@ -48,9 +48,9 @@ API_KEY=your-api-key-here
 ## Dependencies (package.json)
 ```json
 {
-  "name": "moviepulse-api",
+  "name": "Audience-Pulse-api",
   "version": "1.0.0",
-  "description": "MoviePulse Opinion Collection API",
+  "description": "Audience-Pulse Opinion Collection API",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -148,7 +148,7 @@ const OpinionSchema = new mongoose.Schema({
 ```bash
 # Clone the repository
 git clone your-repo-url
-cd moviepulse
+cd Audience-Pulse
 
 # Navigate to server directory
 cd server
@@ -186,15 +186,15 @@ Add these environment variables in Render dashboard:
 MONGODB_URI=your-mongodb-connection-string
 PORT=3001
 NODE_ENV=production
-FRONTEND_URL=https://moviepulse-nu.vercel.app
-ALLOWED_ORIGINS=https://moviepulse-nu.vercel.app,http://localhost:5173
+FRONTEND_URL=https://Audience-Pulse-nu.vercel.app
+ALLOWED_ORIGINS=https://Audience-Pulse-nu.vercel.app,http://localhost:5173
 ```
 
 ### 5. Update Frontend Configuration
 Update the API URL in your frontend code:
 ```javascript
 // In src/api/opinionsApi.ts
-const API_URL = 'https://moviepulse-api-snfl.onrender.com/api';
+const API_URL = 'https://Audience-Pulse-api-snfl.onrender.com/api';
 ```
 
 ## Server Configuration (server.js)
@@ -284,12 +284,12 @@ app.listen(PORT, () => {
 
 ### 1. Health Check
 ```bash
-curl https://moviepulse-api-snfl.onrender.com/health
+curl https://Audience-Pulse-api-snfl.onrender.com/health
 ```
 
 ### 2. Submit Test Opinion
 ```bash
-curl -X POST https://moviepulse-api-snfl.onrender.com/api/opinions \
+curl -X POST https://Audience-Pulse-api-snfl.onrender.com/api/opinions \
   -H "Content-Type: application/json" \
   -d '{
     "category": "film",
@@ -305,7 +305,7 @@ curl -X POST https://moviepulse-api-snfl.onrender.com/api/opinions \
 
 ### 3. Get Analytics
 ```bash
-curl https://moviepulse-api-snfl.onrender.com/api/opinions/analytics
+curl https://Audience-Pulse-api-snfl.onrender.com/api/opinions/analytics
 ```
 
 ## Troubleshooting
@@ -354,4 +354,4 @@ curl https://moviepulse-api-snfl.onrender.com/api/opinions/analytics
 - Test restore procedures
 - Document recovery processes
 
-This comprehensive setup ensures a robust, scalable backend for the MoviePulse application with proper error handling, security measures, and monitoring capabilities.
+This comprehensive setup ensures a robust, scalable backend for the Audience-Pulse application with proper error handling, security measures, and monitoring capabilities.

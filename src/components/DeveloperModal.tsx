@@ -35,7 +35,7 @@ export function DeveloperModal({ open, onOpenChange }: DeveloperModalProps) {
           <DialogHeader className="p-6 flex-shrink-0 border-b relative">
             <DialogTitle className="text-xl text-center">Meet the Developer</DialogTitle>
             <DialogDescription className="text-center text-sm">
-              Behind the MoviePulse application
+              Behind the Audience-Pulse application
             </DialogDescription>
             {/* Scroll indicator */}
             <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2">
@@ -74,7 +74,7 @@ export function DeveloperModal({ open, onOpenChange }: DeveloperModalProps) {
                 {/* Description */}
                 <div className="space-y-6 text-sm flex-1">
                   <p className="text-base">
-                    I build impactful digital tools to simplify complex systems. MoviePulse reflects my passion for entertainment-tech innovation and accessible design.
+                    I build impactful digital tools to simplify complex systems. Audience-Pulse reflects my passion for entertainment-tech innovation and accessible design.
                   </p>
 
                   <div>
@@ -92,9 +92,9 @@ export function DeveloperModal({ open, onOpenChange }: DeveloperModalProps) {
                   </div>
 
                   <div>
-                    <h4 className="font-semibold text-base mb-2">About MoviePulse</h4>
+                    <h4 className="font-semibold text-base mb-2">About Audience-Pulse</h4>
                     <p className="text-muted-foreground">
-                      MoviePulse is designed to bridge the gap between content creators and their audiences. By gathering authentic opinions and preferences, we help shape the future of entertainment across all platforms.
+                      Audience-Pulse is designed to bridge the gap between content creators and their audiences. By gathering authentic opinions and preferences, we help shape the future of entertainment across all platforms.
                     </p>
                   </div>
 

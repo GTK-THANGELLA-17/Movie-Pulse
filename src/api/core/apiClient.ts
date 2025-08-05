@@ -1,7 +1,7 @@
 
 const API_URL = import.meta.env.PROD 
-  ? 'https://moviepulse-api-snfl.onrender.com/api'
-  : import.meta.env.VITE_API_URL || 'https://moviepulse-api-snfl.onrender.com/api';
+  ? 'https://Audience-Pulse-api-snfl.onrender.com/api'
+  : import.meta.env.VITE_API_URL || 'https://Audience-Pulse-api-snfl.onrender.com/api';
 
 const MAX_RETRIES = 3;
 const API_TIMEOUT = 30000;

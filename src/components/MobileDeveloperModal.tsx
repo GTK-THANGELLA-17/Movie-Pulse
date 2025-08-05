@@ -67,7 +67,7 @@ const MobileDeveloperModal = ({ isOpen, onClose }: MobileDeveloperModalProps) =>
                     transition={{ delay: 0.4 }}
                     className="text-muted-foreground text-sm mt-2"
                   >
-                    Connect with the creator of MoviePulse
+                    Connect with the creator of Audience-Pulse
                   </motion.p>
 
                   {/* Scroll indicator */}
@@ -87,7 +87,7 @@ const MobileDeveloperModal = ({ isOpen, onClose }: MobileDeveloperModalProps) =>
                       className="space-y-4"
                     >
                       <div className="text-center p-4 bg-muted/50 rounded-lg">
-                        <h3 className="font-semibold text-lg mb-2">MoviePulse</h3>
+                        <h3 className="font-semibold text-lg mb-2">Audience-Pulse</h3>
                         <p className="text-sm text-muted-foreground leading-relaxed">
                           An innovative platform designed to gather audience preferences and help content creators make data-driven decisions for better entertainment experiences.
                         </p>
@@ -189,7 +189,7 @@ const MobileDeveloperModal = ({ isOpen, onClose }: MobileDeveloperModalProps) =>
                   className="flex-shrink-0 p-4 border-t text-center"
                 >
                   <p className="text-xs text-muted-foreground">
-                    © 2024 MoviePulse. Shaping the future of entertainment.
+                    © 2024 Audience-Pulse. Shaping the future of entertainment.
                   </p>
                 </motion.div>
               </CardContent>

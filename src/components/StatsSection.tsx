@@ -73,7 +73,7 @@ const Statistics = () => {
     };
 
     const handleStorageChange = (event: StorageEvent) => {
-      if (event.key && event.key.includes('moviepulse-session-')) {
+      if (event.key && event.key.includes('Audience-Pulse-session-')) {
         console.log('Statistics component: Session storage changed, refreshing');
         updateChartData();
         loadUserNotes();
@@ -180,7 +180,7 @@ const Statistics = () => {
       const worksheet = XLSX.utils.json_to_sheet(data);
       const workbook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(workbook, worksheet, "Movie Preferences");
-      XLSX.writeFile(workbook, `MoviePulse_${filterLabel}_Stats.xlsx`);
+      XLSX.writeFile(workbook, `Audience-Pulse_${filterLabel}_Stats.xlsx`);
       
       toast({
         title: "Download successful",
@@ -200,7 +200,7 @@ const Statistics = () => {
       const blob = new Blob([html], { type: 'application/msword' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
-      link.download = `MoviePulse_${filterLabel}_Stats.doc`;
+      link.download = `Audience-Pulse_${filterLabel}_Stats.doc`;
       link.click();
       
       toast({
@@ -220,7 +220,7 @@ const Statistics = () => {
       const blob = new Blob([text], { type: 'text/plain' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
-      link.download = `MoviePulse_${filterLabel}_Stats.txt`;
+      link.download = `Audience-Pulse_${filterLabel}_Stats.txt`;
       link.click();
       
       toast({
@@ -593,7 +593,7 @@ const Statistics = () => {
                   const worksheet = XLSX.utils.json_to_sheet(data);
                   const workbook = XLSX.utils.book_new();
                   XLSX.utils.book_append_sheet(workbook, worksheet, "Movie Preferences");
-                  XLSX.writeFile(workbook, `MoviePulse_Stats.xlsx`);
+                  XLSX.writeFile(workbook, `Audience-Pulse_Stats.xlsx`);
                   
                   toast({
                     title: "Download successful",

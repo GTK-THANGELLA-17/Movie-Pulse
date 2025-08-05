@@ -30,7 +30,7 @@ export const submitOpinion = async (opinionData: OpinionData) => {
     console.log('🚀 Enhanced submission data ready');
     
     // Enhanced local backup
-    const backupKey = `moviepulse-opinion-enhanced-${Date.now()}`;
+    const backupKey = `Audience-Pulse-opinion-enhanced-${Date.now()}`;
     localStorage.setItem(backupKey, JSON.stringify({
       ...enhancedOpinionData,
       backupTimestamp: new Date().toISOString(),
@@ -46,7 +46,7 @@ export const submitOpinion = async (opinionData: OpinionData) => {
     localStorage.removeItem(backupKey);
     
     // Enhanced vote tracking
-    const voteKey = `moviepulse-vote-enhanced-${userId}-${opinionData.projectType}`;
+    const voteKey = `Audience-Pulse-vote-enhanced-${userId}-${opinionData.projectType}`;
     localStorage.setItem(voteKey, JSON.stringify({
       voted: true,
       timestamp: new Date().toISOString(),
@@ -85,8 +85,8 @@ export const checkVoteStatus = async (projectType: string) => {
     
     // Enhanced local fallback
     const userId = await getBrowserFingerprint();
-    const enhancedVoteKey = `moviepulse-vote-enhanced-${userId}-${projectType}`;
-    const legacyVoteKey = `moviepulse-vote-${userId}-${projectType}`;
+    const enhancedVoteKey = `Audience-Pulse-vote-enhanced-${userId}-${projectType}`;
+    const legacyVoteKey = `Audience-Pulse-vote-${userId}-${projectType}`;
     
     const enhancedVote = localStorage.getItem(enhancedVoteKey);
     const legacyVote = localStorage.getItem(legacyVoteKey);

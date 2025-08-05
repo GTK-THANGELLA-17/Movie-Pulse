@@ -50,7 +50,7 @@ const fetchTelevisionStats = async (gender?: string, age?: string, country?: str
     if (country && country !== 'all') params.append('country', country);
     if (channel && channel !== 'all') params.append('channel', channel);
     
-    const response = await fetch(`https://moviepulse-api.onrender.com/api/opinions/stats/television?${params.toString()}`);
+    const response = await fetch(`https://Audience-Pulse-api.onrender.com/api/opinions/stats/television?${params.toString()}`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -75,7 +75,7 @@ const fetchTelevisionNotes = async (gender?: string, age?: string, country?: str
     if (country && country !== 'all') params.append('country', country);
     if (channel && channel !== 'all') params.append('channel', channel);
     
-    const response = await fetch(`https://moviepulse-api.onrender.com/api/opinions/notes/television?${params.toString()}`);
+    const response = await fetch(`https://Audience-Pulse-api.onrender.com/api/opinions/notes/television?${params.toString()}`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
